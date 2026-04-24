@@ -1,0 +1,31 @@
+ITEM.name = "Mutant Meat"
+ITEM.model = "models/fallout 3/meat.mdl"
+ITEM.description = "Raw meat harvested from mutated creatures. Unsafe to eat without proper cooking or preparation."
+
+ITEM.thirst = 0
+ITEM.hunger = 15
+ITEM.radiation = 40
+ITEM.health = 0
+
+ITEM.duration = 45
+
+ITEM.width = 2
+ITEM.height = 2
+
+ITEM.weight = 2.0
+ITEM.price = 5
+
+ITEM.functions.Consume = {
+    name = "Eat",
+    OnRun = function(item)
+
+        local character = item.player:GetCharacter()
+        if not character then return end
+
+        item.player:EmitSound("npc/barnacle/barnacle_crunch2.wav")
+
+        item:HandleConsume(character, item)
+
+        return true
+    end
+}

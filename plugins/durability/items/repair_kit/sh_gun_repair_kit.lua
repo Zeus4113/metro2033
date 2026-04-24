@@ -1,0 +1,10 @@
+ITEM.name = "Gun Repair Kit"
+ITEM.model = "models/wick/wrbstalker/anomaly/items/dez_sewing_kit_h.mdl"
+ITEM.description = "A repair kit used to clean and maintain firearms."
+ITEM.durability = 50
+ITEM.quantity = 4
+ITEM.price = 250
+ITEM.width = 1
+ITEM.height = 1
+ITEM.weight = 1
+ITEM.repairType = "gun"

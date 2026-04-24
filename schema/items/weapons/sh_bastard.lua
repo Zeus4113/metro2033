@@ -1,0 +1,19 @@
+ITEM.name = "Bastard Gun"
+ITEM.description = "A crude automatic firearm cobbled together from scavenged machine parts. Easy to manufacture but infamous for its poor reliability."
+ITEM.model = "models/weapons/c_bastardgun.mdl"
+ITEM.class = "arccw_bastardgun"
+ITEM.weaponCategory = "primary"
+ITEM.slot = "primary"
+
+ITEM.price = 107
+ITEM.weight = 9
+
+ITEM.width = 4
+ITEM.height = 2
+ITEM.repairType = "gun"
+
+ITEM.iconCam = {
+	ang	= Angle(-0.70499622821808, 268.25439453125, 0),
+	fov	= 12.085652091515,
+	pos	= Vector(-14, 220, -8)
+}

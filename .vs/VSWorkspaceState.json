@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\plugins",
+    "\\plugins\\ixloot",
+    "\\schema",
+    "\\schema\\classes",
+    "\\schema\\items",
+    "\\schema\\items\\bags",
+    "\\schema\\items\\base",
+    "\\schema\\meta"
+  ],
+  "SelectedNode": "\\schema\\items\\base\\sh_equippable.lua",
+  "PreviewInSolutionExplorer": true
+}

@@ -1,0 +1,602 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\schema\\meta\\sh_inventory.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:schema\\meta\\sh_inventory.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\schema\\items\\base\\sh_equippable.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:schema\\items\\base\\sh_equippable.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixcraft\\meta\\sh_recipe.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\ixcraft\\meta\\sh_recipe.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\schema\\sh_schema.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:schema\\sh_schema.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\schema\\items\\bags\\sh_large.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:schema\\items\\bags\\sh_large.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_industrial_dynamo.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\ixloot\\entities\\entities\\ix_loot_industrial_dynamo.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_electrical_junction_box.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\ixloot\\entities\\entities\\ix_loot_electrical_junction_box.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_electrical_control_panel.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\ixloot\\entities\\entities\\ix_loot_electrical_control_panel.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_tools_workshop.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\ixloot\\entities\\entities\\ix_loot_tools_workshop.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_tools_repair.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\ixloot\\entities\\entities\\ix_loot_tools_repair.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_tools_maintenance.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\ixloot\\entities\\entities\\ix_loot_tools_maintenance.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_military_case.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\ixloot\\entities\\entities\\ix_loot_military_case.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_medical_satchel.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\ixloot\\entities\\entities\\ix_loot_medical_satchel.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_medical_crate.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\ixloot\\entities\\entities\\ix_loot_medical_crate.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_industrial_generator.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\ixloot\\entities\\entities\\ix_loot_industrial_generator.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_industrial_engine.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\ixloot\\entities\\entities\\ix_loot_industrial_engine.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_hazmat_chest.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\ixloot\\entities\\entities\\ix_loot_hazmat_chest.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_hazmat_kit.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\ixloot\\entities\\entities\\ix_loot_hazmat_kit.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_general_storage_chest.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\ixloot\\entities\\entities\\ix_loot_general_storage_chest.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_general_storage_box.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\ixloot\\entities\\entities\\ix_loot_general_storage_box.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_general_lockbox.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\ixloot\\entities\\entities\\ix_loot_general_lockbox.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_corpse_dragged_victim.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\ixloot\\entities\\entities\\ix_loot_corpse_dragged_victim.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\schema\\items\\weapons\\sh_g3a3.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:schema\\items\\weapons\\sh_g3a3.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\schema\\items\\weapons\\sh_akm.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:schema\\items\\weapons\\sh_akm.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixcraft\\recipes\\sh_recipe_akm.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\ixcraft\\recipes\\sh_recipe_akm.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\arc9_support\\items\\base\\sh_arc9_weapons.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\arc9_support\\items\\base\\sh_arc9_weapons.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\arc9_support\\items\\base\\sh_arc9_attachments.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\arc9_support\\items\\base\\sh_arc9_attachments.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\arc9_support\\items\\arc9_weapons\\sh_example.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\arc9_support\\items\\arc9_weapons\\sh_example.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\arc9_support\\items\\arc9_attachments\\sh_example.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\arc9_support\\items\\arc9_attachments\\sh_example.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\arc9_support\\sh_config.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\arc9_support\\sh_config.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\arc9_support\\sh_plugin.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\arc9_support\\sh_plugin.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\itemspawner.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\itemspawner.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\itemspawner\\sv_hooks.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\itemspawner\\sv_hooks.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\durability\\sh_plugin.lua||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:plugins\\durability\\sh_plugin.lua||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{56df62a4-05a3-4e5b-aa1a-99371ccfb997}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "sh_equippable.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\schema\\items\\base\\sh_equippable.lua",
+              "RelativeDocumentMoniker": "schema\\items\\base\\sh_equippable.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\schema\\items\\base\\sh_equippable.lua",
+              "RelativeToolTip": "schema\\items\\base\\sh_equippable.lua",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAAACQAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T21:18:29.08Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "sh_large.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\schema\\items\\bags\\sh_large.lua",
+              "RelativeDocumentMoniker": "schema\\items\\bags\\sh_large.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\schema\\items\\bags\\sh_large.lua",
+              "RelativeToolTip": "schema\\items\\bags\\sh_large.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T21:11:24.198Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "sh_recipe.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixcraft\\meta\\sh_recipe.lua",
+              "RelativeDocumentMoniker": "plugins\\ixcraft\\meta\\sh_recipe.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixcraft\\meta\\sh_recipe.lua",
+              "RelativeToolTip": "plugins\\ixcraft\\meta\\sh_recipe.lua",
+              "ViewState": "AgIAAIQAAAAAAAAAAAAAALQAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T20:50:10.171Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "sh_schema.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\schema\\sh_schema.lua",
+              "RelativeDocumentMoniker": "schema\\sh_schema.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\schema\\sh_schema.lua",
+              "RelativeToolTip": "schema\\sh_schema.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T20:49:24.549Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "sh_inventory.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\schema\\meta\\sh_inventory.lua",
+              "RelativeDocumentMoniker": "schema\\meta\\sh_inventory.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\schema\\meta\\sh_inventory.lua*",
+              "RelativeToolTip": "schema\\meta\\sh_inventory.lua*",
+              "ViewState": "AgIAADMAAAAAAAAAAAAcwEMAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T20:49:19.201Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ix_loot_electrical_junction_box.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_electrical_junction_box.lua",
+              "RelativeDocumentMoniker": "plugins\\ixloot\\entities\\entities\\ix_loot_electrical_junction_box.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_electrical_junction_box.lua",
+              "RelativeToolTip": "plugins\\ixloot\\entities\\entities\\ix_loot_electrical_junction_box.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T20:19:02.649Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ix_loot_electrical_control_panel.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_electrical_control_panel.lua",
+              "RelativeDocumentMoniker": "plugins\\ixloot\\entities\\entities\\ix_loot_electrical_control_panel.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_electrical_control_panel.lua",
+              "RelativeToolTip": "plugins\\ixloot\\entities\\entities\\ix_loot_electrical_control_panel.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T20:19:01.703Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ix_loot_tools_repair.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_tools_repair.lua",
+              "RelativeDocumentMoniker": "plugins\\ixloot\\entities\\entities\\ix_loot_tools_repair.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_tools_repair.lua",
+              "RelativeToolTip": "plugins\\ixloot\\entities\\entities\\ix_loot_tools_repair.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T20:18:40.097Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ix_loot_tools_workshop.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_tools_workshop.lua",
+              "RelativeDocumentMoniker": "plugins\\ixloot\\entities\\entities\\ix_loot_tools_workshop.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_tools_workshop.lua",
+              "RelativeToolTip": "plugins\\ixloot\\entities\\entities\\ix_loot_tools_workshop.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T20:18:34.606Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ix_loot_tools_maintenance.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_tools_maintenance.lua",
+              "RelativeDocumentMoniker": "plugins\\ixloot\\entities\\entities\\ix_loot_tools_maintenance.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_tools_maintenance.lua",
+              "RelativeToolTip": "plugins\\ixloot\\entities\\entities\\ix_loot_tools_maintenance.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADEAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T20:18:29.987Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ix_loot_military_case.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_military_case.lua",
+              "RelativeDocumentMoniker": "plugins\\ixloot\\entities\\entities\\ix_loot_military_case.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_military_case.lua",
+              "RelativeToolTip": "plugins\\ixloot\\entities\\entities\\ix_loot_military_case.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T20:18:26.327Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ix_loot_medical_satchel.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_medical_satchel.lua",
+              "RelativeDocumentMoniker": "plugins\\ixloot\\entities\\entities\\ix_loot_medical_satchel.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_medical_satchel.lua",
+              "RelativeToolTip": "plugins\\ixloot\\entities\\entities\\ix_loot_medical_satchel.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T20:18:22.832Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ix_loot_medical_crate.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_medical_crate.lua",
+              "RelativeDocumentMoniker": "plugins\\ixloot\\entities\\entities\\ix_loot_medical_crate.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_medical_crate.lua",
+              "RelativeToolTip": "plugins\\ixloot\\entities\\entities\\ix_loot_medical_crate.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T20:17:55.735Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ix_loot_industrial_dynamo.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_industrial_dynamo.lua",
+              "RelativeDocumentMoniker": "plugins\\ixloot\\entities\\entities\\ix_loot_industrial_dynamo.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_industrial_dynamo.lua",
+              "RelativeToolTip": "plugins\\ixloot\\entities\\entities\\ix_loot_industrial_dynamo.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T20:17:49.044Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ix_loot_industrial_generator.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_industrial_generator.lua",
+              "RelativeDocumentMoniker": "plugins\\ixloot\\entities\\entities\\ix_loot_industrial_generator.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_industrial_generator.lua",
+              "RelativeToolTip": "plugins\\ixloot\\entities\\entities\\ix_loot_industrial_generator.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T20:17:54.211Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "ix_loot_industrial_engine.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_industrial_engine.lua",
+              "RelativeDocumentMoniker": "plugins\\ixloot\\entities\\entities\\ix_loot_industrial_engine.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_industrial_engine.lua",
+              "RelativeToolTip": "plugins\\ixloot\\entities\\entities\\ix_loot_industrial_engine.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T20:17:52.891Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "ix_loot_hazmat_kit.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_hazmat_kit.lua",
+              "RelativeDocumentMoniker": "plugins\\ixloot\\entities\\entities\\ix_loot_hazmat_kit.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_hazmat_kit.lua",
+              "RelativeToolTip": "plugins\\ixloot\\entities\\entities\\ix_loot_hazmat_kit.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T20:17:35.934Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "ix_loot_general_storage_chest.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_general_storage_chest.lua",
+              "RelativeDocumentMoniker": "plugins\\ixloot\\entities\\entities\\ix_loot_general_storage_chest.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_general_storage_chest.lua",
+              "RelativeToolTip": "plugins\\ixloot\\entities\\entities\\ix_loot_general_storage_chest.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T20:17:27.377Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "ix_loot_hazmat_chest.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_hazmat_chest.lua",
+              "RelativeDocumentMoniker": "plugins\\ixloot\\entities\\entities\\ix_loot_hazmat_chest.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_hazmat_chest.lua",
+              "RelativeToolTip": "plugins\\ixloot\\entities\\entities\\ix_loot_hazmat_chest.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T20:17:26.889Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "ix_loot_general_storage_box.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_general_storage_box.lua",
+              "RelativeDocumentMoniker": "plugins\\ixloot\\entities\\entities\\ix_loot_general_storage_box.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_general_storage_box.lua",
+              "RelativeToolTip": "plugins\\ixloot\\entities\\entities\\ix_loot_general_storage_box.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T20:17:23.29Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "ix_loot_general_lockbox.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_general_lockbox.lua",
+              "RelativeDocumentMoniker": "plugins\\ixloot\\entities\\entities\\ix_loot_general_lockbox.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_general_lockbox.lua",
+              "RelativeToolTip": "plugins\\ixloot\\entities\\entities\\ix_loot_general_lockbox.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T20:17:15.692Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "ix_loot_corpse_dragged_victim.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_corpse_dragged_victim.lua",
+              "RelativeDocumentMoniker": "plugins\\ixloot\\entities\\entities\\ix_loot_corpse_dragged_victim.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixloot\\entities\\entities\\ix_loot_corpse_dragged_victim.lua",
+              "RelativeToolTip": "plugins\\ixloot\\entities\\entities\\ix_loot_corpse_dragged_victim.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T20:17:12.194Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "sh_g3a3.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\schema\\items\\weapons\\sh_g3a3.lua",
+              "RelativeDocumentMoniker": "schema\\items\\weapons\\sh_g3a3.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\schema\\items\\weapons\\sh_g3a3.lua",
+              "RelativeToolTip": "schema\\items\\weapons\\sh_g3a3.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T16:41:48.859Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "sh_recipe_akm.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixcraft\\recipes\\sh_recipe_akm.lua",
+              "RelativeDocumentMoniker": "plugins\\ixcraft\\recipes\\sh_recipe_akm.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\ixcraft\\recipes\\sh_recipe_akm.lua",
+              "RelativeToolTip": "plugins\\ixcraft\\recipes\\sh_recipe_akm.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T16:41:21.206Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "sh_akm.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\schema\\items\\weapons\\sh_akm.lua",
+              "RelativeDocumentMoniker": "schema\\items\\weapons\\sh_akm.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\schema\\items\\weapons\\sh_akm.lua",
+              "RelativeToolTip": "schema\\items\\weapons\\sh_akm.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T16:39:35.251Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "sh_arc9_weapons.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\arc9_support\\items\\base\\sh_arc9_weapons.lua",
+              "RelativeDocumentMoniker": "plugins\\arc9_support\\items\\base\\sh_arc9_weapons.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\arc9_support\\items\\base\\sh_arc9_weapons.lua",
+              "RelativeToolTip": "plugins\\arc9_support\\items\\base\\sh_arc9_weapons.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T11:49:15.409Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "sh_arc9_attachments.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\arc9_support\\items\\base\\sh_arc9_attachments.lua",
+              "RelativeDocumentMoniker": "plugins\\arc9_support\\items\\base\\sh_arc9_attachments.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\arc9_support\\items\\base\\sh_arc9_attachments.lua",
+              "RelativeToolTip": "plugins\\arc9_support\\items\\base\\sh_arc9_attachments.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T11:49:14.511Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "sh_example.txt",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\arc9_support\\items\\arc9_weapons\\sh_example.txt",
+              "RelativeDocumentMoniker": "plugins\\arc9_support\\items\\arc9_weapons\\sh_example.txt",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\arc9_support\\items\\arc9_weapons\\sh_example.txt",
+              "RelativeToolTip": "plugins\\arc9_support\\items\\arc9_weapons\\sh_example.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2026-03-22T11:49:02.817Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "sh_example.txt",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\arc9_support\\items\\arc9_attachments\\sh_example.txt",
+              "RelativeDocumentMoniker": "plugins\\arc9_support\\items\\arc9_attachments\\sh_example.txt",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\arc9_support\\items\\arc9_attachments\\sh_example.txt",
+              "RelativeToolTip": "plugins\\arc9_support\\items\\arc9_attachments\\sh_example.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2026-03-22T11:48:50.891Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "sh_config.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\arc9_support\\sh_config.lua",
+              "RelativeDocumentMoniker": "plugins\\arc9_support\\sh_config.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\arc9_support\\sh_config.lua",
+              "RelativeToolTip": "plugins\\arc9_support\\sh_config.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T11:48:45.012Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "sh_plugin.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\arc9_support\\sh_plugin.lua",
+              "RelativeDocumentMoniker": "plugins\\arc9_support\\sh_plugin.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\arc9_support\\sh_plugin.lua",
+              "RelativeToolTip": "plugins\\arc9_support\\sh_plugin.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-22T11:48:31.616Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "sv_hooks.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\itemspawner\\sv_hooks.lua",
+              "RelativeDocumentMoniker": "plugins\\itemspawner\\sv_hooks.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\itemspawner\\sv_hooks.lua",
+              "RelativeToolTip": "plugins\\itemspawner\\sv_hooks.lua",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-21T22:53:50.476Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "itemspawner.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\itemspawner.lua",
+              "RelativeDocumentMoniker": "plugins\\itemspawner.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\itemspawner.lua",
+              "RelativeToolTip": "plugins\\itemspawner.lua",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAcwH0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-21T22:53:41.985Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "sh_plugin.lua",
+              "DocumentMoniker": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\durability\\sh_plugin.lua",
+              "RelativeDocumentMoniker": "plugins\\durability\\sh_plugin.lua",
+              "ToolTip": "G:\\Steam\\steamapps\\common\\GarrysMod\\garrysmod\\gamemodes\\metro2033\\plugins\\durability\\sh_plugin.lua",
+              "RelativeToolTip": "plugins\\durability\\sh_plugin.lua",
+              "ViewState": "AgIAAMwAAAAAAAAAAAAAAOUAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-21T19:07:00.562Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
