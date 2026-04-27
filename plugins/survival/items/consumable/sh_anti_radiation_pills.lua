@@ -2,18 +2,17 @@ ITEM.name = "Anti Radiation Pills"
 ITEM.model = "models/wick/wrbstalker/anomaly/items/wick_dev_antirad.mdl"
 ITEM.description = "Specialized medication designed to reduce radiation poisoning using refined chemical compounds."
 
-ITEM.thirst = 0
-ITEM.hunger = 0
-ITEM.radiation = -100
-ITEM.health = 0
-
-ITEM.duration = 100
-
 ITEM.width = 1
 ITEM.height = 1
-
 ITEM.weight = 0.1
-ITEM.price = 37
+ITEM.price = 61
+
+ITEM.thirst = 0
+ITEM.hunger = 0
+ITEM.radiation = -150
+ITEM.health = 0
+
+ITEM.duration = 50
 
 ITEM.functions.Consume = {
     name = "Use",

@@ -4,7 +4,7 @@ ITEM.model = "models/kek1ch/sumka3.mdl"
 
 ITEM.width = 3
 ITEM.height = 3
-ITEM.weight = 3
+ITEM.weight = 2
 ITEM.price = 95
 
 ITEM.iconCam = {

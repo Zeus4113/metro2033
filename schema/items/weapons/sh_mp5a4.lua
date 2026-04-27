@@ -14,7 +14,6 @@ ITEM.class = "arccw_ur_mp5"
 ITEM.weaponCategory = "primary"
 ITEM.slot = "primary"
 
-
 ITEM.iconCam = {
 	pos = Vector(-5.34, 198.6, -18.64),
 	ang = Angle(-4.43, 268.28, 0),

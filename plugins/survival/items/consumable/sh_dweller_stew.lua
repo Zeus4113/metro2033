@@ -2,18 +2,17 @@ ITEM.name = "Dweller Stew"
 ITEM.model = "models/wick/wrbstalker/anomaly/items/wick_chimera_food.mdl"
 ITEM.description = "A hearty stew combining rat meat, mutant meat and mushrooms cooked in purified water."
 
-ITEM.thirst = 25
-ITEM.hunger = 75
-ITEM.radiation = 5
-ITEM.health = 0
-
-ITEM.duration = 120
-
 ITEM.width = 2
 ITEM.height = 2
-
 ITEM.weight = 1.0
-ITEM.price = 15
+ITEM.price = 22
+
+ITEM.thirst = 25
+ITEM.hunger = 100
+ITEM.radiation = 10
+ITEM.health = 0
+
+ITEM.duration = 100
 
 ITEM.functions.Consume = {
     name = "Eat",

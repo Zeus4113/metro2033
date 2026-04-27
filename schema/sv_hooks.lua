@@ -96,7 +96,7 @@ hook.Add("EntityTakeDamage", "metroArmorDurabilitySystem", function(ent, dmgInfo
                 local durability = item:GetData("durability", 0)
 
                 if durability > 0 then
-                    local portion = damage
+                    local portion = damage * ix.config.Get("decDurabilityEquipment", 0.1)
                     --(item.damageReduction / totalReduction)
                     local newDurability = math.max(durability - portion, 0)
 

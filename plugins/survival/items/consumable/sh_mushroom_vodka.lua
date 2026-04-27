@@ -2,18 +2,18 @@ ITEM.name = "Mushroom Vodka"
 ITEM.model = "models/fallout 3/vodka.mdl"
 ITEM.description = "A crude alcoholic drink distilled from fermented mushrooms and purified water."
 
-ITEM.thirst = 20
-ITEM.hunger = 0
-ITEM.radiation = -50
-ITEM.health = 0
-
-ITEM.duration = 120
-
 ITEM.width = 1
 ITEM.height = 2
+ITEM.weight = 0.5
+ITEM.price = 34
 
-ITEM.weight = 1.0
-ITEM.price = 25
+ITEM.thirst = 25
+ITEM.hunger = 0
+ITEM.radiation = -100
+ITEM.health = 0
+
+ITEM.duration = 50
+
 
 ITEM.functions.Consume = {
     name = "Drink",

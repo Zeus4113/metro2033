@@ -29,6 +29,31 @@ ix.config.Add("DehydrationDamage", 2, "Damage applied to player when they are de
 	category = "Survival"
 })
 
+ix.command.Add("CharSetHunger", {
+	description = "Set a character's hunger.",
+	superAdminOnly = true,
+	arguments = {
+		ix.type.character,
+		ix.type.number
+	},
+	OnRun = function(self, client, target, amount)
+		target:SetHunger(amount)
+		client:Notify("Set " .. target:GetName() .. "'s hunger to " .. amount .. ".")
+	end
+})
+
+ix.command.Add("CharSetThirst", {
+	description = "Set a character's thirst.",
+	superAdminOnly = true,
+	arguments = {
+		ix.type.character,
+		ix.type.number
+	},
+	OnRun = function(self, client, target, amount)
+		target:SetThirst(amount)
+		client:Notify("Set " .. target:GetName() .. "'s thirst to " .. amount .. ".")
+	end
+})
 
 ix.char.RegisterVar("Hunger", {
     field = "hunger",

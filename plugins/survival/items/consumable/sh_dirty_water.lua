@@ -2,18 +2,17 @@ ITEM.name = "Dirty Water"
 ITEM.model = "models/kek1ch/dev_drink_water.mdl"
 ITEM.description = "Contaminated water gathered from underground sources. Must be purified before safe consumption."
 
-ITEM.thirst = 15
-ITEM.hunger = 0
-ITEM.radiation = 30
-ITEM.health = 0
-
-ITEM.duration = 15
-
 ITEM.width = 1
 ITEM.height = 2
-
 ITEM.weight = 1.0
 ITEM.price = 4
+
+ITEM.thirst = 33
+ITEM.hunger = 0
+ITEM.radiation = 50
+ITEM.health = 0
+
+ITEM.duration = 33
 
 ITEM.functions.Consume = {
     name = "Drink",

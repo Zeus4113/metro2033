@@ -1,23 +1,23 @@
-RECIPE.name = "Craft AKM"
+RECIPE.name = "Craft Kalash"
 RECIPE.description = "A rugged assault rifle assembled from reinforced mechanical parts and durable materials. A costly weapon to craft but extremely reliable."
 RECIPE.model = "models/weapons/w_rif_ak47.mdl"
 RECIPE.category = "Weapon"
 
 RECIPE.requirements = {
-	["metal_spring"] = 2,
+	["reciever"] = 1,
+	["metal_spring"] = 1,
 	["mechanical_parts"] = 3,
-	["lead_pipe"] = 1,
 }
 
 RECIPE.results = {
-    ["akm"] = 1
+    ["kalash"] = 1
 }
 
 
-RECIPE.skillIncrease = 2
+RECIPE.skillIncrease = 1.7
 
 RECIPE.skills = {
-    ["Engineering"] = 12,
+    ["Engineering"] = 17,
 }
 
 
