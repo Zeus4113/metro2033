@@ -1,19 +1,20 @@
 ITEM.name = "Gasmask Filter"
-ITEM.category = "Consumable"
-
-
+ITEM.description = "A replaceable filter for gasmasks. Provides protection against airborne toxins and contaminants, but has a limited lifespan."
 ITEM.model = "models/teebeutel/metro/objects/gasmask_filter.mdl"
+
 ITEM.width = 1
 ITEM.height = 1
+ITEM.weight = 0.5
+ITEM.price = 16
+
+ITEM.filterAmount = 180
+
 ITEM.iconCam = {
 	pos = Vector(0, 0, 200),
 	ang = Angle(90, 0, 0),
 	fov = 2.72
 }
 
-ITEM.filterAmount = 300
-ITEM.price = 10
-ITEM.weight = 0.5
 
 ITEM.functions.Insert = {
     name = "Insert into Mask",

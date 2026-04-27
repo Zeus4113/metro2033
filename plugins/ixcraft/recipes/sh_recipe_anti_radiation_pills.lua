@@ -4,7 +4,7 @@ RECIPE.model = "models/wick/wrbstalker/anomaly/items/wick_dev_antirad.mdl"
 RECIPE.category = "Medical"
 
 RECIPE.requirements = {
-	["organics"] = 1,
+	["complex"] = 1,
 	["chemicals"] = 1,
 	["medical_reagents"] = 1,
 }
@@ -14,10 +14,10 @@ RECIPE.results = {
 }
 
 
-RECIPE.skillIncrease = 1.25
+RECIPE.skillIncrease = 1.2
 
 RECIPE.skills = {
-    ["Chemistry"] = 8,
+    ["Chemistry"] = 12,
 }
 
 

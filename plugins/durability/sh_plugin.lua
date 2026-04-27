@@ -16,6 +16,11 @@ ix.config.Add("decDurability", 0.5, "By how many units do reduce the durability 
 	category = PLUGIN.name
 })
 
+ix.config.Add("decDurabilityEquipment", 0.1, "By how many units do reduce the durability of equipped items when player takes damage?", nil, {
+	data = {min = 0.0001, max = 100, decimals = 4},
+	category = PLUGIN.name
+})
+
 ix.config.Add("unequipItemDurability", false, "Unequip the item if durability is less than zero?", nil, {
 	category = PLUGIN.name
 })

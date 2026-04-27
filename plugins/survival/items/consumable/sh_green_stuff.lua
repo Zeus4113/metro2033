@@ -2,18 +2,17 @@ ITEM.name = "Green Stuff"
 ITEM.model = "models/wick/wrbstalker/anomaly/items/dez_stim3.mdl"
 ITEM.description = "A powerful injectable stimulant used to rapidly restore health, created using complex medical reagents and chemicals."
 
-ITEM.thirst = 0
-ITEM.hunger = 0
-ITEM.radiation = -150
-ITEM.health = 0
-
-ITEM.duration = 30
-
 ITEM.width = 1
 ITEM.height = 1
-
 ITEM.weight = 0.3
-ITEM.price = 184
+ITEM.price = 247
+
+ITEM.thirst = 0
+ITEM.hunger = 0
+ITEM.radiation = -300
+ITEM.health = 0
+
+ITEM.duration = 50
 
 ITEM.functions.Consume = {
     name = "Use",

@@ -1,20 +1,19 @@
 ITEM.name = "Mushrooms"
 ITEM.description = "Edible cave mushrooms commonly farmed in the Metro. Used in food recipes and organic processing."
-
-ITEM.category = "Junk"
-ITEM.weight = 1.0
-ITEM.price = 2
-
-ITEM.thirst = 0
-ITEM.hunger = 10
-ITEM.radiation = 30
-ITEM.health = 0
-
-ITEM.duration = 20
-
 ITEM.model = "models/avoxgaming/mrp/jake/props/mushroom_1.mdl"
+
 ITEM.width = 2
 ITEM.height = 2
+ITEM.weight = 1.0
+ITEM.price = 24
+
+ITEM.thirst = 0
+ITEM.hunger = 25
+ITEM.radiation = 50
+ITEM.health = 0
+
+ITEM.duration = 60
+
 ITEM.iconCam = {
 	pos = Vector(0, 200, 0),
 	ang = Angle(-2.07, 269.92, 0),

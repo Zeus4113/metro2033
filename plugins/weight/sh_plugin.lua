@@ -35,8 +35,17 @@ end
 
 function ix.weight.BaseWeight(character)
 	local base = ix.config.Get("maxWeight", 30)
-    local strength = character:GetAttribute("strength", 0)
-	return base + (strength * ix.config.Get("strengthCarryPerPoint", 1.5))
+    local strength = character:GetAttribute("strength", 0) * ix.config.Get("strengthCarryPerPoint", 1.5)
+    local equipment = character:GetEquipment()
+
+    local extraCarryWeight = 0
+    for _, v in pairs(character:GetInventory():GetItems()) do
+        if v.extraCarryWeight and equipment[v.equipSlot] == v:GetID() then
+            extraCarryWeight = extraCarryWeight + v.extraCarryWeight
+        end 
+    end
+
+	return base + extraCarryWeight + strength
 end
 
 function ix.weight.CanCarry(weight, carry, character) -- Calculate if you are able to carry something.
@@ -98,7 +107,7 @@ if (CLIENT) then
                 local character = LocalPlayer():GetCharacter()
                 local carry = character:GetData("carry", 0)
                 local color = ix.config.Get("color")
-                local maxWeight = ix.config.Get("maxWeight", 30) + (character:GetAttribute("strength", 0) * ix.config.Get("strengthCarryPerPoint", 0))
+                local maxWeight = ix.weight.BaseWeight(character)
 
                 local w, h = panel:GetSize()
 
@@ -148,6 +157,7 @@ if (CLIENT) then
 
                 barT.Think = function()
                     carry = character:GetData("carry", 0)
+                    maxWeight = ix.weight.BaseWeight(character)
 
                     if (ix.option.Get("imperial", false)) then
                         barT:SetText(math.Round(carry * 2.20462, 2).." lbs / "..math.Round(maxWeight * 2.20462, 2).." lbs")

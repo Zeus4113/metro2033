@@ -2,18 +2,18 @@ ITEM.name = "Lurker Meat"
 ITEM.model = "models/fallout 3/human_meat.mdl"
 ITEM.description = "Small cuts of meat taken from lurkers. Commonly used in simple survival meals."
 
-ITEM.thirst = 0
-ITEM.hunger = 10
-ITEM.radiation = 30
-ITEM.health = 0
-
-ITEM.duration = 45
-
 ITEM.width = 2
 ITEM.height = 1
-
 ITEM.weight = 1.0
 ITEM.price = 3
+
+ITEM.thirst = 0
+ITEM.hunger = 33
+ITEM.radiation = 50
+ITEM.health = 0
+
+ITEM.duration = 33
+
 
 ITEM.functions.Consume = {
     name = "Eat",

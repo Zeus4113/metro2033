@@ -116,14 +116,14 @@ ITEM.functions.Equip = {
 
         local char = client:GetCharacter()
         if not char or not item.equipSlot then return false end
-
+        
         local equipment = GetEquipment(char)
-
+        
         if equipment[item.equipSlot] then
             client:Notify("That slot is already occupied.")
             return false
         end
-
+        
         -- Prevent equipping broken armor
         if item.maxDurability and item.maxDurability > 0 then
             local durability = item:GetData("durability", 0)
@@ -132,9 +132,10 @@ ITEM.functions.Equip = {
                 return false
             end
         end
-
+        
         equipment[item.equipSlot] = item:GetID()
         SetEquipment(char, equipment)
+        char:UpdateWeight()
 
         if item.equipSlot == "Outfit" and client.ApplyOutfit then
             client:ApplyOutfit()
@@ -186,6 +187,7 @@ ITEM.functions.Unequip = {
 
         equipment[item.equipSlot] = nil
         SetEquipment(char, equipment)
+        char:UpdateWeight()
 
         if item.equipSlot == "Outfit" and client.ApplyOutfit then
             client:ApplyOutfit()
@@ -266,7 +268,7 @@ function ITEM:OnRemoved()
         if equipment[self.equipSlot] == self:GetID() then
             equipment[self.equipSlot] = nil
             char:SetData("equipment", equipment)
-
+            char:UpdateWeight()
             if self.equipSlot == "Outfit" and owner.ApplyOutfit then
                 owner:ApplyOutfit()
             end
@@ -442,35 +444,8 @@ if CLIENT then
             AddLine("storage", "Storage: " .. self.invWidth .. "x" .. self.invHeight .. " (" .. slots .. " slots)")
         end
 
-        --[[
-        -- SLOT
-        if self.equipSlot then
-            AddLine("slot", "Slot: " .. self.equipSlot)
+        if self.extraCarryWeight and self.extraCarryWeight > 0 then
+            AddLine("carry", "Extra Carry Weight: " .. ix.weight.WeightString(self.extraCarryWeight))
         end
-
-        -- DURABILITY
-        if self.maxDurability and self.maxDurability > 0 then
-            local durability = math.Round(self:GetData("durability", self.maxDurability))
-
-            local color = color_white
-            if durability <= 0 then
-                color = Color(200, 60, 60)
-            elseif durability < (self.maxDurability * 0.25) then
-                color = Color(220, 150, 50)
-            end
-
-            AddLine("durability", "Durability: " .. durability .. " / " .. self.maxDurability, color)
-        end
-        
-        -- WEIGHT
-        if self:GetWeight() then
-            AddLine("weight", "Weight: " .. ix.weight.WeightString(self:GetWeight()))
-        end
-
-        -- Equipped State
-        if isEquipped then
-            AddLine("equipped", "Equipped", Color(80, 200, 120))
-        end
-        ]]
     end
 end

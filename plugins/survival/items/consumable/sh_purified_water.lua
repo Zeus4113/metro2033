@@ -2,18 +2,18 @@ ITEM.name = "Purified Water"
 ITEM.model = "models/kek1ch/dev_drink_stalker.mdl"
 ITEM.description = "Water that has been boiled and filtered to remove harmful contaminants."
 
-ITEM.thirst = 25
+ITEM.width = 1
+ITEM.height = 2
+ITEM.weight = 1.0
+ITEM.price = 5
+
+ITEM.thirst = 33
 ITEM.hunger = 0
 ITEM.radiation = 0
 ITEM.health = 0
 
-ITEM.duration = 30
+ITEM.duration = 33
 
-ITEM.width = 1
-ITEM.height = 2
-
-ITEM.weight = 1.0
-ITEM.price = 11
 
 ITEM.functions.Consume = {
     name = "Drink",

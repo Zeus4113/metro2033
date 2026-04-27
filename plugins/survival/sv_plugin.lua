@@ -14,9 +14,9 @@ function PLUGIN:Think()
 
 	for k, client in ipairs(player.GetAll()) do
 		if not client:Alive() then continue end
-
 		local character = client:GetCharacter()
 		if not character then continue end
+		if character:GetData("BlockingRadiation") then continue end
 
 		local hunger = character:GetHunger()
 		local thirst = character:GetThirst()

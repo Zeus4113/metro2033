@@ -5,7 +5,7 @@ ITEM.model = "models/kek1ch/sumka4.mdl"
 ITEM.width = 3
 ITEM.height = 3
 ITEM.weight = 3
-ITEM.price = 59
+ITEM.price = 256
 
 
 ITEM.iconCam = {
@@ -15,7 +15,7 @@ ITEM.iconCam = {
 }
 
 ITEM.equipSlot = "Backpack"
---ITEM.maxDurability = 100
+ITEM.maxDurability = 100
 
 ITEM.extraCarryWeight = 40
 ITEM.invWidth = 8
