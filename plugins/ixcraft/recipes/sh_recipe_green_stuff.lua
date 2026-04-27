@@ -4,20 +4,19 @@ RECIPE.model = "models/wick/wrbstalker/anomaly/items/dez_stim3.mdl"
 RECIPE.category = "Medical"
 
 RECIPE.requirements = {
-	["chemicals"] = 1,
-	["medical_reagents"] = 2,
 	["syringe"] = 1,
+	["medical_reagents"] = 1,
+	["complex_chemicals"] = 1,
 }
 
 RECIPE.results = {
     ["green_stuff"] = 1
 }
 
-
-RECIPE.skillIncrease = 1.75
+RECIPE.skillIncrease = 1.8
 
 RECIPE.skills = {
-    ["Chemistry"] = 16,
+    ["Chemistry"] = 18,
 }
 
 

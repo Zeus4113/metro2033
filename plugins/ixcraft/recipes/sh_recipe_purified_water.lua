@@ -4,7 +4,7 @@ RECIPE.model = "models/kek1ch/dev_drink_stalker.mdl"
 RECIPE.category = "Food & Drink"
 
 RECIPE.requirements = {
-	["dirty_water"] = 2,
+	["dirty_water"] = 1,
 }
 
 RECIPE.results = {
@@ -12,7 +12,7 @@ RECIPE.results = {
 }
 
 
-RECIPE.skillIncrease = 0.25
+RECIPE.skillIncrease = 0.1
 
 RECIPE.skills = {
     ["Chemistry"] = 0,

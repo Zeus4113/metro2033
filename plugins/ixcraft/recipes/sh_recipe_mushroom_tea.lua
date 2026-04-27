@@ -4,7 +4,6 @@ RECIPE.model = "models/wick/wrbstalker/anomaly/items/dez_drink_tea.mdl"
 RECIPE.category = "Food & Drink"
 
 RECIPE.requirements = {
-	["mushroom"] = 1,
     ["organics"] = 1,
 	["purified_water"] = 1,
 }
@@ -14,7 +13,7 @@ RECIPE.results = {
 }
 
 
-RECIPE.skillIncrease = 0.5
+RECIPE.skillIncrease = 0.2
 
 RECIPE.skills = {
     ["Chemistry"] = 0,

@@ -5,18 +5,16 @@ RECIPE.category = "Medical"
 
 RECIPE.requirements = {
 	["cloth"] = 1,
-	["chemicals"] = 1,
 }
 
 RECIPE.results = {
     ["bandage"] = 1
 }
 
-
-RECIPE.skillIncrease = 0.5
+RECIPE.skillIncrease = 0.1
 
 RECIPE.skills = {
-    ["Chemistry"] = 4,
+    ["Chemistry"] = 0,
 }
 
 

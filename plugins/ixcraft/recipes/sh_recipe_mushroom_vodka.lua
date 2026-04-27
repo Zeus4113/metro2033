@@ -4,7 +4,6 @@ RECIPE.model = "models/fallout 3/vodka.mdl"
 RECIPE.category = "Food & Drink"
 
 RECIPE.requirements = {
-	["mushroom"] = 1,
 	["purified_water"] = 1,
     ["organics"] = 2
 }
@@ -14,10 +13,10 @@ RECIPE.results = {
 }
 
 
-RECIPE.skillIncrease = 0.5
+RECIPE.skillIncrease = 0.6
 
 RECIPE.skills = {
-    ["Chemistry"] = 0,
+    ["Chemistry"] = 6,
 }
 
 
