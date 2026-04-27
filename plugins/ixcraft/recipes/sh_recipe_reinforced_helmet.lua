@@ -4,9 +4,9 @@ RECIPE.model = "models/z-o-m-b-i-e/metro_ll/equipment/m_ll_helmet_lynx_01.mdl"
 RECIPE.category = "Helmet"
 
 RECIPE.requirements = {
-	["leather"] = 2,
-	["kevlar_weave"] = 2,
-	["ballistic_plate"] = 2,
+	["wire"] = 3,
+	["textile_patch"] = 2,
+	["ballistic_plate"] = 1,
 }
 
 RECIPE.results = {
@@ -14,10 +14,10 @@ RECIPE.results = {
 }
 
 
-RECIPE.skillIncrease = 2.5
+RECIPE.skillIncrease = 1.1
 
 RECIPE.skills = {
-    ["Tailoring"] = 16,
+    ["Tailoring"] = 11,
 }
 
 

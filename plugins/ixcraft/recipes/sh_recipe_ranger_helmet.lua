@@ -4,9 +4,9 @@ RECIPE.model = "models/maver1k_xvii/metro_digger_helmet.mdl"
 RECIPE.category = "Helmet"
 
 RECIPE.requirements = {
-	["leather"] = 2,
+	["textile+patch"] = 3,
 	["kevlar_weave"] = 1,
-	["ballistic_plate"] = 1,
+	["ballistic_plate"] = 2,
 }
 
 RECIPE.results = {
@@ -14,10 +14,10 @@ RECIPE.results = {
 }
 
 
-RECIPE.skillIncrease = 2
+RECIPE.skillIncrease = 1.5
 
 RECIPE.skills = {
-    ["Tailoring"] = 12,
+    ["Tailoring"] = 15,
 }
 
 

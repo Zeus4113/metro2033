@@ -4,7 +4,7 @@ RECIPE.model = "models/teebeutel/metro/objects/gasmask_filter.mdl"
 RECIPE.category = "Gadget"
 
 RECIPE.requirements = {
-	["metal_scrap"] = 1,
+	["cloth"] = 1,
 	["chemicals"] = 1
 }
 
@@ -13,10 +13,10 @@ RECIPE.results = {
 }
 
 
-RECIPE.skillIncrease = 0.35
+RECIPE.skillIncrease = 0.1
 
 RECIPE.skills = {
-    ["Engineering"] = 4,
+    ["Engineering"] = 1,
 }
 
 

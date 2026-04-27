@@ -5,7 +5,7 @@ RECIPE.category = "Ammo"
 
 RECIPE.requirements = {
 	["metal_scrap"] = 2,
-	["chemicals"] = 2,
+	["chemicals"] = 3,
 }
 
 RECIPE.results = {
@@ -16,7 +16,7 @@ RECIPE.results = {
 RECIPE.skillIncrease = 0.35
 
 RECIPE.skills = {
-    ["Engineering"] = 8,
+    ["Engineering"] = 12,
 }
 
 

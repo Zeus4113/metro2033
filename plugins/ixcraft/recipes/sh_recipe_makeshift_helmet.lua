@@ -4,9 +4,9 @@ RECIPE.model = "models/hardbass/helem_hq.mdl"
 RECIPE.category = "Helmet"
 
 RECIPE.requirements = {
-	["leather"] = 2,
-	["cloth"] = 1,
-	["scrap_metal"] = 1,
+	["wire"] = 2,
+	["cloth"] = 3,
+	["textile_patch"] = 1,
 }
 
 RECIPE.results = {
@@ -14,10 +14,10 @@ RECIPE.results = {
 }
 
 
-RECIPE.skillIncrease = 1.5
+RECIPE.skillIncrease = 0.7
 
 RECIPE.skills = {
-    ["Tailoring"] = 8,
+    ["Tailoring"] = 7,
 }
 
 

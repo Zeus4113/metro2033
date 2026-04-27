@@ -6,7 +6,7 @@ RECIPE.category = "Weapon"
 RECIPE.requirements = {
 	["pressure_gauge"] = 1,
 	["mechanical_parts"] = 2,
-	["lead_pipe"] = 2,
+	["lead_pipe"] = 1,
 }
 
 RECIPE.results = {
@@ -14,10 +14,10 @@ RECIPE.results = {
 }
 
 
-RECIPE.skillIncrease = 1
+RECIPE.skillIncrease = 0.9
 
 RECIPE.skills = {
-    ["Engineering"] = 6,
+    ["Engineering"] = 9,
 }
 
 
