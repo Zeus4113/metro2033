@@ -1,27 +1,18 @@
 ﻿ITEM.name = "Mercenary Outfit"
-ITEM.description = "A combat-ready outfit offering improved protection through the addition of ballistic materials and reinforced construction."
+ITEM.description = "A versatile outfit favored by mercenaries for its balance of protection and mobility. Provides solid defense against physical threats and moderate resistance to radiation, making it a reliable choice for those who need to stay mobile while facing danger."
+ITEM.model = "models/spec45as/stalker/items/rukzak2.mdl"
 
-ITEM.model = "models/kek1ch/freedom_rookie_outfit.mdl"
 ITEM.width = 2
 ITEM.height = 2
-ITEM.iconCam = {
-	pos = Vector(0, 0, 200),
-	ang = Angle(90, 13.24, 0),
-	fov = 8.99
-}
-
 ITEM.weight = 4
 ITEM.price = 157
 
-ITEM.outfitModel = "models/devcon/mrp/act/player/mercenary.mdl"
+ITEM.outfitModel = "models/hasst/randomguy/l_1.mdl"
 
 ITEM.equipSlot = "Outfit"
-ITEM.damageReduction = 0.14
-ITEM.radiationProtection = 0.06
-ITEM.maxDurability = 150
-
-ITEM.invWidth = 3
-ITEM.invHeight = 2
+ITEM.damageReduction = 0.2
+ITEM.radiationProtection = 0.15
+ITEM.maxDurability = 100
 
 
 
