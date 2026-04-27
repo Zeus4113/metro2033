@@ -4,8 +4,9 @@ RECIPE.model = "models/kek1ch/sumka4.mdl"
 RECIPE.category = "Backpack"
 
 RECIPE.requirements = {
-	["leather"] = 5,
+	["textile_patch"] = 2,
 	["cloth"] = 3,
+    ["kevlar_weave"] = 1
 }
 
 RECIPE.results = {
@@ -16,7 +17,7 @@ RECIPE.results = {
 RECIPE.skillIncrease = 2
 
 RECIPE.skills = {
-    ["Tailoring"] = 12,
+    ["Tailoring"] = 20,
 }
 
 

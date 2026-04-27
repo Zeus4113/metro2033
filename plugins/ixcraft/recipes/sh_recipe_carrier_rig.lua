@@ -5,7 +5,7 @@ RECIPE.category = "Vest"
 
 RECIPE.requirements = {
 	["leather"] = 2,
-	["cloth"] = 2,
+	["cloth"] = 1,
 }
 
 RECIPE.results = {
@@ -13,10 +13,10 @@ RECIPE.results = {
 }
 
 
-RECIPE.skillIncrease = 1
+RECIPE.skillIncrease = 0.5
 
 RECIPE.skills = {
-    ["Tailoring"] = 4,
+    ["Tailoring"] = 5,
 }
 
 

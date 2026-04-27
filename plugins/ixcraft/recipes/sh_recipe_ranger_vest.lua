@@ -1,22 +1,23 @@
-RECIPE.name = "Craft Scavengers Pouch"
-RECIPE.description = "A small leather pouch stitched from salvaged cloth and hide. Used by scavengers to carry extra supplies and crafting materials."
-RECIPE.model = "models/kek1ch/sumka1.mdl"
-RECIPE.category = "Backpack"
+RECIPE.name = "Craft Ranger Vest"
+RECIPE.description = "A pre-war special forces armored vest modified and maintained at a high degree to insure the best defence in the tunnles"
+RECIPE.model = "models/hardbass/stalker_bandit_2_b_razgryz.mdl"
+RECIPE.category = "Vest"
 
 RECIPE.requirements = {
-	["leather"] = 1,
-	["cloth"] = 2,
+	["textile_patch"] = 3,
+	["kevlar_weave"] = 1,
+	["ballistic_plate"] = 2,
 }
 
 RECIPE.results = {
-    ["backpack_scavengers"] = 1
+    ["ranger_vest"] = 1
 }
 
 
-RECIPE.skillIncrease = 0.3
+RECIPE.skillIncrease = 1.7
 
 RECIPE.skills = {
-    ["Tailoring"] = 3,
+    ["Tailoring"] = 17,
 }
 
 
