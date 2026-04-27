@@ -8,11 +8,11 @@ RECIPE.requirements = {
 }
 
 RECIPE.results = {
-	["metal_scrap"] = 1,
+	["metal_scrap"] = 3,
 }
 
 --[[
-RECIPE.skillIncrease = 0.15
+RECIPE.skillIncrease = 0.05
 
 
 RECIPE.skills = {

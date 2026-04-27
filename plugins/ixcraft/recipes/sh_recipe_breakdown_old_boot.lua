@@ -8,11 +8,11 @@ RECIPE.requirements = {
 }
 
 RECIPE.results = {
-	["leather"] = 3,
+	["leather"] = 2,
 }
 
 
-RECIPE.skillIncrease = 0.5
+RECIPE.skillIncrease = 0.15
 
 RECIPE.skills = {
     ["Tailoring"] = 0,
