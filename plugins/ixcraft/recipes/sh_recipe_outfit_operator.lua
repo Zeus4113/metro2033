@@ -1,24 +1,23 @@
-RECIPE.name = "Craft Bandit Outfit"
-RECIPE.description = "A rugged outfit assembled from scavenged leather and cloth. Provides minimal protection but is easy to craft from common materials."
-RECIPE.model = "models/devcon/mrp/act/player/bandit_veteran.mdl"
+RECIPE.name = "Craft Operator Outfit"
+RECIPE.description = "A rugged outfit assembled from kevlar weave, ballistic plates, and textile patches. Provides good protection while maintaining mobility, making it ideal for operators navigating the dangerous metro environment."
+RECIPE.model = "models/hasst/randomguy/jc-bg.mdl"
 RECIPE.category = "Outfit"
 
 RECIPE.requirements = {
-	["leather"] = 2,
-	["cloth"] = 3,
+    ["kevlar_weave"] = 1,
+    ["ballistic_plate"] = 2,
+	["textile_patch"] = 3,
 }
 
 RECIPE.results = {
-    ["outfit_bandit"] = 1
+    ["outfit_operator"] = 1
 }
 
-
-RECIPE.skillIncrease = 1
+RECIPE.skillIncrease = 1.8
 
 RECIPE.skills = {
-    ["Tailoring"] = 4,
+    ["Tailoring"] = 18,
 }
-
 
 RECIPE:PostHook("OnCanCraft", function(recipeTable, client)
 

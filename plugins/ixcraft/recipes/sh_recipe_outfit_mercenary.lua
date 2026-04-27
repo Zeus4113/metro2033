@@ -1,25 +1,23 @@
-RECIPE.name = "Craft Stalker Outfit"
-RECIPE.description = "A high-quality exploration suit offering reliable protection against both combat threats and environmental hazards."
-RECIPE.model = "models/devcon/mrp/act/player/stalker.mdl"
+RECIPE.name = "Craft Mercenary Outfit"
+RECIPE.description = "A rugged outfit assembled from ballistic plates and textile patches. Provides moderate protection and is suitable for combat scenarios."
+RECIPE.model = "models/hasst/randomguy/l_1.mdl"
 RECIPE.category = "Outfit"
 
 RECIPE.requirements = {
-	["leather"] = 2,
-	["kevlar_weave"] = 3,
-	["ballistic_plate"] = 1,
+    ["ballistic_plate"] = 1,
+	["textile_patch"] = 2,
+	["cloth"] = 3,
 }
 
 RECIPE.results = {
-    ["outfit_stalker"] = 1
+    ["outfit_mercenary"] = 1
 }
 
-
-RECIPE.skillIncrease = 2
+RECIPE.skillIncrease = 1.2
 
 RECIPE.skills = {
     ["Tailoring"] = 12,
 }
-
 
 RECIPE:PostHook("OnCanCraft", function(recipeTable, client)
 

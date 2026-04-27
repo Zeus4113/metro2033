@@ -1,25 +1,22 @@
-RECIPE.name = "Craft Ranger Outfit"
-RECIPE.description = "A hardened combat suit crafted using stronger ballistic materials, typically worn by experienced stalkers."
-RECIPE.model = "models/devcon/mrp/act/player/ranger_2.mdl"
+RECIPE.name = "Craft Smuggler Outfit"
+RECIPE.description = "A rugged outfit assembled from scavenged leather and cloth. Provides minimal protection but is easy to craft from common materials."
+RECIPE.model = "models/player/axelnoir/resident_evil_4/bio4/em/em18/merchanto_pm.mdl"
 RECIPE.category = "Outfit"
 
 RECIPE.requirements = {
-	["leather"] = 3,
-	["kevlar_weave"] = 3,
-	["ballistic_plate"] = 1,
+	["leather"] = 1,
+	["cloth"] = 2,
 }
 
 RECIPE.results = {
-    ["outfit_ranger"] = 1
+    ["outfit_smuggler"] = 1
 }
 
-
-RECIPE.skillIncrease = 2
+RECIPE.skillIncrease = 0.2
 
 RECIPE.skills = {
-    ["Tailoring"] = 12,
+    ["Tailoring"] = 2,
 }
-
 
 RECIPE:PostHook("OnCanCraft", function(recipeTable, client)
 

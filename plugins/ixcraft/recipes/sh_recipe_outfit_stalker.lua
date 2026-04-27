@@ -1,25 +1,23 @@
-RECIPE.name = "Craft Tactical Vest"
-RECIPE.description = "A combat vest reinforced with kevlar fibers and ballistic plates. Designed to provide reliable protection during firefights."
-RECIPE.model = "models/hardbass/stalker_bandit_2_b_razgryz.mdl"
-RECIPE.category = "Vest"
+RECIPE.name = "Craft Stalker Outfit"
+RECIPE.description = "A rugged outfit assembled from kevlar weave, ballistic plates, and textile patches. Provides good protection while maintaining mobility, making it ideal for stalkers navigating the dangerous metro environment."
+RECIPE.model = "models/survivors/sacrifice_sold.mdl"
+RECIPE.category = "Outfit"
 
 RECIPE.requirements = {
-	["cloth"] = 2,
-	["kevlar_weave"] = 1,
-	["ballistic_plate"] = 1,
+    ["kevlar_weave"] = 1,
+    ["ballistic_plate"] = 2,
+	["textile_patch"] = 3,
 }
 
 RECIPE.results = {
-    ["vest_tactical"] = 1
+    ["outfit_stalker"] = 1
 }
 
-
-RECIPE.skillIncrease = 2.0
+RECIPE.skillIncrease = 1.6
 
 RECIPE.skills = {
-    ["Tailoring"] = 12,
+    ["Tailoring"] = 16,
 }
-
 
 RECIPE:PostHook("OnCanCraft", function(recipeTable, client)
 

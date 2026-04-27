@@ -1,25 +1,23 @@
-RECIPE.name = "Craft Bouncer Outfit"
-RECIPE.description = "A heavily reinforced outfit designed for close-quarters security work, combining protective materials with durable construction."
-RECIPE.model = "models/devcon/mrp/act/player/bandit_vest.mdl"
+RECIPE.name = "Craft Recon Outfit"
+RECIPE.description = "A rugged outfit assembled from textile patches and cloth. Provides minimal protection but is easy to craft from common materials."
+RECIPE.model = "models/hasst/randomguy/l_2.mdl"
 RECIPE.category = "Outfit"
 
 RECIPE.requirements = {
-	["leather"] = 2,
-	["cloth"] = 1,
-	["kevlar_weave"] = 2,
+    ["ballistic_plate"] = 1,
+	["textile_patch"] = 2,
+	["cloth"] = 3,
 }
 
 RECIPE.results = {
-    ["outfit_bouncer"] = 1
+    ["outfit_recon"] = 1
 }
 
-
-RECIPE.skillIncrease = 1.5
+RECIPE.skillIncrease = 1
 
 RECIPE.skills = {
-    ["Tailoring"] = 8,
+    ["Tailoring"] = 10,
 }
-
 
 RECIPE:PostHook("OnCanCraft", function(recipeTable, client)
 

@@ -1,25 +1,22 @@
-RECIPE.name = "Craft Tactical Helmet"
-RECIPE.description = "A reinforced combat helmet incorporating ballistic fibers and armor plates. Designed to withstand gunfire and shrapnel."
-RECIPE.model = "models/hardbass/stalker_neytral_rukzak_7blackhelem.mdl"
-RECIPE.category = "Helmet"
+RECIPE.name = "Craft Hunter Outfit"
+RECIPE.description = "A rugged outfit assembled from scavenged leather and cloth. Provides minimal protection but is easy to craft from common materials."
+RECIPE.model = "models/catnike/port/driga/stalker_neutral2a_gp5.mdl"
+RECIPE.category = "Outfit"
 
 RECIPE.requirements = {
-	["leather"] = 2,
-	["kevlar_weave"] = 1,
-	["metal_scrap"] = 2,
+	["textile_patch"] = 1,
+	["cloth"] = 2,
 }
 
 RECIPE.results = {
-    ["helmet_tactical"] = 1
+    ["outfit_hunter"] = 1
 }
 
-
-RECIPE.skillIncrease = 2
+RECIPE.skillIncrease = 0.6
 
 RECIPE.skills = {
-    ["Tailoring"] = 12,
+    ["Tailoring"] = 6,
 }
-
 
 RECIPE:PostHook("OnCanCraft", function(recipeTable, client)
 
