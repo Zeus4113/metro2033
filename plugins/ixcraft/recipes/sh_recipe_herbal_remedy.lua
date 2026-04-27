@@ -1,22 +1,22 @@
-RECIPE.name = "Craft Painkillers"
-RECIPE.description = "A small dose of chemical medication used to suppress pain and keep wounded survivors functional."
+RECIPE.name = "Craft Herbal Remedy"
+RECIPE.description = "A basic medicinal concoction made from a mixture of herbs and chemicals, used to alleviate pain and minor injuries."
 RECIPE.model = "models/wick/wrbstalker/anomaly/items/dez_drug_sleeping_pills.mdl"
 RECIPE.category = "Medical"
 
 RECIPE.requirements = {
 	["organics"] = 1,
-	["chemicals"] = 2,
+	["chemicals"] = 1,
 }
 
 RECIPE.results = {
-    ["painkillers"] = 1
+    ["herbal_remedy"] = 1
 }
 
 
-RECIPE.skillIncrease = 0.75
+RECIPE.skillIncrease = 0.3
 
 RECIPE.skills = {
-    ["Chemistry"] = 6,
+    ["Chemistry"] = 3,
 }
 
 

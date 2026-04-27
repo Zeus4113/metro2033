@@ -4,9 +4,8 @@ RECIPE.model = "models/wick/wrbstalker/anomaly/items/wick_dev_antirad.mdl"
 RECIPE.category = "Medical"
 
 RECIPE.requirements = {
-	["complex"] = 1,
-	["chemicals"] = 1,
-	["medical_reagents"] = 1,
+	["complex_chemicals"] = 1,
+	["chemicals"] = 2,
 }
 
 RECIPE.results = {

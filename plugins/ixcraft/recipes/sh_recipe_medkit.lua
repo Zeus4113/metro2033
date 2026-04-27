@@ -4,9 +4,8 @@ RECIPE.model = "models/wick/wrbstalker/anomaly/items/wick_dev_aptechka_low.mdl"
 RECIPE.category = "Medical"
 
 RECIPE.requirements = {
-	["organics"] = 1,
-	["chemicals"] = 1,
-	["medical_reagents"] = 1,
+	["complex_chemicals"] = 1,
+	["chemicals"] = 2,
 }
 
 RECIPE.results = {

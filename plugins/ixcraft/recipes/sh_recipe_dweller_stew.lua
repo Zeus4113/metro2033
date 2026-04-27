@@ -4,18 +4,15 @@ RECIPE.model = "models/wick/wrbstalker/anomaly/items/wick_chimera_food.mdl"
 RECIPE.category = "Food & Drink"
 
 RECIPE.requirements = {
-	["rat_meat"] = 1,
 	["mutant_meat"] = 1,
-	["mushroom"] = 1,
-	["purified_water"] = 1,
+	["organics"] = 2,
 }
 
 RECIPE.results = {
     ["dweller_stew"] = 1
 }
 
-
-RECIPE.skillIncrease = 0.18
+RECIPE.skillIncrease = 0.2
 
 RECIPE.skills = {
     ["Chemistry"] = 0,
