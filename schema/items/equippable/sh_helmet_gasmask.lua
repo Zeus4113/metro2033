@@ -16,7 +16,6 @@ ITEM.iconCam = {
 ITEM.useSound = "interface/gasmask/gasmask_holster_fast.mp3"
 
 ITEM.equipSlot = "Helmet"
-ITEM.damageReduction = 0
 ITEM.radiationProtection = 0.5
 ITEM.maxDurability = 100
 
