@@ -1,4 +1,4 @@
-ITEM.name = "Reinforced Vest"
+﻿ITEM.name = "Reinforced Vest"
 ITEM.description = "A heavily armored vest featuring additional ballistic layers and hardened plating, offering strong protection against high-caliber rounds."
 
 ITEM.model = "models/hardbass/stalker_skat9m_razgryz.mdl"
@@ -11,8 +11,8 @@ ITEM.iconCam = {
 }
 
 
-ITEM.price = 276
-ITEM.weight = 9
+ITEM.price = 177
+ITEM.weight = 7
 
 ITEM.useSound = "npc/combine_soldier/zipline_hitground1.wav"
 
@@ -23,3 +23,4 @@ ITEM.maxDurability = 250
 
 ITEM.invWidth = 4
 ITEM.invHeight = 4
+

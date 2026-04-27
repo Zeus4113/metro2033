@@ -1,4 +1,4 @@
-ITEM.name = "Personal Digital Assistant"
+﻿ITEM.name = "Personal Digital Assistant"
 ITEM.description = "A small handheld computer constructed using advanced electronic components and display technology. Useful for storing information and monitoring systems."
 ITEM.category = "Gadgets"
 
@@ -12,4 +12,4 @@ ITEM.iconCam = {
 }
 
 ITEM.weight = 1.0
-ITEM.price = 166
+ITEM.price = 177

@@ -1,4 +1,4 @@
-ITEM.name = "Plate Carrier"
+﻿ITEM.name = "Plate Carrier"
 ITEM.description = "An improvised protective vest constructed from scrap metal plates stitched between layers of cloth and leather."
 
 ITEM.model = "models/hardbass/stalker_neytral_rukzak_7_platecarrier.mdl"
@@ -13,7 +13,7 @@ ITEM.iconCam = {
 
 
 ITEM.weight = 6
-ITEM.price = 35
+ITEM.price = 86
 
 ITEM.useSound = "npc/combine_soldier/zipline_hitground1.wav"
 

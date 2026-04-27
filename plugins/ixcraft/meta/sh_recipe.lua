@@ -74,6 +74,11 @@ function RECIPE:OnCanSee(client)
         local index = 0
 
         for v, k in pairs(self.skills) do
+
+			if not (character:GetAttribute(string.lower(v)))then
+				continue
+			end
+
             if (character:GetAttribute(string.lower(v)) + 5 >= k) then
                 index = index + 1
             end
@@ -123,7 +128,6 @@ function RECIPE:OnCanCraft(client)
     if(self.skills)then    
         for v, k in pairs(self.skills) do
             if (character:GetAttribute(string.lower(v)) < k) then
-				print("no skill")
                 bHasSkill = false
             end
         end 

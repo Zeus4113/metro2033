@@ -1,11 +1,11 @@
-ITEM.name = "Duplet"
+﻿ITEM.name = "Duplet"
 ITEM.description = "A double-barrel shotgun designed for brutal close-range combat. Its simple design makes it easier to maintain and craft than more complex firearms."
 ITEM.model = "models/weapons/c_duplet.mdl"
 ITEM.class = "arccw_duplet"
 ITEM.weaponCategory = "primary"
 ITEM.slot = "primary"
 
-ITEM.price = 203
+ITEM.price = 156
 ITEM.weight = 8
 ITEM.repairType = "gun"
 

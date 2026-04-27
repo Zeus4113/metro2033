@@ -1,9 +1,9 @@
-ITEM.name = "Old Cables"
+﻿ITEM.name = "Old Cables"
 ITEM.description = "A bundle of worn electrical cables. Breaking them down yields usable wiring for electronics and gadgets."
 
 ITEM.category = "Junk"
-ITEM.weight = 3.0
-ITEM.price = 6
+ITEM.weight = 2.0
+ITEM.price = 24
 
 ITEM.model = "models/illusion/eftcontainers/militarycable.mdl"
 ITEM.width = 2
@@ -13,3 +13,5 @@ ITEM.iconCam = {
 	ang = Angle(90, 0, 0),
 	fov = 4.74
 }
+
+

@@ -12,7 +12,7 @@ RECIPE.results = {
 }
 
 
-RECIPE.skillIncrease = 0.35
+RECIPE.skillIncrease = 0.5
 
 RECIPE.skills = {
     ["Tailoring"] = 0,
@@ -25,13 +25,13 @@ RECIPE:PostHook("OnCanCraft", function(recipeTable, client)
 
     local nearStation = false
 
-    for _, v in pairs(ents.FindByClass("ix_station_tailors_table")) do
+    for _, v in pairs(ents.FindByClass("ix_station_workbench")) do
         if (client:GetPos():DistToSqr(v:GetPos()) < 100 * 100) then
             nearStation = true
         end
     end
 
-    if not nearStation then return false, "You need to be near a tailoring table." end
+    if not nearStation then return false, "You need to be near a workbench." end
 
     return true
 end)

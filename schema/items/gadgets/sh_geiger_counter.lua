@@ -1,4 +1,4 @@
-ITEM.name = "Geiger Counter"
+﻿ITEM.name = "Geiger Counter"
 ITEM.description = "A handheld radiation detector assembled from sensors, electronics and pressure gauges. Essential for identifying dangerous radiation zones in the tunnels."
 ITEM.category = "Gadgets"
 
@@ -12,4 +12,4 @@ ITEM.iconCam = {
 }
 
 ITEM.weight = 2.0
-ITEM.price = 52
+ITEM.price = 75

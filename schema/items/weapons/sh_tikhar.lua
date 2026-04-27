@@ -1,11 +1,11 @@
-ITEM.name = "Tikhar"
+﻿ITEM.name = "Tikhar"
 ITEM.description = "A handmade pneumatic rifle powered by compressed air. Built from mechanical components and pressure systems scavenged from old technology."
 ITEM.model = "models/weapons/c_tikhar.mdl"
 ITEM.class = "arccw_tikhar"
 ITEM.weaponCategory = "primary"
 ITEM.slot = "primary"
 
-ITEM.price = 62
+ITEM.price = 50
 ITEM.weight = 7
 ITEM.repairType = "gun"
 

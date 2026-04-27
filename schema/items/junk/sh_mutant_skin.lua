@@ -1,9 +1,9 @@
-ITEM.name = "Mutant Skin"
+﻿ITEM.name = "Mutant Skin"
 ITEM.description = "Tough hide taken from mutated creatures. Useful when crafting cloth or reinforcing equipment."
 
 ITEM.category = "Junk"
-ITEM.weight = 4.0
-ITEM.price = 5
+ITEM.weight = 3.0
+ITEM.price = 30
 
 ITEM.model = "models/wick/wrbstalker/anomaly/items/wick_hide_flesh.mdl"
 ITEM.width = 3
@@ -13,3 +13,5 @@ ITEM.iconCam = {
 	ang = Angle(90, 0, 0),
 	fov = 9.08
 }
+
+

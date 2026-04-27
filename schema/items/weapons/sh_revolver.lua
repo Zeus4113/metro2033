@@ -1,12 +1,12 @@
-ITEM.name = "Revolver"
+﻿ITEM.name = "Revolver"
 ITEM.description = "A sturdy sidearm built around a simple mechanical firing system. Requires fewer components than automatic weapons, making it easier to craft."
 ITEM.model = "models/weapons/c_metrorevolver.mdl"
 ITEM.class = "arccw_metrorevolver"
 ITEM.weaponCategory = "sidearm"
 ITEM.slot = "sidearm"
 
-ITEM.price = 102
-ITEM.weight = 4
+ITEM.price = 88
+ITEM.weight = 1.5
 ITEM.repairType = "gun"
 
 ITEM.width = 2
@@ -16,3 +16,4 @@ ITEM.iconCam = {
 	fov	= 6,
 	pos	= Vector(-18, 220, -8)
 }
+

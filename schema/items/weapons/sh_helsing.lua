@@ -1,11 +1,11 @@
-ITEM.name = "Helsing"
+﻿ITEM.name = "Helsing"
 ITEM.description = "A pneumatic crossbow designed to launch steel bolts with deadly force. Requires precision mechanical components and pressure regulators to function properly."
 ITEM.model = "models/weapons/c_helsing.mdl"
 ITEM.class = "arccw_helsing"
 ITEM.weaponCategory = "primary"
 ITEM.slot = "primary"
 
-ITEM.price = 59
+ITEM.price = 53
 ITEM.weight = 8
 ITEM.repairType = "gun"
 

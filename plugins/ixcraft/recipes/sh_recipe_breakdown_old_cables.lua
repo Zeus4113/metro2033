@@ -12,14 +12,6 @@ RECIPE.results = {
 }
 
 
-RECIPE.skillIncrease = 0.1
-
-
-RECIPE.skills = {
-    ["Engineering"] = 0,
-}
-
-
 RECIPE:PostHook("OnCanCraft", function(recipeTable, client)
 
     if not client or not client:GetCharacter() then return false end

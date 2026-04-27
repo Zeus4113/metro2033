@@ -1,9 +1,9 @@
-ITEM.name = "Power Cord"
+﻿ITEM.name = "Power Cord"
 ITEM.description = "Insulated electrical cable that can be stripped for copper wire or used when assembling powered devices."
 
 ITEM.category = "Junk"
 ITEM.weight = 1.0
-ITEM.price = 2
+ITEM.price = 8
 
 ITEM.model = "models/illusion/eftcontainers/powercord.mdl"
 ITEM.width = 1
@@ -13,3 +13,4 @@ ITEM.iconCam = {
 	ang = Angle(90, 0, 0),
 	fov = 4.71
 }
+

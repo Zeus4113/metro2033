@@ -1,4 +1,4 @@
-ITEM.name = "Carrier Rig"
+﻿ITEM.name = "Carrier Rig"
 ITEM.description = "A strung together carrier rig made from layers of cloth and leather."
 
 ITEM.model = "models/hardbass/stalker_sv_nauchniyrazgryz.mdl"
@@ -13,7 +13,7 @@ ITEM.iconCam = {
 
 
 ITEM.weight = 4
-ITEM.price = 25
+ITEM.price = 30
 
 ITEM.useSound = "npc/combine_soldier/zipline_hitground1.wav"
 

@@ -1,4 +1,4 @@
-ITEM.name = "Worn Knife"
+﻿ITEM.name = "Worn Knife"
 ITEM.description = "An old metal knife, slightly dulled by aging. Still effective for gathering parts from dead mutants."
 
 ITEM.class = "tfa_nmrih_kknife"
@@ -6,7 +6,7 @@ ITEM.weaponCategory = "melee"
 ITEM.slot = "melee"
 
 ITEM.price = 1
-ITEM.weight = 2
+ITEM.weight = 0.5
 ITEM.repairType = "tool"
 
 ITEM.model = "models/weapons/tfa_nmrih/w_me_kitknife.mdl"
@@ -17,3 +17,4 @@ ITEM.iconCam = {
 	ang = Angle(-1, 270.01, 0),
 	fov = 2.56
 }
+

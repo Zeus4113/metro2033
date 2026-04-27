@@ -1,8 +1,8 @@
-ITEM.name = "Cast Iron Pot"
+﻿ITEM.name = "Cast Iron Pot"
 ITEM.description = "A sturdy cooking pot. Essential for preparing food recipes or processing organic materials at crafting stations."
 ITEM.category = "Junk"
 
-ITEM.weight = 5.0
+ITEM.weight = 3.0
 ITEM.price = 2
 
 ITEM.model = "models/props_c17/metalpot001a.mdl"
@@ -13,3 +13,4 @@ ITEM.iconCam = {
 	ang = Angle(0, 270, 0),
 	fov = 7.05
 }
+
