@@ -4,23 +4,20 @@ ITEM.model = "models/weapons/arccw/c_uc_usp.mdl"
 
 
 ITEM.width = 2
-ITEM.height = 2
+ITEM.height = 1
 ITEM.weight = 1.5
 ITEM.price = 300
 
 
 ITEM.class = "arccw_uc_usp"
-ITEM.weaponCategory = "primary"
+ITEM.weaponCategory = "sidearm"
 ITEM.slot = "sidearm"
 ITEM.repairType = "gun"
 
 
 ITEM.iconCam = {
-	pos = Vector(230.01, 697.06, 12.07),
-	ang = Angle(1.27, 252.82, 0),
-	fov = 1.15
+	pos = Vector(0, 200, -100),
+	ang = Angle(1.23, 270.81, 0),
+	fov = 10.78
 }
-
-
-
 

@@ -11,6 +11,11 @@ RECIPE.results = {
 	["wires"] = 3,
 }
 
+RECIPE.skillIncrease = 0.15
+
+RECIPE.skills = {
+    ["Engineering"] = 0,
+}
 
 RECIPE:PostHook("OnCanCraft", function(recipeTable, client)
 

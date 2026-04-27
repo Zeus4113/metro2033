@@ -15,7 +15,8 @@ ITEM.weaponCategory = "primary"
 ITEM.slot = "primary"
 
 ITEM.iconCam = {
-	pos = Vector(228.29, 697.65, 9.53),
-	ang = Angle(1.2, 252.85, 0),
-	fov = 2.33
+	pos = Vector(-5.34, 198.6, -18.64),
+	ang = Angle(-4.43, 268.28, 0),
+	fov = 10.65
 }
+
