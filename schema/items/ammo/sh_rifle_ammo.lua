@@ -4,8 +4,8 @@ ITEM.model = "models/items/boxmrounds.mdl"
 
 ITEM.width = 1
 ITEM.height = 1
-ITEM.price = 30
 ITEM.weight = 0.5
+ITEM.price = 30
 
 ITEM.ammo = "ar2" -- type of the ammo
 ITEM.ammoAmount = 30 -- amount of the ammo
