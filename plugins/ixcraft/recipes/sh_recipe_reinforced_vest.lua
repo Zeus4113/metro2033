@@ -4,9 +4,9 @@ RECIPE.model = "models/hardbass/neutral_bact_razgruz.mdl"
 RECIPE.category = "Vest"
 
 RECIPE.requirements = {
-	["cloth"] = 2,
-	["kevlar_weave"] = 2,
-	["ballistic_plate"] = 2,
+	["leather"] = 3,
+	["textile_patch"] = 2,
+	["ballistic_plate"] = 1,
 }
 
 RECIPE.results = {
@@ -14,10 +14,10 @@ RECIPE.results = {
 }
 
 
-RECIPE.skillIncrease = 2.5
+RECIPE.skillIncrease = 1.5
 
 RECIPE.skills = {
-    ["Tailoring"] = 16,
+    ["Tailoring"] = 13,
 }
 
 

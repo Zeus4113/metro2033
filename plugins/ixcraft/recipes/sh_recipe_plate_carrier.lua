@@ -4,9 +4,9 @@ RECIPE.model = "models/hardbass/stalker_neytral_rukzak_7_platecarrier.mdl"
 RECIPE.category = "Vest"
 
 RECIPE.requirements = {
-	["leather"] = 2,
+	["leather"] = 3,
 	["cloth"] = 2,
-	["metal_scrap"] = 3,
+	["textile_patch"] = 1,
 }
 
 RECIPE.results = {
@@ -14,10 +14,10 @@ RECIPE.results = {
 }
 
 
-RECIPE.skillIncrease = 1.5
+RECIPE.skillIncrease = 1.3
 
 RECIPE.skills = {
-    ["Tailoring"] = 8,
+    ["Tailoring"] = 9,
 }
 
 
