@@ -41,6 +41,9 @@ function PLUGIN:SearchLootContainer(ent, client)
     end
 
     client:SetAction(ent.searchText or "Searching..." , ent.searchTime or 5, function()
+
+        local char = client:GetCharacter()
+        local inventory = char:GetInventory()
         
         if ent.requiredTools then
             for k, v in pairs(ent.requiredTools) do
@@ -54,6 +57,10 @@ function PLUGIN:SearchLootContainer(ent, client)
                     if item.Unequip then 
                         item:Unequip(client) 
                         client:Notify(item.name .. " has broken.")
+                        
+                        local size = item.width * item.height
+                        item:Remove()
+                        inventory:Add("metal_scrap", size)
                     end
                 end
             end
@@ -64,14 +71,12 @@ function PLUGIN:SearchLootContainer(ent, client)
         local itemID
         local plugin = ix.plugin.Get("ixloot")
 
-        if ent.lootType and plugin.rareLootTable and math.random(1, plugin.rareChance[ent.lootType] or 20) == 1 then
-            itemID = table.Random(plugin.rareLootTable[ent.lootType])
+        if ent.lootTier and ent.lootType and math.random(1, 20) == 1 then
+            itemID = table.Random(plugin.loot[ent.lootTier][ent.lootType]["rare"])
         else
-            itemID = table.Random(plugin.lootTable[ent.lootType])
+            itemID = table.Random(plugin.loot[ent.lootTier][ent.lootType]["common"])
         end
 
-        local char = client:GetCharacter()
-        local inventory = char:GetInventory()
 
         local success = inventory:Add(itemID)
 

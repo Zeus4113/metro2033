@@ -1,10 +1,10 @@
-RECIPE.name = "Break Down Broken Transmitter"
-RECIPE.description = "Salvage useful materials from Broken Transmitter."
+RECIPE.name = "Break Down Broken Radio"
+RECIPE.description = "Break down a broken radio for parts."
 RECIPE.model = "models/wick/wrbstalker/anomaly/items/dez_radio.mdl"
 RECIPE.category = "Junk"
 
 RECIPE.requirements = {
-    ["broken_transmitter"] = 1
+    ["broken_radio"] = 1
 }
 
 RECIPE.results = {

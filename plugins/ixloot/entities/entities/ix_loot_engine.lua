@@ -4,41 +4,41 @@ AddCSLuaFile()
 
 ENT.Base             = "base_gmodentity"
 ENT.Type             = "anim"
-ENT.PrintName        = "Military Equipment Case"
+ENT.PrintName        = "Seized Engine"
 ENT.Author            = "Riggs"
 ENT.Purpose            = "Allows you to take loot from it."
 ENT.Instructions    = "Press E"
-ENT.Category         = "Helix Lootables Legendary"
+ENT.Category         = "Lootables Tier One"
 
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = true
 ENT.AdminOnly = true
 
-ENT.displayName = "Military Equipment Case"
-ENT.searchText = "Unlocking... "
-ENT.description = [[
-A compact steel storage case once issued to military units operating in the metro during the early days of the war. 
-
-Built to protect sensitive equipment and sealed with a reinforced lock, these cases were typically used to transport weapons, ammunition, and tactical gear. 
-
-Without the proper key, opening one is nearly impossible.
-]]
+ENT.displayName = "Seized Engine"
+ENT.searchText = "Scavenging..."
+ENT.description = "This engine has been stripped of most of its usable parts, but there might still be some scrap metal left in it that could be salvaged with the right tools."
 
 ENT.searchSounds = {
-    "doors/door_metal_large_open1.wav"
+    "doors/door_metal_gate_move2.wav"
 }
 
 ENT.requiredTools = {
-    "key"
+    "steel_wrench"
 }
 
-ENT.lootType = "military"
-ENT.respawnTime = 1800
+ENT.models = {
+    "models/z-o-m-b-i-e/st/garage/st_garage_items_zaz_04.mdl"
+}
+
+ENT.lootTier = 1
+ENT.lootType = "mechanics"
+
+ENT.respawnTime = 900
 ENT.searchTime = 2
 
 if ( SERVER ) then
     function ENT:Initialize()
-        self:SetModel("models/z-o-m-b-i-e/st_metal_box_04.mdl")
+        self:SetModel(self.models[math.random(1, #self.models)])
         self:PhysicsInit(SOLID_VPHYSICS) 
         self:SetSolid(SOLID_VPHYSICS)
         self:SetUseType(SIMPLE_USE)
@@ -53,7 +53,7 @@ if ( SERVER ) then
     function ENT:SpawnFunction(client, trace)
         local angles = client:GetAngles()
 
-        local entity = ents.Create("ix_loot_military_case")
+        local entity = ents.Create("ix_loot_engine")
         entity:SetPos(trace.HitPos)
         entity:SetAngles(Angle(0, (entity:GetPos() - client:GetPos()):Angle().y - 180, 0))
         entity:Spawn()

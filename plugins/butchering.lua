@@ -168,7 +168,13 @@ if SERVER then
                                         knife:SetData("durability", knife:GetData("durability", knife.maxDurability) - 15)
                                         local durability = knife:GetData("durability", knife.maxDurability)
                                         if durability and durability <= 0 then
-                                            if knife.Unequip then knife:Unequip(client) end
+                                            if knife.Unequip then 
+                                                knife:Unequip(client) 
+                                                client:Notify(knife.name .. " has broken.")
+                                                local size = knife.width * knife.height
+                                                knife:Remove()
+                                                client:GetCharacter():GetInventory():Add("metal_scrap", size)
+                                            end
                                         end
                                     end
 

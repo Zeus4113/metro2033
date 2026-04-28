@@ -21,6 +21,152 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ix.util.Include("sv_plugin.lua")
 
+PLUGIN.loot = {
+    [0] = {
+        ["scrap"] = {
+            ["common"] = {
+                "tin_can",
+                "worn_knife",
+                "steel_wrench",
+                "metal_crowbar",
+                "lead_pipe",
+                "cast_iron_pot"
+            },
+            ["rare"] = {
+                "broken_radio",
+                "antique_clock"
+            }
+        }
+    },
+    [1] = {
+        ["mechanics"] = {
+            ["common"] = {
+                "broken_motor",
+                "old_cables",
+            },
+            ["rare"] = {
+                "pressure_gauge",
+            }
+        },
+        ["electronics"]= {
+            ["common"] = {
+                "ruined_psu",
+                "power_cord",
+            },
+            ["rare"] = {
+                "9v_battery",
+            }
+        },
+        ["equipment"] = {
+            ["common"] = {
+                "ruined_jacket",
+                "old_boot",
+            },
+            ["rare"] = {
+                "textile_patch"
+            }
+        },
+        ["chemicals"] = {
+            ["common"] = {
+                "household_cleaner",
+                "laundry_detergent",
+            },
+            ["rare"] = {
+                "complex_chemicals"
+            }
+        },
+    },
+    [2] = {
+        ["engineering"] = {
+            ["common"] = {
+                "pressure_gauge",
+                "9v_battery"
+            },
+            ["rare"] = {
+                "metal_spring",
+                "lcd_screen",
+            }
+        },
+        ["tailoring"] = {
+            ["common"] = {
+                "textile_patch",
+            },
+            ["rare"] = {
+                "ballistic_plate",
+            },
+        },
+        ["chemistry"] = {
+            ["common"] = {
+                "complex_chemicals"
+            },
+            ["rare"] = {
+                "medical_reagents"
+            }
+        },
+    },
+    [3] = {
+        ["engineering"] = {
+            ["common"] = {
+                "metal_spring",
+                "lcd_screen",
+            },
+            ["rare"] = {
+                "reciever",
+            }
+        },
+        ["tailoring"] = {
+            ["common"] = {
+                "ballistic_plate",
+            },
+            ["rare"] = {
+                "kevlar_weave",
+            },
+        },
+        ["chemistry"] = {
+            ["common"] = {
+                "medical_reagents",
+            },
+            ["rare"] = {
+                "syringe",
+            }
+        },
+    },
+    [4] = {
+        ["military"] = {
+            ["common"] = {
+                "reciever",
+                "military_documents",
+            },
+            ["rare"] = {
+                "akm",
+                "g3a3",
+                "usp_tactical",
+                "mp5a4",
+                "sks",
+            }
+        },
+        ["hospital"] = {
+            ["common"] = {
+                "syringe",
+                "medical_journal",
+            },
+            ["rare"] = {
+                "first_aid_kit",
+                "green_stuff"
+            }
+        },
+        ["library"] = {
+            ["common"] = {
+                "engineering_handbook",
+                "tailoring_guide",
+                "medical_journal",
+            },
+            ["rare"] = {
+                "civil_documents",
+            },
+        }
+    },
+}
 
 PLUGIN.lootTable = {
     ["general"] = {
@@ -78,7 +224,7 @@ PLUGIN.lootTable = {
 PLUGIN.rareLootTable = {
     ["general"] = {
         "antique_clock",
-        "broken_transmitter",
+        "broken_radio",
         "household_cleaner",
         "laundry_detergent"
     },

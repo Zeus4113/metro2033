@@ -4,35 +4,37 @@ AddCSLuaFile()
 
 ENT.Base             = "base_gmodentity"
 ENT.Type             = "anim"
-ENT.PrintName        = "Reinforced Storage Chest"
+ENT.PrintName        = "Broken Monitor"
 ENT.Author            = "Riggs"
 ENT.Purpose            = "Allows you to take loot from it."
 ENT.Instructions    = "Press E"
-ENT.Category         = "Helix Lootables Common"
+ENT.Category         = "Lootables Tier One"
 
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = true
 ENT.AdminOnly = true
 
-ENT.displayName = "Reinforced Storage Chest"
-ENT.searchText = "Searching... "
-ENT.description = [[
-A large, heavy storage chest with reinforced corners and sturdy latches. 
-
-It was likely used to store a collection of everyday items that needed to be kept in one place.
-]]
+ENT.displayName = "Broken Monitor"
+ENT.searchText = "Searching..."
+ENT.description = "A broken monitor, likely used for displaying information. It looks like it could be pried open to reveal whatever is inside, but it might be best to just break it open and take what you can."
 
 ENT.searchSounds = {
-    "doors/door1_stop.wav"
+    "physics/glass/glass_strain2.wav"
 }
 
-ENT.lootType = "general"
+ENT.models = {
+    "models/maver1k_xvii/stalker/props/decor/tv_1_br.mdl"
+}
+
+ENT.lootTier = 1
+ENT.lootType = "electronics"
+
 ENT.respawnTime = 900
-ENT.searchTime = 1.5
+ENT.searchTime = 1
 
 if ( SERVER ) then
     function ENT:Initialize()
-        self:SetModel("models/z-o-m-b-i-e/st_item_box_01.mdl")
+        self:SetModel(self.models[math.random(1, #self.models)])
         self:PhysicsInit(SOLID_VPHYSICS) 
         self:SetSolid(SOLID_VPHYSICS)
         self:SetUseType(SIMPLE_USE)
@@ -47,7 +49,7 @@ if ( SERVER ) then
     function ENT:SpawnFunction(client, trace)
         local angles = client:GetAngles()
 
-        local entity = ents.Create("ix_loot_general_storage_chest")
+        local entity = ents.Create("ix_loot_broken_monitor")
         entity:SetPos(trace.HitPos)
         entity:SetAngles(Angle(0, (entity:GetPos() - client:GetPos()):Angle().y - 180, 0))
         entity:Spawn()

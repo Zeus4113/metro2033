@@ -4,39 +4,39 @@ AddCSLuaFile()
 
 ENT.Base             = "base_gmodentity"
 ENT.Type             = "anim"
-ENT.PrintName        = "Control Panel"
+ENT.PrintName        = "Wooden Crate"
 ENT.Author            = "Riggs"
 ENT.Purpose            = "Allows you to take loot from it."
 ENT.Instructions    = "Press E"
-ENT.Category         = "Helix Lootables Rare"
+ENT.Category         = "Lootables Tier Zero"
 
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = true
 ENT.AdminOnly = true
 
-ENT.displayName = "Control Panel"
-ENT.searchText = "Prying... "
-ENT.description = [[
-A large industrial control panel covered in gauges, switches, and wiring ports. 
-
-Most of its systems are long dead, but panels like this can still hide useful electrical components.
-]]
+ENT.displayName = "Wooden Crate"
+ENT.searchText = "Searching... "
+ENT.description = "This crate is made of wood and has seen better days. It looks like it could be pried open with the right tools, but it might be best to just break it open and take what you can."
 
 ENT.searchSounds = {
-    "doors/door_metal_medium_open1.wav"
+    "physics/wood/wood_box_break1.wav"
 }
 
-ENT.requiredTools = {
-    "metal_crowbar",
+ENT.models = {
+    "models/z-o-m-b-i-e/st_wood_item_box.mdl",
+    "models/maver1k_xvii/stalker/props/box/box_wood_01.mdl",
+    "models/z-o-m-b-i-e/st/box/st_box_wood_01.mdl"
 }
 
-ENT.lootType = "electrical"
+ENT.lootTier = 0
+ENT.lootType = "scrap"
+
 ENT.respawnTime = 900
-ENT.searchTime = 4
+ENT.searchTime = 1
 
 if ( SERVER ) then
     function ENT:Initialize()
-        self:SetModel("models/z-o-m-b-i-e/st_electrohren.mdl")
+        self:SetModel(self.models[math.random(1, #self.models)])
         self:PhysicsInit(SOLID_VPHYSICS) 
         self:SetSolid(SOLID_VPHYSICS)
         self:SetUseType(SIMPLE_USE)
@@ -51,7 +51,7 @@ if ( SERVER ) then
     function ENT:SpawnFunction(client, trace)
         local angles = client:GetAngles()
 
-        local entity = ents.Create("ix_loot_electrical_control_panel")
+        local entity = ents.Create("ix_loot_wooden_crate")
         entity:SetPos(trace.HitPos)
         entity:SetAngles(Angle(0, (entity:GetPos() - client:GetPos()):Angle().y - 180, 0))
         entity:Spawn()

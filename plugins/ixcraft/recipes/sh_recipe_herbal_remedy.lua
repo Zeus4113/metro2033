@@ -1,6 +1,6 @@
 RECIPE.name = "Craft Herbal Remedy"
 RECIPE.description = "A basic medicinal concoction made from a mixture of herbs and chemicals, used to alleviate pain and minor injuries."
-RECIPE.model = "models/wick/wrbstalker/anomaly/items/dez_drug_sleeping_pills.mdl"
+RECIPE.model = "models/wick/wrbstalker/anomaly/items/dez_item_yad.mdl"
 RECIPE.category = "Medical"
 
 RECIPE.requirements = {
