@@ -4,7 +4,7 @@ RECIPE.model = "models/kek1ch/ammo_9x18_fmj.mdl"
 RECIPE.category = "Ammo"
 
 RECIPE.requirements = {
-	["metal_scrap"] = 1,
+	["metal_scrap"] = 2,
 	["chemicals"] = 1,
 }
 

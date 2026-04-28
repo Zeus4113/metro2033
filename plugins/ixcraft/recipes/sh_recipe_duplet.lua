@@ -4,8 +4,8 @@ RECIPE.model = "models/weapons/c_duplet.mdl"
 RECIPE.category = "Weapon"
 
 RECIPE.requirements = {
-	["metal_spring"] = 2,
-	["mechanical_parts"] = 2,
+	["metal_spring"] = 1,
+	["mechanical_parts"] = 3,
 	["lead_pipe"] = 2,
 }
 
@@ -14,10 +14,10 @@ RECIPE.results = {
 }
 
 
-RECIPE.skillIncrease = 2
+RECIPE.skillIncrease = 1.5
 
 RECIPE.skills = {
-    ["Engineering"] = 14,
+    ["Engineering"] = 15,
 }
 
 

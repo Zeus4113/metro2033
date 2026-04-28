@@ -4,9 +4,9 @@ RECIPE.model = "models/weapons/c_vsv.mdl"
 RECIPE.category = "Weapon"
 
 RECIPE.requirements = {
-	["metal_spring"] = 2,
+	["metal_spring"] = 1,
 	["mechanical_parts"] = 3,
-	["lead_pipe"] = 1,
+	["reciever"] = 1,
 }
 
 RECIPE.results = {
@@ -14,10 +14,10 @@ RECIPE.results = {
 }
 
 
-RECIPE.skillIncrease = 2.5
+RECIPE.skillIncrease = 1.9
 
 RECIPE.skills = {
-    ["Engineering"] = 16,
+    ["Engineering"] = 19,
 }
 
 

@@ -6,7 +6,7 @@ RECIPE.category = "Gadget"
 RECIPE.requirements = {
 	["9v_battery"] = 1,
 	["electronics"] = 2,
-	["wires"] = 2,
+	["wires"] = 3,
 }
 
 RECIPE.results = {
@@ -17,7 +17,7 @@ RECIPE.results = {
 RECIPE.skillIncrease = 0.5
 
 RECIPE.skills = {
-    ["Engineering"] = 4,
+    ["Engineering"] = 5,
 }
 
 

@@ -4,9 +4,8 @@ RECIPE.model = "models/weapons/metro2033/w_gasmask.mdl"
 RECIPE.category = "Helmet"
 
 RECIPE.requirements = {
-	["leather"] = 2,
-	["cloth"] = 1,
-	["mechanical_parts"] = 1,
+	["wire"] = 1,
+	["cloth"] = 2,
 }
 
 RECIPE.results = {
@@ -14,10 +13,10 @@ RECIPE.results = {
 }
 
 
-RECIPE.skillIncrease = 1
+RECIPE.skillIncrease = 0.3
 
 RECIPE.skills = {
-    ["Tailoring"] = 4,
+    ["Tailoring"] = 3,
 }
 
 
