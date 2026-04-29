@@ -1,3 +1,14 @@
+local function GetEquipment(char)
+    return char:GetData("equipment", {
+        outfit = nil,
+        vest = nil,
+        helmet = nil
+    })
+end
+
+local function SetEquipment(char, equipment)
+    char:SetData("equipment", equipment)
+end
 
 function Schema:OnCharacterCreated(client, character)
     --[[
@@ -29,7 +40,7 @@ hook.Add("EntityTakeDamage", "metroArmorDurabilitySystem", function(ent, dmgInfo
     local inventory = char:GetInventory()
     if not inventory then return end
 
-    local equipment = char:GetData("equipment", {})
+    local equipment = GetEquipment(char)
     local damage = dmgInfo:GetDamage()
     local originalDamage = damage
     local totalReduction = 0
@@ -38,6 +49,7 @@ hook.Add("EntityTakeDamage", "metroArmorDurabilitySystem", function(ent, dmgInfo
         print("---- ARMOR DEBUG ----")
         print("Incoming Damage:", damage)
     end
+
 
     for slot, itemID in pairs(equipment) do
         if itemID then
@@ -87,6 +99,7 @@ hook.Add("EntityTakeDamage", "metroArmorDurabilitySystem", function(ent, dmgInfo
         print("Final Damage:", finalDamage)
     end
 
+
     -- Durability loss distribution
     for slot, itemID in pairs(equipment) do
         if itemID then
@@ -114,15 +127,45 @@ hook.Add("EntityTakeDamage", "metroArmorDurabilitySystem", function(ent, dmgInfo
 
                     -- Break handling
                     if newDurability <= 0 then
+                        --[[
+                            
                         local equipmentTable = char:GetData("equipment", {})
                         equipmentTable[slot] = nil
                         char:SetData("equipment", equipmentTable)
-
+                        
                         if slot == "Outfit" then
                             ent:ApplyOutfit()
                         end
+                        
+                        ]]
+                        
+                        if equipment[item.equipSlot] ~= item:GetID() then
+                            return false
+                        end
+                        
+                        equipment[item.equipSlot] = nil
+                        SetEquipment(char, equipment)
+                        char:UpdateWeight()
 
                         ent:Notify(item.name .. " has broken and was unequipped!")
+                        
+                        if item.equipSlot == "Outfit" and ent.ApplyOutfit then
+                            ent:ApplyOutfit()
+                        end
+
+                        -- Close container if open
+                        if item.invWidth then
+                            local index = item:GetData("id")
+                            if index then
+                                net.Start("ixEquipContainerClose")
+                                    net.WriteUInt(index, 32)
+                                net.Send(ent)
+                            end
+                        end
+
+                        --client:Notify("Unequipped.")
+                        ent:EmitSound(item.useSound, 80)
+
 
                         if ARMOR_DEBUG then
                             print(item.name .. " BROKE.")
