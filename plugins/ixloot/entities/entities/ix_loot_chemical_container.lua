@@ -4,34 +4,30 @@ AddCSLuaFile()
 
 ENT.Base             = "base_gmodentity"
 ENT.Type             = "anim"
-ENT.PrintName        = "Seized Engine"
-ENT.Author            = "Riggs"
+ENT.PrintName        = "Chemical Container"
+ENT.Author            = "BarneytheBandit"
 ENT.Purpose            = "Allows you to take loot from it."
 ENT.Instructions    = "Press E"
-ENT.Category         = "Lootables Tier One"
+ENT.Category         = "Lootables Tier Three"
 
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = true
 ENT.AdminOnly = true
 
-ENT.displayName = "Seized Engine"
-ENT.searchText = "Scavenging..."
-ENT.description = "A heavy engine block caked in grease and rust, its pistons are frozen and the housing is scratched."
+ENT.displayName = "Chemical Container"
+ENT.searchText = "Searching... "
+ENT.description = "A study plastic container with a faded warning label, its sides are stained and the contents slosh ominously."
 
 ENT.searchSounds = {
-    "physics/metal/metal_solid_strain5.wav"
-}
-
-ENT.requiredTools = {
-    "steel_wrench"
+    "physics/plastic/plastic_barrel_break1.wav"
 }
 
 ENT.models = {
-    "models/z-o-m-b-i-e/st/garage/st_garage_items_zaz_04.mdl"
+    "models/spec45as/stalker/quest/safe_container.mdl"
 }
 
-ENT.lootTier = 1
-ENT.lootType = "mechanics"
+ENT.lootTier = 3
+ENT.lootType = "chemicals"
 
 ENT.respawnTime = 900
 ENT.searchTime = 1
@@ -53,7 +49,7 @@ if ( SERVER ) then
     function ENT:SpawnFunction(client, trace)
         local angles = client:GetAngles()
 
-        local entity = ents.Create("ix_loot_engine")
+        local entity = ents.Create("ix_loot_chemical_container")
         entity:SetPos(trace.HitPos)
         entity:SetAngles(Angle(0, (entity:GetPos() - client:GetPos()):Angle().y - 180, 0))
         entity:Spawn()

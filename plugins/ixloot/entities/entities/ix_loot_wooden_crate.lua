@@ -16,10 +16,10 @@ ENT.AdminOnly = true
 
 ENT.displayName = "Wooden Crate"
 ENT.searchText = "Searching... "
-ENT.description = "This crate is made of wood and has seen better days. It looks like it could be pried open with the right tools, but it might be best to just break it open and take what you can."
+ENT.description = "A rough wooden crate bound with rusty nails, the boards are splintered and the lid sits unevenly."
 
 ENT.searchSounds = {
-    "physics/wood/wood_box_break1.wav"
+    "physics/wood/wood_strain8.wav"
 }
 
 ENT.models = {

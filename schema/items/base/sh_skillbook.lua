@@ -7,25 +7,30 @@ ITEM.skill = nil -- The skill that this book teaches or improves. This should be
 ITEM.skillIncrease = 0 -- The amount by which this book increases the skill level. This should be set in derived items.
 
 ITEM.functions.Read = {
-    name = "Equip",
-    icon = "icon16/tick.png",
+    name = "Read",
+    icon = "icon16/book.png",
     OnRun = function(item)
         local character = item.player:GetCharacter()
         if not character then return false end
 
         -- Check if the player already has the skill
-        local currentLevel = character:GetAttribute(item.skill) or 0
+        local currentLevel = character:GetAttribute(item.skill, 0) or 0
 
+        if currentLevel >= 20 then
+            item.player:Notify("Your " .. item.skill .. " skill is already at the maximum level.")
+            return false
+        end
+        
         -- Increase the skill level
-        character:SetAttribute(item.skill, currentLevel + item.skillIncrease)
+        character:SetAttrib(item.skill, math.min(currentLevel + item.skillIncrease, 20))
 
-        item.player:ChatPrint("You have read the " .. item.name .. " and increased your " .. item.skill .. " skill by " .. item.skillIncrease .. ".")
+        item.player:Notify("You have read the " .. item.name .. " and your " .. item.skill .. " skill has increased to " .. character:GetAttribute(item.skill, 0) .. ".")
 
         return true
     end,
 
-    OnCanSee = function(item)
-        if item.skill == nil then return false end
+    OnCanRun = function(item)
+        if not item.skill then return false end
         return true
     end
 }

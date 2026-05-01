@@ -16,10 +16,10 @@ ENT.AdminOnly = true
 
 ENT.displayName = "Cardboard Box"
 ENT.searchText = "Searching..."
-ENT.description = "A torn cardboard box, likely used for moving. It looks like it could be easily torn open to reveal whatever is inside."
+ENT.description = "A collapsing cardboard box with ripped flaps and softened corners, the tape has long since lost its grip."
 
 ENT.searchSounds = {
-    "physics/cardboard/cardboard_box_break1.wav"
+    "physics/cardboard/cardboard_box_strain1.wav"
 }
 
 ENT.models = {

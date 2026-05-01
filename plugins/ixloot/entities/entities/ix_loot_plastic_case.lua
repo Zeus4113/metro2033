@@ -4,7 +4,7 @@ AddCSLuaFile()
 
 ENT.Base             = "base_gmodentity"
 ENT.Type             = "anim"
-ENT.PrintName        = "Seized Engine"
+ENT.PrintName        = "Plastic Case"
 ENT.Author            = "Riggs"
 ENT.Purpose            = "Allows you to take loot from it."
 ENT.Instructions    = "Press E"
@@ -14,24 +14,20 @@ ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = true
 ENT.AdminOnly = true
 
-ENT.displayName = "Seized Engine"
-ENT.searchText = "Scavenging..."
-ENT.description = "A heavy engine block caked in grease and rust, its pistons are frozen and the housing is scratched."
+ENT.displayName = "Plastic Case"
+ENT.searchText = "Searching..."
+ENT.description = "A small plastic case with scratches and a loose lid, its surface is worn from repeated use."
 
 ENT.searchSounds = {
-    "physics/metal/metal_solid_strain5.wav"
-}
-
-ENT.requiredTools = {
-    "steel_wrench"
+    "physics/metal/metal_box_strain4.wav"
 }
 
 ENT.models = {
-    "models/z-o-m-b-i-e/st/garage/st_garage_items_zaz_04.mdl"
+    "models/z-o-m-b-i-e/st/box/st_box_metall_01.mdl"
 }
 
 ENT.lootTier = 1
-ENT.lootType = "mechanics"
+ENT.lootType = "chemicals"
 
 ENT.respawnTime = 900
 ENT.searchTime = 1
@@ -53,7 +49,7 @@ if ( SERVER ) then
     function ENT:SpawnFunction(client, trace)
         local angles = client:GetAngles()
 
-        local entity = ents.Create("ix_loot_engine")
+        local entity = ents.Create("ix_loot_plastic_case")
         entity:SetPos(trace.HitPos)
         entity:SetAngles(Angle(0, (entity:GetPos() - client:GetPos()):Angle().y - 180, 0))
         entity:Spawn()

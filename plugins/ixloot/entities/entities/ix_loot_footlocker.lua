@@ -4,34 +4,34 @@ AddCSLuaFile()
 
 ENT.Base             = "base_gmodentity"
 ENT.Type             = "anim"
-ENT.PrintName        = "Seized Engine"
-ENT.Author            = "Riggs"
+ENT.PrintName        = "Footlocker"
+ENT.Author            = "BarneytheBandit"
 ENT.Purpose            = "Allows you to take loot from it."
 ENT.Instructions    = "Press E"
-ENT.Category         = "Lootables Tier One"
+ENT.Category         = "Lootables Tier Two"
 
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = true
 ENT.AdminOnly = true
 
-ENT.displayName = "Seized Engine"
-ENT.searchText = "Scavenging..."
-ENT.description = "A heavy engine block caked in grease and rust, its pistons are frozen and the housing is scratched."
+ENT.displayName = "Footlocker"
+ENT.searchText = "Prying... "
+ENT.description = "A weathered footlocker with rusted metal reinforcements and a faded painted emblem, its wooden surface is scratched and the lock is seized."
 
 ENT.searchSounds = {
-    "physics/metal/metal_solid_strain5.wav"
+    "physics/metal/metal_solid_strain2.wav"
 }
 
 ENT.requiredTools = {
-    "steel_wrench"
+    "metal_crowbar"
 }
 
 ENT.models = {
-    "models/z-o-m-b-i-e/st/garage/st_garage_items_zaz_04.mdl"
+    "models/wick/wrbstalker/anomaly/items/dez_green_box.mdl"
 }
 
-ENT.lootTier = 1
-ENT.lootType = "mechanics"
+ENT.lootTier = 2
+ENT.lootType = "equipment"
 
 ENT.respawnTime = 900
 ENT.searchTime = 1
@@ -53,7 +53,7 @@ if ( SERVER ) then
     function ENT:SpawnFunction(client, trace)
         local angles = client:GetAngles()
 
-        local entity = ents.Create("ix_loot_engine")
+        local entity = ents.Create("ix_loot_footlocker")
         entity:SetPos(trace.HitPos)
         entity:SetAngles(Angle(0, (entity:GetPos() - client:GetPos()):Angle().y - 180, 0))
         entity:Spawn()

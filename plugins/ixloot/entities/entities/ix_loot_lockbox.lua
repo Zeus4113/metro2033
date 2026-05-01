@@ -8,7 +8,7 @@ ENT.PrintName        = "Worn Lockbox"
 ENT.Author            = "Riggs"
 ENT.Purpose            = "Allows you to take loot from it."
 ENT.Instructions    = "Press E"
-ENT.Category         = "Lootables Tier One"
+ENT.Category         = "Lootables Tier Two"
 
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = true
@@ -16,10 +16,10 @@ ENT.AdminOnly = true
 
 ENT.displayName = "Worn Lockbox"
 ENT.searchText = "Prying..."
-ENT.description = "A battered metal lockbox, used to house chemicals. It has a strong lock on it, but it looks like it could be forced open with the right tools."
+ENT.description = "A small metal lockbox with chipped paint and a rusty padlock, its corners are dented from repeated use."
 
 ENT.searchSounds = {
-    "physics/metal/metal_box_strain2.wav"
+    "physics/metal/metal_box_strain4.wav"
 }
 
 ENT.requiredTools = {
@@ -30,7 +30,7 @@ ENT.models = {
     "models/z-o-m-b-i-e/st_item_box_01.mdl"
 }
 
-ENT.lootTier = 1
+ENT.lootTier = 2
 ENT.lootType = "chemicals"
 
 ENT.respawnTime = 900

@@ -4,33 +4,29 @@ AddCSLuaFile()
 
 ENT.Base             = "base_gmodentity"
 ENT.Type             = "anim"
-ENT.PrintName        = "Seized Engine"
-ENT.Author            = "Riggs"
+ENT.PrintName        = "Tool Chest"
+ENT.Author            = "BarneytheBandit"
 ENT.Purpose            = "Allows you to take loot from it."
 ENT.Instructions    = "Press E"
-ENT.Category         = "Lootables Tier One"
+ENT.Category         = "Lootables Tier Three"
 
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = true
 ENT.AdminOnly = true
 
-ENT.displayName = "Seized Engine"
-ENT.searchText = "Scavenging..."
-ENT.description = "A heavy engine block caked in grease and rust, its pistons are frozen and the housing is scratched."
+ENT.displayName = "Tool Chest"
+ENT.searchText = "Searching... "
+ENT.description = "A battered metal chest with a rusted exterior and a sturdy handle, its surface is scratched and the lock is corroded."
 
 ENT.searchSounds = {
     "physics/metal/metal_solid_strain5.wav"
 }
 
-ENT.requiredTools = {
-    "steel_wrench"
-}
-
 ENT.models = {
-    "models/z-o-m-b-i-e/st/garage/st_garage_items_zaz_04.mdl"
+    "models/maver1k_xvii/stalker/props/army_base/prop_army_base_16.mdl"
 }
 
-ENT.lootTier = 1
+ENT.lootTier = 3
 ENT.lootType = "mechanics"
 
 ENT.respawnTime = 900
@@ -53,7 +49,7 @@ if ( SERVER ) then
     function ENT:SpawnFunction(client, trace)
         local angles = client:GetAngles()
 
-        local entity = ents.Create("ix_loot_engine")
+        local entity = ents.Create("ix_loot_toolchest")
         entity:SetPos(trace.HitPos)
         entity:SetAngles(Angle(0, (entity:GetPos() - client:GetPos()):Angle().y - 180, 0))
         entity:Spawn()

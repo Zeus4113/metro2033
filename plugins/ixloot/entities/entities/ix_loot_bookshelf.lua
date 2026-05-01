@@ -4,30 +4,32 @@ AddCSLuaFile()
 
 ENT.Base             = "base_gmodentity"
 ENT.Type             = "anim"
-ENT.PrintName        = "Broken Monitor"
+ENT.PrintName        = "Bookshelf"
 ENT.Author            = "Riggs"
 ENT.Purpose            = "Allows you to take loot from it."
 ENT.Instructions    = "Press E"
-ENT.Category         = "Lootables Tier One"
+ENT.Category         = "Lootables Tier Four"
 
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = true
 ENT.AdminOnly = true
 
-ENT.displayName = "Broken Monitor"
+ENT.displayName = "Bookshelf"
 ENT.searchText = "Searching..."
-ENT.description = "A broken monitor, likely used for displaying information. It looks like it could be pried open to reveal whatever is inside, but it might be best to just break it open and take what you can."
+ENT.description = "A narrow wooden bookshelf with warped shelves and dusty veneer, the back panel is bowed and the finish is scratched."
 
 ENT.searchSounds = {
-    "physics/glass/glass_strain2.wav"
+    "physics/cardboard/cardboard_box_shake1.wav"
 }
 
 ENT.models = {
-    "models/maver1k_xvii/stalker/props/decor/tv_1_br.mdl"
+    "models/props/cs_office/bookshelf1.mdl",
+    "models/props/cs_office/bookshelf2.mdl",
+    "models/props/cs_office/bookshelf3.mdl"
 }
 
-ENT.lootTier = 1
-ENT.lootType = "electronics"
+ENT.lootTier = 4
+ENT.lootType = "library"
 
 ENT.respawnTime = 900
 ENT.searchTime = 1
@@ -49,7 +51,7 @@ if ( SERVER ) then
     function ENT:SpawnFunction(client, trace)
         local angles = client:GetAngles()
 
-        local entity = ents.Create("ix_loot_broken_monitor")
+        local entity = ents.Create("ix_loot_bookshelf")
         entity:SetPos(trace.HitPos)
         entity:SetAngles(Angle(0, (entity:GetPos() - client:GetPos()):Angle().y - 180, 0))
         entity:Spawn()

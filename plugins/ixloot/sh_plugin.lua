@@ -77,17 +77,23 @@ PLUGIN.loot = {
         },
     },
     [2] = {
-        ["engineering"] = {
+        ["mechanics"] = {
             ["common"] = {
                 "pressure_gauge",
-                "9v_battery"
             },
             ["rare"] = {
                 "metal_spring",
+            }
+        },
+        ["electronics"]= {
+            ["common"] = {
+                "9v_battery",
+            },
+            ["rare"] = {
                 "lcd_screen",
             }
         },
-        ["tailoring"] = {
+        ["equipment"] = {
             ["common"] = {
                 "textile_patch",
             },
@@ -95,7 +101,7 @@ PLUGIN.loot = {
                 "ballistic_plate",
             },
         },
-        ["chemistry"] = {
+        ["chemicals"] = {
             ["common"] = {
                 "complex_chemicals"
             },
@@ -105,16 +111,15 @@ PLUGIN.loot = {
         },
     },
     [3] = {
-        ["engineering"] = {
+        ["mechanics"] = {
             ["common"] = {
                 "metal_spring",
-                "lcd_screen",
             },
             ["rare"] = {
                 "reciever",
             }
         },
-        ["tailoring"] = {
+        ["equipment"] = {
             ["common"] = {
                 "ballistic_plate",
             },
@@ -122,7 +127,7 @@ PLUGIN.loot = {
                 "kevlar_weave",
             },
         },
-        ["chemistry"] = {
+        ["chemicals"] = {
             ["common"] = {
                 "medical_reagents",
             },
@@ -145,7 +150,7 @@ PLUGIN.loot = {
                 "sks",
             }
         },
-        ["hospital"] = {
+        ["medical"] = {
             ["common"] = {
                 "syringe",
                 "medical_journal",
@@ -157,7 +162,7 @@ PLUGIN.loot = {
         },
         ["library"] = {
             ["common"] = {
-                "engineering_handbook",
+                "engineers_handbook",
                 "tailoring_guide",
                 "medical_journal",
             },

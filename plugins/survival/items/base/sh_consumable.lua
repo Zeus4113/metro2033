@@ -38,6 +38,9 @@ function ITEM:HandleConsume(character, item)
 
     for i = 1, self.duration do
         timer.Simple(i, function()
+            
+            if not character:GetPlayer():Alive() then return end
+
             if self.thirst and self.thirst ~= 0 then
                 local thirst = character:GetThirst()
                 character:SetThirst(math.Clamp(thirst + (self.thirst/self.duration), 0, 100))
