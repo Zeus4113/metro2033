@@ -35,10 +35,28 @@ ix.config.Add("radiationDecay", 0.5, "Radiation decay per second outside zones."
     category = "Radiation"
 })
 
+ix.config.Add("radiationTickRate", 1, "Seconds between radiation updates.", nil, {
+    data = {min = 0.1, max = 10, decimals = 1},
+    category = "Radiation"
+})
+
 ix.char.RegisterVar("filterTime", {
     field = "filter_time",
     fieldType = ix.type.number,
     default = 0
+})
+
+ix.command.Add("CharSetRadiation", {
+    description = "Set a character's radiation level.",
+    adminOnly = true,
+    arguments = {
+        ix.type.character,
+        ix.type.number
+    },
+    OnRun = function(self, client, target, amount)
+        target:SetData("radiation", math.Clamp(amount, 0, ix.config.Get("radiationMax", 100)))
+        return string.format("%s's radiation level set to %d.", target:GetName(), target:GetData("radiation", 0))
+    end
 })
 
 ix.char.RegisterVar("filterActive", {

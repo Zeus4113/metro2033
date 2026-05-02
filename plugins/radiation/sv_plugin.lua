@@ -33,7 +33,7 @@ end)
 
 function PLUGIN:Think()
     if CurTime() < NEXT_TICK then return end
-    NEXT_TICK = CurTime() + 1
+    NEXT_TICK = CurTime() + ix.config.Get("radiationTickRate", 1)
 
     for _, client in ipairs(player.GetAll()) do
         if not client:Alive() then continue end
