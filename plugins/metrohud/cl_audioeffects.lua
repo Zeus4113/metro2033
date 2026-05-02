@@ -163,9 +163,7 @@ timer.Create("MetroPlayerAudioController", 0.15, 0, function()
     ]]
     
     if radiation > coughThreshold then
-        local chance = math.random(0, 100)
-        print(chance)
-        if chance < math.max(1, 5 * (radiation / maxRad))  then
+        if math.random(0, 100) < math.max(1, 5 * (radiation / maxRad))  then
 
             client:EmitSound(
                 "ambient/voices/cough"..math.random(1,2)..".wav",
