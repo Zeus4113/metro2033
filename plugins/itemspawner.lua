@@ -105,11 +105,12 @@ if SERVER then
 		["metal_crowbar"] = 100,
 		["worn_knife"] = 100,
 		["steel_wrench"] = 100,
-		["antique_clock"] = 25,
-		["broken_radio"] = 25,
-		["old_boot"] = 50,
-		["household_chemicals"] = 50,
-		["laundry_detergent"] = 50,
+		["antique_clock"] = 10,
+		["broken_radio"] = 10,
+		["old_boot"] = 10,
+		["ruined_jacket"] = 10,
+		["household_cleaner"] = 10,
+		["laundry_detergent"] = 10,
 	}
 
 	function PLUGIN:SaveData()
