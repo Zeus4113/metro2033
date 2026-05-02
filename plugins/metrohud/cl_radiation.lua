@@ -210,6 +210,82 @@ local function DrawMetroWatch(id, x, y, size, value, max, threshold, wedgeColor,
     draw.Circle(centerX, centerY, radius - 8, 64)
 
     -- =========================
+    -- Green Safe Wedge
+    -- =========================
+
+    local thresholdAngle = Lerp(threshold / max, startAngle, endAngle)
+    local dangerSpan = endAngle - thresholdAngle
+    local yellowSpan = dangerSpan * 0.5
+    local yellowStart = thresholdAngle - yellowSpan
+
+    if startAngle < yellowStart then
+        surface.SetDrawColor(100, 180, 100, 140)
+
+        local segments = 40
+        local poly = {}
+        table.insert(poly, { x = centerX, y = centerY })
+
+        for i = 0, segments do
+            local t = i / segments
+            local ang = math.rad(Lerp(t, startAngle, yellowStart))
+            table.insert(poly, {
+                x = centerX + math.cos(ang) * (radius - 14),
+                y = centerY + math.sin(ang) * (radius - 14)
+            })
+        end
+
+        surface.DrawPoly(poly)
+    end
+
+    -- =========================
+    -- Yellow Warning Wedge
+    -- =========================
+
+    local yellowEnd = thresholdAngle
+
+    if yellowStart < yellowEnd then
+        surface.SetDrawColor(180, 180, 90, 140)
+
+        local segments = 40
+        local poly = {}
+        table.insert(poly, { x = centerX, y = centerY })
+
+        for i = 0, segments do
+            local t = i / segments
+            local ang = math.rad(Lerp(t, yellowStart, yellowEnd))
+            table.insert(poly, {
+                x = centerX + math.cos(ang) * (radius - 14),
+                y = centerY + math.sin(ang) * (radius - 14)
+            })
+        end
+
+        surface.DrawPoly(poly)
+    end
+
+    -- =========================
+    -- Orange Radiation Wedge
+    -- =========================
+
+    if thresholdAngle < endAngle then
+        surface.SetDrawColor(180, 120, 60, 140)
+
+        local segments = 40
+        local poly = {}
+        table.insert(poly, { x = centerX, y = centerY })
+
+        for i = 0, segments do
+            local t = i / segments
+            local ang = math.rad(Lerp(t, thresholdAngle, endAngle))
+            table.insert(poly, {
+                x = centerX + math.cos(ang) * (radius - 14),
+                y = centerY + math.sin(ang) * (radius - 14)
+            })
+        end
+
+        surface.DrawPoly(poly)
+    end
+
+    -- =========================
     -- Tick Marks + Numbers
     -- =========================
 
@@ -250,29 +326,6 @@ local function DrawMetroWatch(id, x, y, size, value, max, threshold, wedgeColor,
     end
 
     -- =========================
-    -- Orange Radiation Wedge
-    -- =========================
-
-    if state.smooth > 0 then
-        surface.SetDrawColor(220, 110, 20, 180)
-
-        local segments = 40
-        local poly = {}
-        table.insert(poly, { x = centerX, y = centerY })
-
-        for i = 0, segments do
-            local t = i / segments
-            local ang = math.rad(Lerp(t, startAngle, needleAngleDeg))
-            table.insert(poly, {
-                x = centerX + math.cos(ang) * (radius - 14),
-                y = centerY + math.sin(ang) * (radius - 14)
-            })
-        end
-
-        surface.DrawPoly(poly)
-    end
-
-    -- =========================
     -- Needle
     -- =========================
 
@@ -283,12 +336,21 @@ local function DrawMetroWatch(id, x, y, size, value, max, threshold, wedgeColor,
 
     local needleAngle = math.rad(needleAngleDeg + jitter)
     local needleLength = radius - 26
+    local needleWidth = 2.5
+    local perpAngle = needleAngle + math.pi / 2
+    local offX = math.cos(perpAngle) * (needleWidth / 2)
+    local offY = math.sin(perpAngle) * (needleWidth / 2)
 
     local nx = centerX + math.cos(needleAngle) * needleLength
     local ny = centerY + math.sin(needleAngle) * needleLength
 
     surface.SetDrawColor(20, 20, 20, 255)
-    surface.DrawLine(centerX, centerY, nx, ny)
+    surface.DrawPoly({
+        { x = centerX + offX, y = centerY + offY },
+        { x = centerX - offX, y = centerY - offY },
+        { x = nx - offX, y = ny - offY },
+        { x = nx + offX, y = ny + offY }
+    })
 
     draw.RoundedBox(8, centerX - 6, centerY - 6, 12, 12, Color(40, 40, 40))
 
@@ -364,8 +426,8 @@ end
 
 function PLUGIN:DrawRadiationWatch(char)
 
-    local centerX = 120
-    local centerY = ScrH() - 120
+    local centerX = ScrW() - 130
+    local centerY = ScrH() - 130
     local radius = 100
 
     local radiation = char:GetData("radiation", 0)
@@ -375,8 +437,8 @@ function PLUGIN:DrawRadiationWatch(char)
     -- MAIN RADIATION GAUGE
     DrawMetroWatch(
         "radiation",
-        20,
-        ScrH() - 220,
+        centerX - 100,
+        centerY - 100,
         200,
         radiation,
         max,
@@ -409,39 +471,4 @@ function PLUGIN:DrawRadiationWatch(char)
 
     local hasDosimeter = false
     hasDosimeter = true
---[[
-
-    if char:GetInventory():HasItem("geiger_counter") then
-        local radiationGain = char:GetData("radiationToAdd", 0)
-
-        if hasDosimeter then
-            -- GAIN GAUGE (0-20)
-            DrawMetroWatch(
-                "gain",
-                250,
-                ScrH() - 220,
-                200,
-                radiationGain,
-                20,
-                10,
-                Color(224, 224, 203),
-                "RAD/s"
-            )
-        else
-            -- GAIN GAUGE (0-20)
-            DrawMetroWatch(
-                "gain",
-                20,
-                ScrH() - 220,
-                200,
-                radiationGain,
-                20,
-                10,
-                Color(224, 224, 203),
-                "RAD/s"
-            )
-        end
-    end
-
-]]
 end

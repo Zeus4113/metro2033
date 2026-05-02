@@ -238,23 +238,4 @@ function PLUGIN:ApplyRadiationEffects(client)
 
     end
 
-    ----------------------------------------------------
-    -- COUGHING
-    ----------------------------------------------------
-
-    if rad > 300 and CurTime() > nextCough then
-
-        local coughRate = math.Clamp((rad - 300) / 200, 0, 1)
-
-        nextCough = CurTime() + Lerp(coughRate, 10, 3)
-
-        client:EmitSound(
-            "ambient/voices/cough"..math.random(1,4)..".wav",
-            40,
-            math.random(95,105),
-            0.6
-        )
-
-    end
-
 end
