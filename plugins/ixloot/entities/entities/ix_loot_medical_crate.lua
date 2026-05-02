@@ -8,7 +8,7 @@ ENT.PrintName        = "Medical Crate"
 ENT.Author            = "Riggs"
 ENT.Purpose            = "Allows you to take loot from it."
 ENT.Instructions    = "Press E"
-ENT.Category         = "Lootables Tier Four"
+ENT.Category         = "Lootables Tier 4"
 
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = true

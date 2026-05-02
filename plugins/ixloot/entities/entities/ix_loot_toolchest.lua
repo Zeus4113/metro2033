@@ -8,7 +8,7 @@ ENT.PrintName        = "Tool Chest"
 ENT.Author            = "BarneytheBandit"
 ENT.Purpose            = "Allows you to take loot from it."
 ENT.Instructions    = "Press E"
-ENT.Category         = "Lootables Tier Three"
+ENT.Category         = "Lootables Tier 3"
 
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = true

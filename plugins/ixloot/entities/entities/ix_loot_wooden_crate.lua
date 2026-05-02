@@ -8,7 +8,7 @@ ENT.PrintName        = "Wooden Crate"
 ENT.Author            = "Riggs"
 ENT.Purpose            = "Allows you to take loot from it."
 ENT.Instructions    = "Press E"
-ENT.Category         = "Lootables Tier Zero"
+ENT.Category         = "Lootables Tier 0"
 
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = true
@@ -20,6 +20,10 @@ ENT.description = "A rough wooden crate bound with rusty nails, the boards are s
 
 ENT.searchSounds = {
     "physics/wood/wood_strain8.wav"
+}
+
+ENT.requiredTools = {
+    "metal_crowbar",
 }
 
 ENT.models = {

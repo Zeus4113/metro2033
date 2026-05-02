@@ -8,7 +8,7 @@ ENT.PrintName        = "Footlocker"
 ENT.Author            = "BarneytheBandit"
 ENT.Purpose            = "Allows you to take loot from it."
 ENT.Instructions    = "Press E"
-ENT.Category         = "Lootables Tier Two"
+ENT.Category         = "Lootables Tier 2"
 
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = true

@@ -8,7 +8,7 @@ ENT.PrintName        = "Seized Engine"
 ENT.Author            = "Riggs"
 ENT.Purpose            = "Allows you to take loot from it."
 ENT.Instructions    = "Press E"
-ENT.Category         = "Lootables Tier One"
+ENT.Category         = "Lootables Tier 1"
 
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = true
