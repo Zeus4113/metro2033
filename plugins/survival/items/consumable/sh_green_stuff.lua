@@ -9,7 +9,7 @@ ITEM.price = 247
 
 ITEM.thirst = 0
 ITEM.hunger = 0
-ITEM.radiation = -400
+ITEM.radiation = -500
 ITEM.health = 0
 
 ITEM.duration = 50
