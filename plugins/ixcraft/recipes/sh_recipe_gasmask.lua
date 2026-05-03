@@ -4,7 +4,7 @@ RECIPE.model = "models/weapons/metro2033/w_gasmask.mdl"
 RECIPE.category = "Helmet"
 
 RECIPE.requirements = {
-	["wire"] = 1,
+	["wires"] = 1,
 	["cloth"] = 2,
 }
 

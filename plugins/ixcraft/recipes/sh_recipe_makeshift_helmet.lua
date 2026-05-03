@@ -4,7 +4,7 @@ RECIPE.model = "models/hardbass/helem_hq.mdl"
 RECIPE.category = "Helmet"
 
 RECIPE.requirements = {
-	["wire"] = 2,
+	["wires"] = 2,
 	["cloth"] = 3,
 	["textile_patch"] = 1,
 }

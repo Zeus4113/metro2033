@@ -4,7 +4,7 @@ RECIPE.model = "models/z-o-m-b-i-e/metro_ll/equipment/m_ll_helmet_lynx_01.mdl"
 RECIPE.category = "Helmet"
 
 RECIPE.requirements = {
-	["wire"] = 3,
+	["wires"] = 3,
 	["textile_patch"] = 2,
 	["ballistic_plate"] = 1,
 }
