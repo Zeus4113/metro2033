@@ -1,4 +1,4 @@
-CLASS.name = "Syndicate"
+CLASS.name = "Station Gang"
 CLASS.faction = FACTION_DWELLER
 CLASS.isDefault = false
-CLASS_SYNDICATE = CLASS.index
+CLASS_STATION = CLASS.index
