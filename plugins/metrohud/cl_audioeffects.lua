@@ -144,10 +144,13 @@ timer.Create("MetroPlayerAudioController", 0.15, 0, function()
 
     local radiation = char:GetData("radiation", 0)
     local maxRad = char:GetData("radiationMax", 500)
-    local coughThreshold = maxRad - (maxRad - radThreshold * 1.5)
+    local coughThreshold = maxRad - ((maxRad - radThreshold) * 1.5)
     
     if radiation > coughThreshold then
-        if math.random(0, 100) < math.max(1, 5 * (radiation / maxRad))  then
+
+        local chance = math.random(0, 100)
+        local requirement = math.max(1, 3 * (radiation / maxRad))
+        if chance < requirement  then
 
             client:EmitSound(
                 "ambient/voices/cough"..math.random(1,2)..".wav",
