@@ -252,7 +252,7 @@ if (SERVER) then
 		
 		if self.skills then 
 			for v, k in pairs(self.skills) do
-				character:SetAttrib(string.lower(v) ,character:GetAttribute(string.lower(v)) + self.skillIncrease)
+				character:SetAttrib(string.lower(v) ,character:GetAttribute(string.lower(v)) + (self.skillIncrease * ix.config.Get("skillIncreaseModifier", 0)))
 			end
 		end
 

@@ -62,6 +62,11 @@ ix.config.Add("cookingFarmChance", 0.03, "Gathering chance per cooking.", nil, {
     category = "attributes"
 })
 
+ix.config.Add("skillIncreaseModifier", 1, "Modifier for skill increases gained via crafting.", nil, {
+    data = {min = 0.1, max = 2, decimals = 1},
+    category = "attributes"
+})
+
 ix.config.Add("characterCreationPoints", 40, "Number of points a player can use during character creation.", nil, {
     data = {min = 0, max = 180},
     category = "attributes"
