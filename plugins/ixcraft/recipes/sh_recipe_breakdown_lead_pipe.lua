@@ -11,14 +11,11 @@ RECIPE.results = {
 	["metal_scrap"] = 3,
 }
 
---[[
 RECIPE.skillIncrease = 0.05
-
 
 RECIPE.skills = {
     ["Engineering"] = 0,
 }
-]]
 
 RECIPE:PostHook("OnCanCraft", function(recipeTable, client)
 
