@@ -84,17 +84,6 @@ if CLIENT then
     -- MASK UTILITY FUNCTIONS
     --------------------------------------------------------
 
-    function GetEquippedMask(char)
-        local equipment = char:GetData("equipment", {})
-
-        for _, itemID in pairs(equipment) do
-            local item = ix.item.instances[itemID]
-            if item and item.isGasmask then
-                return item
-            end
-        end
-    end
-
     function GetMaskStage(item)
         if not item.maxDurability then return 1 end
 

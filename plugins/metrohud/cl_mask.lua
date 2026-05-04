@@ -17,7 +17,7 @@ end
 -- =========================
 
 function PLUGIN:DrawMaskOverlay(char)
-    local maskItem = GetEquippedMask(char)
+    local maskItem = char:GetEquippedMask()
     if not maskItem then return end
 
     local stage = GetMaskStage(maskItem)

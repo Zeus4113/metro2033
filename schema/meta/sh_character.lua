@@ -1,5 +1,6 @@
 local CHAR = ix.meta.character
 
+
 -- Initialize equipment table
 function CHAR:GetEquipment()
     return self:GetData("equipment", {
@@ -7,6 +8,17 @@ function CHAR:GetEquipment()
         vest = nil,
         helmet = nil
     })
+end
+
+function CHAR:GetEquippedMask()
+    local equipment = self:GetEquipment()
+
+    for _, itemID in pairs(equipment) do
+        local item = ix.item.instances[itemID]
+        if item and item.isGasmask then
+            return item
+        end
+    end
 end
 
 function CHAR:GetDamageResistance()
