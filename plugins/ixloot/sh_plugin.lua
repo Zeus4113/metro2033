@@ -140,7 +140,7 @@ PLUGIN.loot = {
         ["military"] = {
             ["common"] = {
                 "reciever",
-                "military_documents",
+                "kevlar_weave"
             },
             ["rare"] = {
                 "akm",
@@ -168,127 +168,10 @@ PLUGIN.loot = {
             },
             ["rare"] = {
                 "civil_documents",
+                "military_documents",
             },
         }
     },
-}
-
-PLUGIN.lootTable = {
-    ["general"] = {
-        "tin_can",
-        "lead_pipe",
-        "cast_iron_pot",
-        "dirty_water",
-    },
-    ["equipment"] = {
-        "ruined_jacket",
-        "old_boot",
-        "dirty_water",
-    },
-    ["electrical"] = {
-        "power_cord",
-        "old_cables",
-        "ruined_psu"
-    },
-    ["industrial"] = {
-        "metal_scrap",
-        "mechanical_parts",
-        "broken_motor"
-    },
-    ["medical"] = {
-        "purified_water",
-        "bandage",
-        "painkillers"
-    },
-    ["tools"] = {
-        "steel_wrench",
-        "worn_knife",
-        "metal_crowbar"
-    },
-    ["hazmat"] = {
-        "purified_water",
-        "filter",
-        "anti_radiation_pills"
-    },
-    ["military"] = {
-         "tikhar",
-         "helsing",
-         "helmet_makeshift",
-         "vest_carrier_rig"
-    },
-    ["farm"] = {
-        "mushroom",
-    },
-    ["corpse"] = {
-        "filter",
-        "anti_radiation_pills",
-        "medkit",
-    }
-}
-
-PLUGIN.rareLootTable = {
-    ["general"] = {
-        "antique_clock",
-        "broken_radio",
-        "household_cleaner",
-        "laundry_detergent"
-    },
-    ["equipment"] = {
-        "kevlar_weave",
-        "kevlar_weave",
-        "ballistic_plate",
-    },
-    ["electrical"] = {
-        "9v_battery",
-        "9v_battery",
-        "lcd_screen"
-    },
-    ["industrial"] = {
-        "pressure_gauge",
-        "pressure_gauge",
-        "metal_spring"
-    },
-    ["medical"] = {
-        "syringe",
-        "syringe",
-        "medical_reagents",
-    },
-    ["tools"] = {
-        "revolver",
-        "key"
-    },
-    ["hazmat"] = {
-        "helmet_gasmask"
-    },
-    ["military"] = {
-         "helmet_ranger",
-         "vest_tactical",
-         "bastard",
-         "revolver",
-         "backpack_travelers"
-    },
-    ["farm"] = {
-        "mushroom"
-    },
-    ["corpse"] = {
-        "revolver",
-        "bastard",
-        "vest_plate_carrier",
-    }
-}
-
-PLUGIN.rareChance = {
-    ["general"] = 4,
-    ["electrical"] = 3,
-    ["industrial"] = 3,
-    ["equipment"] = 3,
-    ["medical"] = 3,
-    ["military"] = 4,
-    ["tools"] = 100,
-    ["hazmat"] = 10,
-    ["farm"] = 0,
-    ["corpse"] = 20,
-
 }
 
 
