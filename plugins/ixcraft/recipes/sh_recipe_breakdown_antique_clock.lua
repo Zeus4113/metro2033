@@ -11,7 +11,7 @@ RECIPE.results = {
 	["mechanical_parts"] = 1,
 }
 
-RECIPE.skillIncrease = 0.1
+RECIPE.skillIncrease = 0.08
 
 RECIPE.skills = {
     ["Engineering"] = 0,

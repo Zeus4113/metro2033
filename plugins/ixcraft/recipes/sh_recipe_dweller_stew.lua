@@ -12,7 +12,7 @@ RECIPE.results = {
     ["dweller_stew"] = 1
 }
 
-RECIPE.skillIncrease = 0.2
+RECIPE.skillIncrease = 0.22
 
 RECIPE.skills = {
     ["Chemistry"] = 0,

@@ -11,7 +11,7 @@ RECIPE.results = {
     ["bandage"] = 1
 }
 
-RECIPE.skillIncrease = 0.1
+RECIPE.skillIncrease = 0.06
 
 RECIPE.skills = {
     ["Chemistry"] = 0,

@@ -12,7 +12,7 @@ RECIPE.results = {
 }
 
 
-RECIPE.skillIncrease = 0.3
+RECIPE.skillIncrease = 0.18
 
 RECIPE.skills = {
     ["Chemistry"] = 0,
