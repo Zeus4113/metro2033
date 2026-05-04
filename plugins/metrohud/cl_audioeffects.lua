@@ -67,6 +67,7 @@ timer.Create("MetroPlayerAudioController", 0.25, 0, function()
     local char = client:GetCharacter()
     if not char then return end
 
+    if char:GetData("blockingRadiation", false) then return end
     ----------------------------------------------------
     -- VARIABLES
     ----------------------------------------------------
@@ -133,36 +134,6 @@ timer.Create("MetroPlayerAudioController", 0.25, 0, function()
             maskBreathActive = false
         end
     end
-
-
---[[
-    
-if maskItem and gainingRads then
-
-    if currentMaskBreathType ~= breathingCategory then
-
-        if maskBreathSound then
-            maskBreathSound:FadeOut(0.5)
-        end
-
-        maskBreathSound = CreateSound(client, table.Random(BREATH_SOUNDS[breathingCategory]))
-        maskBreathSound:Play()
-
-        currentMaskBreathType = breathType
-    end
-
-elseif not maskItem and gainingRads then
-
-end
-
-    if maskBreathSound then
-        maskBreathSound:FadeOut(1)
-        maskBreathSound = nil
-        currentMaskBreathType = nil
-    end
-
-end
-]]
 
     ----------------------------------------------------
     -- STAMINA BREATHING (disabled if mask active)
