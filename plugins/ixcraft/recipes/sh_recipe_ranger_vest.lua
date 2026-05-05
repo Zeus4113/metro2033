@@ -10,7 +10,7 @@ RECIPE.requirements = {
 }
 
 RECIPE.results = {
-    ["ranger_vest"] = 1
+    ["vest_ranger"] = 1
 }
 
 
