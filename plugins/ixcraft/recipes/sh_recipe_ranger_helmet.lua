@@ -4,7 +4,7 @@ RECIPE.model = "models/maver1k_xvii/metro_digger_helmet.mdl"
 RECIPE.category = "Helmet"
 
 RECIPE.requirements = {
-	["textile+patch"] = 3,
+	["textile_patch"] = 3,
 	["kevlar_weave"] = 1,
 	["ballistic_plate"] = 2,
 }
