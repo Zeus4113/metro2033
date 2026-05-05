@@ -8,7 +8,7 @@ ITEM.weight = 0.3
 ITEM.price = 13
 
 ITEM.ammo = "pistol" -- type of the ammo
-ITEM.ammoAmount = 24 -- amount of the ammo
+ITEM.ammoAmount = 18 -- amount of the ammo
 
 ITEM.iconCam = {
 	pos = Vector(192.25, 161.37, 122.64),
