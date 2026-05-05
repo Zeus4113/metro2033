@@ -67,7 +67,7 @@ timer.Create("MetroPlayerAudioController", 0.25, 0, function()
     local char = client:GetCharacter()
     if not char then return end
 
-    if char:GetData("blockingRadiation", false) then return end
+    if char:GetData("BlockingRadiation", false) then return end
     ----------------------------------------------------
     -- VARIABLES
     ----------------------------------------------------
