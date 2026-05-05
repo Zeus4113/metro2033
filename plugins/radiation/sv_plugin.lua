@@ -80,7 +80,13 @@ function PLUGIN:Think()
                     local ratio = durability / mask.maxDurability
                     local drain = mask.filterDrainRate * (1 + (1 - ratio))
 
-                    mask:SetData("filterTime", math.max(filterTime - drain, 0))
+                    local newFilterTime = math.max(filterTime - drain, 0)
+                    mask:SetData("filterTime", newFilterTime)
+
+                    if newFilterTime == 0 then
+                        client:Notify("Your gas mask filter has run out!")
+                        client:EmitSound("buttons/button19.wav", 75, 90, 1)
+                    end
                 end
             end
 
