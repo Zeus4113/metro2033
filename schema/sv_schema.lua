@@ -1,6 +1,12 @@
 
 -- Here is where all of your serverside functions should go.
 
+-- Block base PM/Reply commands — PDA is the only allowed private messaging method.
+hook.Add("InitializedSchema", "BlockBasePM", function()
+	ix.command.list["pm"] = nil
+	ix.command.list["reply"] = nil
+end)
+
 -- Example server function that will slap the given player.
 function Schema:SlapPlayer(client)
 	if (IsValid(client) and client:IsPlayer()) then
