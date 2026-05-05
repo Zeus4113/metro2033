@@ -83,9 +83,15 @@ function PLUGIN:Think()
                     local newFilterTime = math.max(filterTime - drain, 0)
                     mask:SetData("filterTime", newFilterTime)
 
+                    local threshold = mask.maxFilterTime * 0.1
+                    if filterTime > threshold and newFilterTime <= threshold then
+                        client:Notify("Warning: Gas mask filter is nearly depleted!")
+                        net.Start("ixFilterWarning") net.WriteBool(false) net.Send(client)
+                    end
+
                     if newFilterTime == 0 then
                         client:Notify("Your gas mask filter has run out!")
-                        client:EmitSound("buttons/button19.wav", 75, 90, 1)
+                        net.Start("ixFilterWarning") net.WriteBool(true) net.Send(client)
                     end
                 end
             end

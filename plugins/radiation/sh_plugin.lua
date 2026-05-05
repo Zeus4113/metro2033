@@ -4,6 +4,11 @@ PLUGIN.description = "Radiation system with command-based zones."
 
 ix.util.Include("sh_meta.lua")
 ix.util.Include("sv_plugin.lua")
+ix.util.Include("cl_plugin.lua")
+
+if SERVER then
+	util.AddNetworkString("ixFilterWarning")
+end
 
 ix.config.Add("radiationMax", 100, "Maximum radiation level.", nil, {
     data = {min = 1, max = 1000},
