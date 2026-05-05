@@ -46,7 +46,7 @@ PLUGIN.list = {
         slicingSound = {'ambient/machines/slicer2.wav', 'ambient/machines/slicer3.wav'},
         butcheringWeapons = {'tfa_nmrih_kknife'},
         items = {
-            "mutant_hide",
+            "watcher_hide",
             "mutant_meat",
             "mutant_meat"
         }
