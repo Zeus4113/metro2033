@@ -18,7 +18,7 @@ PLUGIN.list = {
         butcheringWeapons = {'tfa_nmrih_kknife'},
         items = {
             "lurker_meat",
-            "mutant_skin"
+            "mutant_guts"
         }
     },
     ['models/m2033r/npc/nosach_male.mdl'] = {
