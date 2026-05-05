@@ -22,7 +22,7 @@ ITEM.functions.Consume = {
         local character = item.player:GetCharacter()
         if not character then return end
 
-        item.player:EmitSound("items/medshot4.wav")
+        item.player:EmitSound("interface/medkit/medkit_use_1.mp3")
 
         item:HandleConsume(character, item)
 
