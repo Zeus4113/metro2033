@@ -51,17 +51,18 @@ function PLUGIN:SearchLootContainer(ent, client)
                 if not item then continue end
                 if not item.maxDurability then continue end
 
-                item:SetData("durability", item:GetData("durability", item.maxDurability) - 15)
+                item:SetData("durability", item:GetData("durability", item.maxDurability) - ix.config.Get("toolDurabilityDec", 15))
 
                 if item:GetData("durability", item.maxDurability) <= 0 then
-                    if item.Unequip then 
-                        item:Unequip(client) 
-                        client:Notify(item.name .. " has broken.")
-                        
+                    if item.Unequip then
+                        item:Unequip(client)
                         local size = item.width * item.height
                         item:Remove()
                         inventory:Add("metal_scrap", size)
+                    else
+                        item:Remove()
                     end
+                    client:Notify(item.name .. " has broken.")
                 end
             end
         end

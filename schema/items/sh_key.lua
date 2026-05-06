@@ -8,3 +8,4 @@ ITEM.height = 1
 
 ITEM.weight = 0.1
 ITEM.price = 3
+ITEM.maxDurability = 45

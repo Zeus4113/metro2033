@@ -8,6 +8,7 @@ ITEM.slot = "melee"
 ITEM.price = 1
 ITEM.weight = 3
 ITEM.repairType = "tool"
+ITEM.maxDurability = 90
 
 ITEM.model = "models/weapons/tfa_nmrih/w_me_crowbar.mdl"
 ITEM.width = 1

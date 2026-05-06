@@ -19,6 +19,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 -- doubled the items in the table so that they are more common than anything else. If you get what I mean.
 
+ix.config.Add("toolDurabilityDec", 15, "How much durability required tools lose per lootable interaction.", nil, {
+    data = {min = 1, max = 100},
+    category = PLUGIN.name
+})
+
 ix.util.Include("sv_plugin.lua")
 
 PLUGIN.loot = {

@@ -8,6 +8,7 @@ ITEM.slot = "melee"
 ITEM.price = 1
 ITEM.weight = 0.5
 ITEM.repairType = "tool"
+ITEM.maxDurability = 60
 
 ITEM.model = "models/weapons/tfa_nmrih/w_me_kitknife.mdl"
 ITEM.width = 1
