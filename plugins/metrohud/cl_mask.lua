@@ -17,6 +17,7 @@ end
 -- =========================
 
 function PLUGIN:DrawMaskOverlay(char)
+    if not ix.option.Get("gasmaskOverlay", true) then return end
     local maskItem = char:GetEquippedMask()
     if not maskItem then return end
 

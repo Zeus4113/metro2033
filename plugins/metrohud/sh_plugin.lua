@@ -9,6 +9,11 @@ ix.util.Include("cl_audioeffects.lua")
 ix.util.Include("cl_statsreadout.lua")
 ix.util.Include("cl_bars.lua")
 
+ix.option.Add("gasmaskOverlay", ix.type.bool, true, {
+    category = "Metro HUD",
+    phrase = "Show Gasmask Overlay"
+})
+
 ix.config.Add("staminaThreshold", 50, "Stamina threshold before visual & audio effects are applied.", nil, {
     data = {min = 0, max = 100},
     category = "Metro HUD"
