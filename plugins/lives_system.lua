@@ -79,7 +79,8 @@ ix.command.Add("CharGiveKarma", {
 
         local character = target:GetCharacter()
         character:SetKarma(character:GetKarma() + amount)
-        client:ChatPrint("You have recieved " .. amount .. " karma points, your total is now " .. character:GetKarma() .. ".")
+        client:ChatPrint("You have given out " .. amount .. " karma points.")
+        target:ChatPrint("You have recieved " .. amount .. " karma points, your total is now " .. character:GetKarma() .. ".")
 
     end
 })
