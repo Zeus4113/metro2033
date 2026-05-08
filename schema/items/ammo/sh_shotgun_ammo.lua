@@ -8,7 +8,7 @@ ITEM.weight = 0.6
 ITEM.price = 54
 
 ITEM.ammo = "buckshot" -- type of the ammo
-ITEM.ammoAmount = 12 -- amount of the ammo
+ITEM.ammoAmount = 36 -- amount of the ammo
 
 
 ITEM.iconCam = {
