@@ -103,7 +103,11 @@ function PLUGIN:Think()
         local threshold = ix.config.Get("radiationThreshold", 60)
 
         if char:GetRadiation() >= threshold then
-            self:ApplyRadiationDamage(client, ix.config.Get("radiationDamage", 2)) 
+            local radMax    = ix.config.Get("radiationMax", 100)
+            local baseDamage = ix.config.Get("radiationDamage", 2)
+            local range     = radMax - threshold
+            local t         = range > 0 and (char:GetRadiation() - threshold) / range or 1
+            self:ApplyRadiationDamage(client, baseDamage * Lerp(t, 1, 10))
         end
     end
 end
