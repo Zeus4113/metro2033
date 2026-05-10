@@ -3,4 +3,4 @@ ITEM.description = "A collection of military documents and reports, valuable to 
 ITEM.model = "models/wick/wrbstalker/nlc7/items/wick_docs_01.mdl"
 
 ITEM.category = "Books"
-ITEM.price = 500
+ITEM.price = 300
