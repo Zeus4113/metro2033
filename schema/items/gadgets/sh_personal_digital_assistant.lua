@@ -122,6 +122,52 @@ hook.Add("InitializedChatClasses", "PDAChannels", function()
 		end,
 	})
 
+	ix.chat.Register("pdafaction", {
+		prefix = {"/PDAF"},
+		description = "Broadcast a message to PDA holders in your faction.",
+		color = Color(180, 100, 255),
+		bNoIndicator = true,
+		OnChatAdd = function(_, speaker, text)
+			local char = IsValid(speaker) and speaker:GetCharacter()
+			local factionData = char and ix.faction.indices[char:GetFaction()]
+			if factionData then
+				chat.AddText(
+					Color(120, 60, 200),  "[PDA-FACTION] ",
+					Color(180, 120, 255), "[" .. factionData.name .. "] ",
+					Color(210, 180, 255), speaker:Name(),
+					Color(140, 100, 200), ": ",
+					Color(230, 215, 255), text
+				)
+			else
+				chat.AddText(
+					Color(120, 60, 200),  "[PDA-FACTION] ",
+					Color(210, 180, 255), speaker:Name(),
+					Color(140, 100, 200), ": ",
+					Color(230, 215, 255), text
+				)
+			end
+		end,
+		CanSay = function(self, speaker, text)
+			if not HasPDA(speaker) then
+				speaker:Notify("You need a PDA to use this channel.")
+				return false
+			end
+			local char = speaker:GetCharacter()
+			if not char or not ix.faction.indices[char:GetFaction()] then
+				speaker:Notify("You must be in a faction to use this channel.")
+				return false
+			end
+			return true
+		end,
+		CanHear = function(self, speaker, listener)
+			if not HasPDA(listener) then return false end
+			local sc = speaker:GetCharacter()
+			local lc = listener:GetCharacter()
+			if not sc or not lc then return false end
+			return sc:GetFaction() == lc:GetFaction()
+		end,
+	})
+
 	ix.chat.Register("pdadm", {
 		color = Color(255, 200, 100),
 		bNoIndicator = true,
