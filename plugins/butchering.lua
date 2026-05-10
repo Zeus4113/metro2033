@@ -1,201 +1,175 @@
-PLUGIN.name     = 'Corpse Butchering'
-PLUGIN.author   = 'Bilwin'
+local PLUGIN = PLUGIN
+
+PLUGIN.name   = "Corpse Butchering"
+PLUGIN.author = "Bilwin"
 
 PLUGIN.list = {
-    --[[
-    ['modelpath/modelname.mdl'] = {
-        butcheringTime = 5,                                                                     -- How many seconds will the corpse be butchered
-        impactEffect = 'AntlionGib',                                                            -- What will be the effect when butchering a corpse
-        slicingSound = {[1] = 'soundpath/soundname.***', [2] = 'soundpath/soundname.***'},      -- [1] This is the initial butchering sound; [2] this is the sound at which the corpse will already be butchered
-        butcheringWeapons = {'weapon_class', 'weapon_class2'},                                  -- Weapons available for butchering a specific corpse
-        animation = 'Roofidle1',                                                                -- Animation that will be played when butchering
-        items = {'item_uniqueID1', 'item_uniqueID2'}                                            -- Items to be issued for character after butchered
-    }
-    --]]
-    ['models/m2033r/npc/churzik.mdl'] = {
-        butcheringTime = 2,
-        slicingSound = {'ambient/machines/slicer2.wav', 'ambient/machines/slicer3.wav'},
-        butcheringWeapons = {'tfa_nmrih_kknife'},
-        items = {
-            "lurker_meat",
-            "mutant_guts"
-        }
+    ["models/m2033r/npc/churzik.mdl"] = {
+        butcheringTime    = 2,
+        slicingSound      = {"ambient/machines/slicer2.wav", "ambient/machines/slicer3.wav"},
+        butcheringWeapons = {"tfa_nmrih_kknife"},
+        items             = {"mutant_meat", "mutant_guts"},
     },
-    ['models/m2033r/npc/nosach_male.mdl'] = {
-        butcheringTime = 3,
-        slicingSound = {'ambient/machines/slicer2.wav', 'ambient/machines/slicer3.wav'},
-        butcheringWeapons = {'tfa_nmrih_kknife'},
-        items = {
-            "mutant_meat",
-            "mutant_meat",
-            "mutant_skin"
-        }
+    ["models/m2033r/npc/nosach_male.mdl"] = {
+        butcheringTime    = 3,
+        slicingSound      = {"ambient/machines/slicer2.wav", "ambient/machines/slicer3.wav"},
+        butcheringWeapons = {"tfa_nmrih_kknife"},
+        items             = {"mutant_meat", "mutant_meat", "mutant_skin"},
     },
-    ['models/m2033r/npc/nosach.mdl'] = {
-        butcheringTime = 3,
-        slicingSound = {'ambient/machines/slicer2.wav', 'ambient/machines/slicer3.wav'},
-        butcheringWeapons = {'tfa_nmrih_kknife'},
-        items = {
-            "mutant_meat",
-            "mutant_meat",
-            "mutant_skin"
-        }
+    ["models/m2033r/npc/nosach.mdl"] = {
+        butcheringTime    = 3,
+        slicingSound      = {"ambient/machines/slicer2.wav", "ambient/machines/slicer3.wav"},
+        butcheringWeapons = {"tfa_nmrih_kknife"},
+        items             = {"mutant_meat", "mutant_meat", "mutant_skin"},
     },
-    ['models/m2033r/npc/murzik.mdl'] = {
-        butcheringTime = 3,
-        slicingSound = {'ambient/machines/slicer2.wav', 'ambient/machines/slicer3.wav'},
-        butcheringWeapons = {'tfa_nmrih_kknife'},
-        items = {
-            "watcher_hide",
-            "mutant_meat",
-            "mutant_meat"
-        }
+    ["models/m2033r/npc/murzik.mdl"] = {
+        butcheringTime    = 3,
+        slicingSound      = {"ambient/machines/slicer2.wav", "ambient/machines/slicer3.wav"},
+        butcheringWeapons = {"tfa_nmrih_kknife"},
+        items             = {"watcher_hide", "mutant_meat", "mutant_meat"},
     },
-    ['models/m2033r/npc/baby_murzik.mdl'] = {
-        butcheringTime = 1,
-        slicingSound = {'ambient/machines/slicer2.wav', 'ambient/machines/slicer3.wav'},
-        butcheringWeapons = {'tfa_nmrih_kknife'},
-        items = {
-            "lurker_meat"
-        }
-    }
+    ["models/m2033r/npc/baby_murzik.mdl"] = {
+        butcheringTime    = 1,
+        slicingSound      = {"ambient/machines/slicer2.wav", "ambient/machines/slicer3.wav"},
+        butcheringWeapons = {"tfa_nmrih_kknife"},
+        items             = {"mutant_meat"},
+    },
 }
 
 if SERVER then
-    ix.log.AddType('playerButchered', function(client, corpse)
-        return string.format('%s was butchered %s.', client:Name(), corpse:GetModel())
+    ix.log.AddType("playerButchered", function(client, corpse)
+        return string.format("%s butchered %s.", client:Name(), corpse:GetModel())
     end)
 
-    util.AddNetworkString('ixClearClientRagdolls')
-	function PLUGIN:OnNPCKilled(npc, attacker, inflictor)
-        if IsValid(npc) && self.list[npc:GetModel()] then
-            local ragdoll = ents.Create('prop_ragdoll')
-            ragdoll:SetPos( npc:GetPos() )
-            ragdoll:SetAngles( npc:EyeAngles() )
-            ragdoll:SetModel( npc:GetModel() )
-            ragdoll:SetModelScale( npc:GetModelScale() )
-            ragdoll:SetSkin( npc:GetSkin() )
+    util.AddNetworkString("ixClearClientRagdolls")
 
-            for i = 0, (npc:GetNumBodyGroups() - 1) do
-                ragdoll:SetBodygroup(i, npc:GetBodygroup(i))
+    local function FindButcheringTool(client, allowedWeapons)
+        local inv = client:GetCharacter():GetInventory()
+        if not inv then return nil end
+        for _, item in pairs(inv:GetItems()) do
+            if item.class and table.HasValue(allowedWeapons, item.class) then
+                return item
             end
-
-            ragdoll:Spawn()
-            ragdoll:SetCollisionGroup(COLLISION_GROUP_WEAPON)
-            ragdoll:Activate()
-
-            local velocity = npc:GetVelocity()
-
-            for i = 0, ragdoll:GetPhysicsObjectCount() - 1 do
-                local physObj = ragdoll:GetPhysicsObjectNum(i)
-
-                if ( IsValid(physObj) ) then
-                    physObj:SetVelocity(velocity)
-
-                    local index = ragdoll:TranslatePhysBoneToBone(i)
-
-                    if (index) then
-                        local position, angles = npc:GetBonePosition(index)
-
-                        physObj:SetPos(position)
-                        physObj:SetAngles(angles)
-                    end
-                end
-            end
-
-            net.Start('ixClearClientRagdolls')
-                net.WriteString(npc:GetModel())
-            net.SendPVS( npc:GetPos() )
-
-
-            npc:Remove()
         end
-	end
+    end
 
-    local hook_Run = hook.Run
-    local math_ceil = math.ceil
-    local util_Effect = util.Effect
-    local table_IsEmpty = table.IsEmpty
-    local table_HasValue = table.HasValue
+    local function DeductToolDurability(client, tool)
+        if not tool.maxDurability or tool.maxDurability <= 0 then return end
+
+        local newDur = tool:GetData("durability", tool.maxDurability) - ix.config.Get("toolDurabilityDec", 15)
+        tool:SetData("durability", newDur)
+
+        if newDur > 0 then return end
+
+        if tool.Unequip then tool:Unequip(client) end
+        local size = (tool.width or 1) * (tool.height or 1)
+        client:GetCharacter():GetInventory():Add("metal_scrap", size)
+        tool:Remove()
+        client:Notify(tool.name .. " has broken.")
+    end
+
+    function PLUGIN:OnNPCKilled(npc)
+        if not IsValid(npc) or not self.list[npc:GetModel()] then return end
+
+        local ragdoll = ents.Create("prop_ragdoll")
+        ragdoll:SetPos(npc:GetPos())
+        ragdoll:SetAngles(npc:EyeAngles())
+        ragdoll:SetModel(npc:GetModel())
+        ragdoll:SetModelScale(npc:GetModelScale())
+        ragdoll:SetSkin(npc:GetSkin())
+
+        for i = 0, npc:GetNumBodyGroups() - 1 do
+            ragdoll:SetBodygroup(i, npc:GetBodygroup(i))
+        end
+
+        ragdoll:Spawn()
+        ragdoll:SetCollisionGroup(COLLISION_GROUP_WEAPON)
+        ragdoll:Activate()
+
+        local velocity = npc:GetVelocity()
+        for i = 0, ragdoll:GetPhysicsObjectCount() - 1 do
+            local physObj = ragdoll:GetPhysicsObjectNum(i)
+            if not IsValid(physObj) then continue end
+
+            physObj:SetVelocity(velocity)
+
+            local index = ragdoll:TranslatePhysBoneToBone(i)
+            if index then
+                local pos, ang = npc:GetBonePosition(index)
+                physObj:SetPos(pos)
+                physObj:SetAngles(ang)
+            end
+        end
+
+        net.Start("ixClearClientRagdolls")
+            net.WriteString(npc:GetModel())
+        net.SendPVS(npc:GetPos())
+
+        npc:Remove()
+    end
+
     function PLUGIN:KeyPress(client, key)
-        if client:GetCharacter() and client:Alive() then
-            if key == IN_USE then
-                local HitPos = client:GetEyeTraceNoCursor()
-                local target = HitPos.Entity
-                if target and IsValid(target) and target:IsRagdoll() and self.list[target:GetModel()] then
-                    local allowedWeapons = self.list[target:GetModel()].butcheringWeapons or {'weapon_crowbar'}
-                    local canButch = hook_Run('CanButchEntity', client, target)
-                    if ( table_HasValue(allowedWeapons, client:GetActiveWeapon():GetClass()) and !target:GetNetVar('cutting', false) and client:IsWepRaised() and canButch ) then
-                        local butchAnim = self.list[target:GetModel()].animation or 'Roofidle1'
-                        local butchSound = self.list[target:GetModel()].slicingSound[1] or 'ambient/machines/slicer1.wav'
-                        client:ForceSequence(butchAnim, nil, 0)
-                        target:SetNetVar('cutting', true)
-                        target:EmitSound(butchSound)
- 
-                        local physObj, butcheringTime = target:GetPhysicsObject(), self.list[target:GetModel()].butcheringTime or 2
-                        if (IsValid(physObj) and !isnumber(self.list[target:GetModel()].butcheringTime) ) then
-                            butcheringTime = math_ceil( physObj:GetMass() )
-                        end
+        if key ~= IN_USE then return end
 
-                        client:SetAction('Butchering...', butcheringTime)
-                        client:DoStaredAction(target, function()
-                            if ( IsValid(client) ) then
-                                client:LeaveSequence()
+        local char = client:GetCharacter()
+        if not char or not client:Alive() then return end
 
-                                if IsValid(target) then
-                                    target:SetNetVar('cutting', nil)
-                                    butchSound = self.list[target:GetModel()].slicingSound[2] or 'ambient/machines/slicer4.wav'
-                                    target:EmitSound(butchSound)
+        local target = client:GetEyeTraceNoCursor().Entity
+        if not IsValid(target) or not target:IsRagdoll() then return end
 
-                                    local effect = EffectData()
-                                        effect:SetStart(target:LocalToWorld(target:OBBCenter()))
-                                        effect:SetOrigin(target:LocalToWorld(target:OBBCenter()))
-                                        effect:SetScale(3)
-                                    util_Effect(self.list[target:GetModel()].impactEffect or 'BloodImpact', effect)
+        local corpseData = self.list[target:GetModel()]
+        if not corpseData then return end
 
-                                    local butcheringItems = self.list[target:GetModel()].items or {}
-                                    if !table_IsEmpty(butcheringItems) then
-                                        for _, item in ipairs(butcheringItems) do
-                                            if !client:GetCharacter():GetInventory():Add(item) then
-                                                ix.item.Spawn(item, client)
-                                            end
-                                        end
-                                    end
+        if target:GetNetVar("cutting", false) then return end
+        if hook.Run("CanButchEntity", client, target) == false then return end
 
-                                    local knife = client:GetCharacter():GetInventory():HasItem("worn_knife")
+        local allowedWeapons = corpseData.butcheringWeapons or {"weapon_crowbar"}
+        local tool = FindButcheringTool(client, allowedWeapons)
+        if not tool then return end
 
-                                    if knife then
-                                        knife:SetData("durability", knife:GetData("durability", knife.maxDurability) - ix.config.Get("toolDurabilityDec", 15))
-                                        local durability = knife:GetData("durability", knife.maxDurability)
-                                        if durability and durability <= 0 then
-                                            if knife.Unequip then
-                                                knife:Unequip(client)
-                                                local size = knife.width * knife.height
-                                                knife:Remove()
-                                                client:GetCharacter():GetInventory():Add("metal_scrap", size)
-                                            else
-                                                knife:Remove()
-                                            end
-                                            client:Notify(knife.name .. " has broken.")
-                                        end
-                                    end
+        local physObj = target:GetPhysicsObject()
+        local butcheringTime = corpseData.butcheringTime or 2
+        if IsValid(physObj) and not isnumber(corpseData.butcheringTime) then
+            butcheringTime = math.ceil(physObj:GetMass())
+        end
 
-                                    ix.log.Add(client, 'playerButchered', target)
-                                    hook_Run('OnButchered', client, target)
-                                    target:Remove()
-                                end
-                            end
-                        end, butcheringTime, function()
-                            if ( IsValid(client) ) then
-                                client:SetAction()
-                                client:LeaveSequence()
-                                target:SetNetVar('cutting', false)
-                            end
-                        end)
-                    end
+        client:ForceSequence(corpseData.animation or "Roofidle1", nil, 0)
+        client:SetAction("Butchering...", butcheringTime)
+        target:SetNetVar("cutting", true)
+        target:EmitSound(corpseData.slicingSound[1] or "ambient/machines/slicer1.wav")
+
+        client:DoStaredAction(target, function()
+            if not IsValid(client) then return end
+            client:LeaveSequence()
+            if not IsValid(target) then return end
+
+            target:SetNetVar("cutting", nil)
+            target:EmitSound(corpseData.slicingSound[2] or "ambient/machines/slicer4.wav")
+
+            local center = target:LocalToWorld(target:OBBCenter())
+            local effect = EffectData()
+            effect:SetStart(center)
+            effect:SetOrigin(center)
+            effect:SetScale(3)
+            util.Effect(corpseData.impactEffect or "BloodImpact", effect)
+
+            local inv = char:GetInventory()
+            for _, itemID in ipairs(corpseData.items or {}) do
+                if not inv:Add(itemID) then
+                    ix.item.Spawn(itemID, client)
                 end
             end
-        end
+
+            DeductToolDurability(client, tool)
+            ix.log.Add(client, "playerButchered", target)
+            hook.Run("OnButchered", client, target)
+            target:Remove()
+        end, butcheringTime, function()
+            if not IsValid(client) then return end
+            client:SetAction()
+            client:LeaveSequence()
+            target:SetNetVar("cutting", false)
+        end)
     end
 
     function PLUGIN:CanButchEntity(client, target)
@@ -203,12 +177,12 @@ if SERVER then
     end
 end
 
-if (CLIENT) then
-    net.Receive('ixClearClientRagdolls', function(len)
+if CLIENT then
+    net.Receive("ixClearClientRagdolls", function()
         local model = net.ReadString()
         timer.Simple(FrameTime() * 2, function()
-            for _, ragdoll in ipairs( ents.GetAll() ) do
-                if (ragdoll:GetClass() == 'class C_ClientRagdoll' and ragdoll:GetModel() == model) then
+            for _, ragdoll in ipairs(ents.GetAll()) do
+                if ragdoll:GetClass() == "class C_ClientRagdoll" and ragdoll:GetModel() == model then
                     ragdoll:Remove()
                 end
             end
