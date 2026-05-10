@@ -11,7 +11,17 @@ ix.config.Add("maxValueDurability", 100, "Maximum value of the durability.", nil
 	category = PLUGIN.name
 })
 
-ix.config.Add("decDurability", 0.5, "By how many units do reduce the durability with each shot?", nil, {
+ix.config.Add("decDurability", 0.5, "By how many units do reduce the durability with each shot (melee/fallback)?", nil, {
+	data = {min = 0.0001, max = 100, decimals = 4},
+	category = PLUGIN.name
+})
+
+ix.config.Add("decDurabilityMetro", 0.5, "Durability decrease per shot for craftable metro weapons.", nil, {
+	data = {min = 0.0001, max = 100, decimals = 4},
+	category = PLUGIN.name
+})
+
+ix.config.Add("decDurabilityMilitary", 0.25, "Durability decrease per shot for military (non-craftable) weapons.", nil, {
 	data = {min = 0.0001, max = 100, decimals = 4},
 	category = PLUGIN.name
 })
@@ -78,8 +88,19 @@ if (SERVER) then
 					bullet.Damage = (originalDamage / 100) * durability
 					bullet.Spread = bullet.Spread * (1 + (1 - (0.01 * durability)))
 
+					local decRate
+					if item.repairType == "gun" then
+						if item.ixHasRecipe then
+							decRate = ix.config.Get("decDurabilityMetro", 0.5)
+						else
+							decRate = ix.config.Get("decDurabilityMilitary", 0.25)
+						end
+					else
+						decRate = ix.config.Get("decDurability", 0.5)
+					end
+
 					if (originalDamage < 1) then
-						durability = math.max(durability - ix.config.Get("decDurability", 1), 0)
+						durability = math.max(durability - decRate, 0)
 					else
 						durability = math.max(durability - (originalDamage / 100), 0) -- 100 = drainScale
 					end
@@ -91,7 +112,7 @@ if (SERVER) then
 					if (oldDurability > 0 and durability == 0) then
 						entity:SetNetVar("canShoot", false)
 						if item.Unequip then
-							item:Unequip(item.player)
+							item:Unequip(entity)
 						end
 
 					end
@@ -111,6 +132,21 @@ function PLUGIN:InitializedPlugins()
 		if (!v.maxDurability) then continue end
 
 		local maxDurability = v.maxDurability
+
+		-- Cache recipe existence for firearms so EntityFireBullets can pick the
+		-- right decrement rate without iterating recipes on every shot.
+		if v.repairType == "gun" then
+			local ixcraft = ix.plugin.list["ixcraft"]
+			v.ixHasRecipe = false
+			if ixcraft and ixcraft.craft and ixcraft.craft.recipes then
+				for _, r in pairs(ixcraft.craft.recipes) do
+					if r.results and r.results[v.uniqueID] then
+						v.ixHasRecipe = true
+						break
+					end
+				end
+			end
+		end
 
 		if CLIENT then
 
@@ -205,53 +241,93 @@ function PLUGIN:InitializedPlugins()
 			icon = "icon16/bullet_wrench.png",
 			OnRun = function(item)
 				local client = item.player
-				local itemKit = client:GetCharacter():GetInventory():HasItemOfBase("base_repair_kit")
 
-				if not itemKit then return false end
-
-				if(item.repairType) then
-
-					for k, v in pairs(client:GetCharacter():GetInventory():GetItemsByBase("base_repair_kit")) do
-
-						if v.repairType and v.repairType == item.repairType then
-
-							local quantity = itemKit:GetData("quantity", v.quantity or 1) - 1
-
-							if (quantity < 1) then
-								v:Remove()
-							else
-								v:SetData("quantity", quantity)
-							end
-
-							if (v.UseRepair) then
-								v:UseRepair(item, client)
-							end
-
-							if (v.useSound) then
-								client:EmitSound(v.useSound, 110)
-							end
-
-							v = nil
-							return false
+				-- Must be near any crafting station
+				local nearStation = false
+				for _, ent in pairs(ents.GetAll()) do
+					if ent:GetClass():find("^ix_station_") then
+						if client:GetPos():DistToSqr(ent:GetPos()) < 100 * 100 then
+							nearStation = true
+							break
 						end
 					end
-
-					client:NotifyLocalized('You do not have the required repair kit.')
 				end
+
+				if not nearStation then
+					client:Notify("You must be near a crafting station to repair this.")
+					return false
+				end
+
+				-- Find a recipe that produces this item
+				local ixcraft = ix.plugin.list["ixcraft"]
+				local recipe = nil
+				if ixcraft and ixcraft.craft then
+					for _, r in pairs(ixcraft.craft.recipes) do
+						if r.results and r.results[item.uniqueID] then
+							recipe = r
+							break
+						end
+					end
+				end
+
+				if not recipe then
+					client:Notify("This item has no repair recipe.")
+					return false
+				end
+
+				-- Find the most expensive ingredient by price
+				local bestID = nil
+				local bestPrice = -1
+				for ingredientID, _ in pairs(recipe.requirements) do
+					local def = ix.item.Get(ingredientID)
+					local price = (def and def.price) or 0
+					if price > bestPrice then
+						bestPrice = price
+						bestID = ingredientID
+					end
+				end
+
+				if not bestID then
+					client:Notify("This item has no repair recipe.")
+					return false
+				end
+
+				-- Check player has 1 of that ingredient
+				local ingredientItem = nil
+				for _, invItem in pairs(client:GetCharacter():GetInventory():GetItems()) do
+					if invItem.uniqueID == bestID then
+						ingredientItem = invItem
+						break
+					end
+				end
+
+				if not ingredientItem then
+					local def = ix.item.Get(bestID)
+					local ingredientName = (def and def.name) or bestID
+					client:Notify("You need " .. ingredientName .. " to repair this.")
+					return false
+				end
+
+				-- Consume ingredient and restore 50% durability
+				ingredientItem:Remove()
+				item:SetData("durability", maxDurability)
+				client:Notify("Item fully repaired.")
 
 				return false
 			end,
 
 			OnCanRun = function(item)
-				if (item:GetData("durability", maxDurability) >= maxDurability) then
+				if item:GetData("durability", maxDurability) >= maxDurability then
 					return false
 				end
-
-				if (!item.player:GetCharacter():GetInventory():HasItemOfBase("base_repair_kit")) then
-					return false
+				local ixcraft = ix.plugin.list["ixcraft"]
+				if not (ixcraft and ixcraft.craft) then return false end
+				for _, r in pairs(ixcraft.craft.recipes) do
+					if r.results and r.results[item.uniqueID] then
+						return true
+					end
 				end
-
-				return true
+				return false
 			end
 		}
 	end
