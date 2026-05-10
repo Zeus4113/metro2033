@@ -35,7 +35,7 @@ ENT.models = {
 ENT.lootTier = 0
 ENT.lootType = "scrap"
 
-ENT.respawnTime = 900
+ENT.respawnTime = 450
 ENT.searchTime = 1
 
 if ( SERVER ) then

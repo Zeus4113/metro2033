@@ -31,7 +31,7 @@ ENT.models = {
 ENT.lootTier = 4
 ENT.lootType = "library"
 
-ENT.respawnTime = 900
+ENT.respawnTime = 3600
 ENT.searchTime = 1
 
 if ( SERVER ) then
