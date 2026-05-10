@@ -1,13 +1,15 @@
 local CHAR = ix.meta.character
 
-
--- Initialize equipment table
 function CHAR:GetEquipment()
-    return self:GetData("equipment", {
-        outfit = nil,
-        vest = nil,
-        helmet = nil
-    })
+    local result = {}
+    local inv = self:GetInventory()
+    if not inv then return result end
+    for _, item in pairs(inv:GetItems()) do
+        if item:GetData("equip") and item.equipSlot then
+            result[item.equipSlot] = item:GetID()
+        end
+    end
+    return result
 end
 
 function CHAR:GetEquippedMask()
@@ -62,23 +64,37 @@ function CHAR:GetRadiationResistance()
 end
 
 function CHAR:SetEquipmentSlot(slot, itemID)
-    local equipment = self:GetEquipment()
-    equipment[slot] = itemID
-    self:SetData("equipment", equipment)
+    if itemID then
+        local item = ix.item.instances[itemID]
+        if item then item:SetData("equip", true) end
+    else
+        local inv = self:GetInventory()
+        if not inv then return end
+        for _, item in pairs(inv:GetItems()) do
+            if item.equipSlot == slot and item:GetData("equip") then
+                item:SetData("equip", nil)
+                break
+            end
+        end
+    end
 end
 
 function CHAR:GetEquipmentItemID(slot)
-    local equipment = self:GetEquipment()
-    return equipment[slot]
+    local inv = self:GetInventory()
+    if not inv then return nil end
+    for _, item in pairs(inv:GetItems()) do
+        if item.equipSlot == slot and item:GetData("equip") then
+            return item:GetID()
+        end
+    end
 end
 
 function CHAR:HasGasmaskEquipped()
-    local equipment = self:GetData("equipment", {})
+    local inv = self:GetInventory()
+    if not inv then return false end
 
-    for _, itemID in pairs(equipment) do
-        local item = ix.item.instances[itemID]
-
-        if item and item.isGasmask then
+    for _, item in pairs(inv:GetItems()) do
+        if item.isGasmask and item:GetData("equip") then
             if not item.maxDurability or item:GetData("durability", 0) > 0 then
                 return true
             end

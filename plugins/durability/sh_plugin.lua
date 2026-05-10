@@ -122,15 +122,8 @@ function PLUGIN:InitializedPlugins()
 			}
 
 			function v:PaintOver(item, w, h)
-				local client = LocalPlayer()
-				local char = client:GetCharacter()
-
-				if not char then return end
-
 				if item.equipSlot then
-					local equipment = char:GetData("equipment", {})
-					local isEquipped = equipment[item.equipSlot] == item:GetID()
-					if isEquipped then
+					if item:GetData("equip") then
 						-- Slot banner (full word)
 						local label = string.upper(SLOT_LETTERS[item.equipSlot] or "Equipped")
 

@@ -1,5 +1,6 @@
 if (SERVER) then
     util.AddNetworkString("ixEquipContainerClose")
+    util.AddNetworkString("ixEquipContainerOpen")
 end
 
 ITEM.name = "Base Equippable"
@@ -49,16 +50,12 @@ ITEM.maxFilterTime = 0
 -- INTERNAL HELPERS
 -- ==============================
 
-local function GetEquipment(char)
-    return char:GetData("equipment", {
-        outfit = nil,
-        vest = nil,
-        helmet = nil
-    })
-end
-
-local function SetEquipment(char, equipment)
-    char:SetData("equipment", equipment)
+local function FindItemInSlot(char, slot)
+    local inv = char:GetInventory()
+    if not inv then return nil end
+    for _, it in pairs(inv:GetItems()) do
+        if it:GetData("equip") and it.equipSlot == slot then return it end
+    end
 end
 
 
@@ -70,6 +67,7 @@ end
 function ITEM:OnRegistered()
     if self.invWidth and self.invHeight then
         ix.inventory.Register(self.uniqueID, self.invWidth, self.invHeight, true)
+        self.isBag = true
     end
 end
 
@@ -117,13 +115,11 @@ ITEM.functions.Equip = {
         local char = client:GetCharacter()
         if not char or not item.equipSlot then return false end
         
-        local equipment = GetEquipment(char)
-        
-        if equipment[item.equipSlot] then
+        if FindItemInSlot(char, item.equipSlot) then
             client:Notify("That slot is already occupied.")
             return false
         end
-        
+
         -- Prevent equipping broken armor
         if item.maxDurability and item.maxDurability > 0 then
             local durability = item:GetData("durability", 0)
@@ -132,10 +128,18 @@ ITEM.functions.Equip = {
                 return false
             end
         end
-        
-        equipment[item.equipSlot] = item:GetID()
-        SetEquipment(char, equipment)
+
+        item:SetData("equip", true)
         char:UpdateWeight()
+
+        if item.invWidth then
+            local index = item:GetData("id")
+            if index then
+                net.Start("ixEquipContainerOpen")
+                net.WriteUInt(index, 32)
+                net.Send(client)
+            end
+        end
 
         if item.equipSlot == "Outfit" and client.ApplyOutfit then
             client:ApplyOutfit()
@@ -160,8 +164,7 @@ ITEM.functions.Equip = {
             return false
         end
 
-        local equipment = char:GetData("equipment", {})
-        return equipment[item.equipSlot] ~= item:GetID()
+        return not item:GetData("equip") and not FindItemInSlot(char, item.equipSlot)
     end
 }
 
@@ -179,14 +182,11 @@ ITEM.functions.Unequip = {
         local char = client:GetCharacter()
         if not char or not item.equipSlot then return false end
 
-        local equipment = GetEquipment(char)
-
-        if equipment[item.equipSlot] ~= item:GetID() then
+        if not item:GetData("equip") then
             return false
         end
 
-        equipment[item.equipSlot] = nil
-        SetEquipment(char, equipment)
+        item:SetData("equip", nil)
         char:UpdateWeight()
 
         if item.equipSlot == "Outfit" and client.ApplyOutfit then
@@ -214,8 +214,49 @@ ITEM.functions.Unequip = {
         local char = client:GetCharacter()
         if not char or not item.equipSlot then return false end
 
-        local equipment = GetEquipment(char)
-        return equipment[item.equipSlot] == item:GetID()
+        return item:GetData("equip", false)
+    end
+}
+
+-- ==============================
+-- VIEW CONTAINER (bags integration)
+-- ==============================
+
+ITEM.functions.View = {
+    icon = "icon16/briefcase.png",
+    OnClick = function(item)
+        if not item:GetData("equip") then return false end
+
+        local index = item:GetData("id")
+        if not index then return false end
+
+        local panel = ix.gui["inv"..index]
+        local inventory = ix.item.inventories[index]
+        local parent = IsValid(ix.gui.menuInventoryContainer) and ix.gui.menuInventoryContainer or ix.gui.openedStorage
+
+        if IsValid(panel) then
+            panel:Remove()
+        end
+
+        if inventory and inventory.slots then
+            panel = vgui.Create("ixInventory", IsValid(parent) and parent or nil)
+            panel:SetInventory(inventory)
+            panel:ShowCloseButton(false)
+            panel:SetTitle(item:GetName())
+
+            if parent ~= ix.gui.menuInventoryContainer then
+                panel:Center()
+            else
+                panel:MoveToFront()
+            end
+
+            ix.gui["inv"..index] = panel
+        end
+
+        return false
+    end,
+    OnCanRun = function()
+        return false
     end
 }
 
@@ -223,7 +264,7 @@ ITEM.functions.Unequip = {
 -- PREVENT NESTED CONTAINERS
 -- ==============================
 
-hook.Add("CanTransferItem", "MetroPreventNestedEquipContainers", function(item, oldInv, newInv)
+hook.Add("CanTransferItem", "MetroPreventNestedEquipContainers", function(item, _, newInv)
     -- Allow dropping (newInv == nil)
     if not newInv then return end
 
@@ -232,14 +273,10 @@ hook.Add("CanTransferItem", "MetroPreventNestedEquipContainers", function(item, 
     local owner = item:GetOwner()
     local char = IsValid(owner) and owner:GetCharacter()
 
-    -- 🔥 1️⃣ Prevent moving equipped equippables
-    if char and item.equipSlot then
-        local equipment = char:GetData("equipment", {})
-
-        if equipment[item.equipSlot] == item:GetID() then
-            owner:Notify("You cannot move an equipped item.")
-            return false
-        end
+    -- Prevent moving equipped items (weapons and equippables share the same flag)
+    if char and item:GetData("equip", false) then
+        owner:Notify("You cannot move an equipped item.")
+        return false
     end
 
     -- 🔥 2️⃣ Prevent nesting equip containers
@@ -262,16 +299,10 @@ function ITEM:OnRemoved()
     -- ==============================
     -- UNEQUIP SAFELY
     -- ==============================
-    if char and self.equipSlot then
-        local equipment = char:GetData("equipment", {})
-
-        if equipment[self.equipSlot] == self:GetID() then
-            equipment[self.equipSlot] = nil
-            char:SetData("equipment", equipment)
-            char:UpdateWeight()
-            if self.equipSlot == "Outfit" and owner.ApplyOutfit then
-                owner:ApplyOutfit()
-            end
+    if char and self.equipSlot and self:GetData("equip") then
+        char:UpdateWeight()
+        if self.equipSlot == "Outfit" and owner.ApplyOutfit then
+            owner:ApplyOutfit()
         end
     end
 
@@ -290,12 +321,14 @@ function ITEM:OnRemoved()
         net.Send(owner)
     end
 
-    -- Remove from in-memory inventories (CRITICAL)
+    -- Remove from in-memory inventories
     local inventory = ix.item.inventories[index]
     if inventory then
-        -- Optional: clear receivers to prevent weird syncing
-        inventory.receivers = {}
+        for _, invItem in pairs(inventory:GetItems()) do
+            ix.item.instances[invItem:GetID()] = nil
+        end
 
+        inventory.receivers = {}
         ix.item.inventories[index] = nil
     end
 
@@ -350,19 +383,16 @@ function ITEM:OnSendData()
     end
 end
 
-ITEM.postHooks.drop = function(item, result)
+ITEM.postHooks.drop = function(item)
     local client = item.player
     if not IsValid(client) then return end
 
     local char = client:GetCharacter()
     if not char then return end
 
-    local equipment = char:GetData("equipment", {})
-
     -- Unequip if needed
-    if item.equipSlot and equipment[item.equipSlot] == item:GetID() then
-        equipment[item.equipSlot] = nil
-        char:SetData("equipment", equipment)
+    if item.equipSlot and item:GetData("equip") then
+        item:SetData("equip", nil)
 
         if item.equipSlot == "Outfit" and client.ApplyOutfit then
             client:ApplyOutfit()
@@ -380,12 +410,7 @@ ITEM.postHooks.drop = function(item, result)
     end
 
     -- Recalculate weight after dropping container
-    if IsValid(client) then
-        local char = client:GetCharacter()
-        if char then
-            char:UpdateWeight()
-        end
-    end
+    char:UpdateWeight()
 end
 
 if CLIENT then
@@ -398,14 +423,42 @@ if CLIENT then
         end
     end)
 
+    net.Receive("ixEquipContainerOpen", function()
+        local index = net.ReadUInt(32)
+
+        local char = LocalPlayer():GetCharacter()
+        if not char then return end
+
+        local inv = char:GetInventory()
+        if not inv then return end
+
+        for _, item in pairs(inv:GetItems()) do
+            if item:GetData("id") == index and item.functions and item.functions.View then
+                item.functions.View.OnClick(item)
+                return
+            end
+        end
+    end)
+
+    -- Items with maxDurability get PaintOver replaced by the durability plugin.
+    -- This base version handles equippables that have no durability tracking.
+    function ITEM:PaintOver(item, w)
+        if not item.equipSlot or not item:GetData("equip") then return end
+
+        local label = string.upper(item.equipSlot)
+
+        surface.SetFont("DermaDefaultBold")
+        local textW, textH = surface.GetTextSize(label)
+
+        local padding = 6
+        local boxW = textW + padding * 2
+        local boxH = textH + 4
+
+        draw.RoundedBox(4, w - boxW - 4, 4, boxW, boxH, Color(20, 120, 20, 220))
+        draw.SimpleText(label, "DermaDefaultBold", w - boxW / 2 - 4, 4 + boxH / 2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+    end
+
     function ITEM:PopulateTooltip(tooltip)
-        local client = LocalPlayer()
-        local char = client:GetCharacter()
-
-        local equipment = char and char:GetData("equipment", {})
-        local isEquipped = equipment and self.equipSlot
-            and equipment[self.equipSlot] == self:GetID()
-
         -- Helper to add simple row
         local function AddLine(id, text, color)
             local row = tooltip:AddRow(id)
