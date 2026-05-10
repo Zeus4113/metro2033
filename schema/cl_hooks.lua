@@ -6,45 +6,41 @@ function Schema:CharacterLoaded(character)
     self:ExampleFunction("@serverWelcome", character:GetName())
 end
 
-hook.Add("Think", "MetroAutoOpenEquipContainers", function()
-local menu = ix.gui.menuInventoryContainer
-if not IsValid(menu) then return end
-
-local client = LocalPlayer()
-local char = client:GetCharacter()
-if not char then return end
-
-local equipment = char:GetData("equipment", {})
-
-for slot, itemID in pairs(equipment) do
-    local item = ix.item.instances[itemID]
-
-    if item and item.invWidth then
-        -- Skip broken containers
-        if item.maxDurability and item:GetData("durability", 0) <= 0 then
-            continue
-        end
-
-        local index = item:GetData("id")
-        if not index then continue end
-
-        local inventory = ix.item.inventories[index]
-        if not inventory then continue end
-
-        -- Only create panel if it doesn't already exist
-        if not IsValid(ix.gui["inv"..index]) then
-            local panel = vgui.Create("ixInventory", menu)
-            panel:SetInventory(inventory)
-            panel:ShowCloseButton(false)
-            panel:SetTitle(item:GetName())
-            panel:MoveToFront()
-
-            ix.gui["inv"..index] = panel
-        end
-    end
-end
+-- Suppress the default bottom-right ammo HUD.
+hook.Add("CanDrawAmmoHUD", "MetroAmmoBottomLeft", function()
+    return false
 end)
 
-hook.Add("OnCharacterMenuClosed", "MetroResetAutoOpenFlag", function()
-ix.gui._metroAutoOpened = nil
+-- Redraw ammo at the bottom left instead.
+hook.Add("HUDPaintBackground", "MetroAmmoBottomLeft", function()
+    local client = LocalPlayer()
+    if not client:GetCharacter() then return end
+
+    local weapon = client:GetActiveWeapon()
+    if not IsValid(weapon) or weapon.DrawAmmo == false then return end
+
+    local clip      = weapon:Clip1()
+    local clipMax   = weapon:GetMaxClip1()
+    local count     = client:GetAmmoCount(weapon:GetPrimaryAmmoType())
+    local secondary = client:GetAmmoCount(weapon:GetSecondaryAmmoType())
+    local x, y     = 16, ScrH() - 80
+
+    if weapon:GetClass() ~= "weapon_slam" and clip > 0 or count > 0 then
+        ix.util.DrawBlurAt(x, y, 128, 64)
+        surface.SetDrawColor(255, 255, 255, 5)
+        surface.DrawRect(x, y, 128, 64)
+        surface.SetDrawColor(255, 255, 255, 3)
+        surface.DrawOutlinedRect(x, y, 128, 64)
+        ix.util.DrawText((clip == -1 or clipMax == -1) and count or clip .. "/" .. count, x + 64, y + 32, nil, 1, 1, "ixBigFont")
+        x = x + 144
+    end
+
+    if secondary > 0 then
+        ix.util.DrawBlurAt(x, y, 64, 64)
+        surface.SetDrawColor(255, 255, 255, 5)
+        surface.DrawRect(x, y, 64, 64)
+        surface.SetDrawColor(255, 255, 255, 3)
+        surface.DrawOutlinedRect(x, y, 64, 64)
+        ix.util.DrawText(secondary, x + 32, y + 32, nil, 1, 1, "ixBigFont")
+    end
 end)
