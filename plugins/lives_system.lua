@@ -8,6 +8,16 @@ ix.config.Add("lifeCost", 100, "How much karma does one life cost?", nil, {
     category = "Lives System"
 })
 
+ix.config.Add("karmaMin", -300, "Minimum karma a character can have.", nil, {
+    data = {min = -10000, max = 0},
+    category = "Lives System"
+})
+
+ix.config.Add("karmaMax", 300, "Maximum karma a character can have.", nil, {
+    data = {min = 0, max = 10000},
+    category = "Lives System"
+})
+
 ix.config.Add("maxLives", 3, "The maximum number of lives a player can have.", nil, {
     data = {min = 1, max = 10},
     category = "Lives System"
@@ -20,7 +30,7 @@ ix.char.RegisterVar("karma", {
 })
 
 ix.char.RegisterVar("lives", {
-    fient = "lives",
+    field = "lives",
     fieldType = ix.type.number,
     default = ix.config.Get("maxLives", 3)
 })
@@ -55,9 +65,9 @@ ix.command.Add("BuyLife",{
             return
         end
 
-        if character:GetKarma() >= ix.config.Get("lifeCost", 100) then 
+        if character:GetKarma() >= ix.config.Get("lifeCost", 100) then
             character:SetLives(character:GetLives() + 1)
-            character:SetKarma(character:GetKarma() - ix.config.Get("lifeCost", 100))
+            character:SetKarma(math.Clamp(character:GetKarma() - ix.config.Get("lifeCost", 100), ix.config.Get("karmaMin", -300), ix.config.Get("karmaMax", 300)))
             client:ChatPrint("You now have " .. character:GetLives() .. " lives.")
         else
             client:ChatPrint("You do not have enough karma points.")
@@ -78,10 +88,30 @@ ix.command.Add("CharGiveKarma", {
         if not target or not target:GetCharacter() then return end
 
         local character = target:GetCharacter()
-        character:SetKarma(character:GetKarma() + amount)
+        character:SetKarma(math.Clamp(character:GetKarma() + amount, ix.config.Get("karmaMin", -300), ix.config.Get("karmaMax", 300)))
         client:ChatPrint("You have given out " .. amount .. " karma points.")
         target:ChatPrint("You have recieved " .. amount .. " karma points, your total is now " .. character:GetKarma() .. ".")
 
+    end
+})
+
+
+
+ix.command.Add("CharCheckKarma", {
+    description = "Check how much karma another player has. (Admin Only)",
+    adminOnly = true,
+    arguments = {
+        ix.type.string
+    },
+    OnRun = function(self, client, targetName)
+        local target = ix.util.FindPlayer(targetName)
+
+        if not target or not target:GetCharacter() then
+            return client:ChatPrint("Player not found.")
+        end
+
+        local char = target:GetCharacter()
+        client:ChatPrint(target:Name() .. " has " .. char:GetKarma() .. " karma points.")
     end
 })
 
@@ -127,7 +157,7 @@ ix.command.Add("CharSetLives", {
 
 function PLUGIN:ShouldPermakillCharacter(client, character, inflictor, attacker)
 
-    if client.ixInArea and ix.area.stored[client.ixArea].type == "safe zone" then
+    if client.ixInArea and ix.area.stored[client.ixArea] and ix.area.stored[client.ixArea].type == "safe zone" then
         return false
     end
 
@@ -154,7 +184,7 @@ end
 function PLUGIN:PlayerDeath(client, inflictor, attacker)
     if not client or not client:GetCharacter() then return end
 
-    if client.ixInArea and ix.area.stored[client.ixArea].type == "safe zone" then
+    if client.ixInArea and ix.area.stored[client.ixArea] and ix.area.stored[client.ixArea].type == "safe zone" then
         client:ChatPrint("You have died in a safe zone. Your lives have not been reduced.")
         return
     end
