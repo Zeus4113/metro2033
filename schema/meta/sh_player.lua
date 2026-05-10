@@ -9,7 +9,7 @@ function PLAYER:ApplyOutfit()
     local char = self:GetCharacter()
     if not char then return end
 
-    local equipment = char:GetData("equipment", {})
+    local equipment = char:GetEquipment()
     local outfitID = equipment["Outfit"]
 
     if not outfitID then
