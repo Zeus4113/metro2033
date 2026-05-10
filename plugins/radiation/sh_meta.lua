@@ -15,7 +15,7 @@ end
 
 function CHAR:GetRadiationProtection()
     local protection = 0
-    local equipment = self:GetData("equipment", {})
+    local equipment = self:GetEquipment()
 
     for _, itemID in pairs(equipment) do
         local item = ix.item.instances[itemID]

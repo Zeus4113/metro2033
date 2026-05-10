@@ -71,9 +71,7 @@ ix.char.RegisterVar("filterActive", {
 })
 
 function GetEquippedItem(char, slot)
-    local equipment = char:GetData("equipment", {})
-    local itemID = equipment[slot]
-
+    local itemID = char:GetEquipment()[slot]
     if itemID then
         return ix.item.instances[itemID]
     end
