@@ -192,12 +192,14 @@ function PLUGIN:PlayerDeath(client, inflictor, attacker)
     local char = client:GetCharacter()
     local lives = char:GetLives()
 
-    if lives > 0 then
+    if lives > 1 then
         char:SetLives(lives - 1)
         client:ChatPrint("You have " .. (lives - 1) .. " lives remaining.")
+    elseif lives == 1 then
+        char:SetLives(0)
+        client:ChatPrint("You have died on your last life. Your character is permanently dead.")
     else
-        client:ChatPrint("You have no lives remaining. You are permanently dead.")
-        -- Here you can add any additional logic for when a player runs out of lives, such as banning them or marking them as permanently dead in the database.
+        client:ChatPrint("You have no lives remaining. Your character is permanently dead.")
     end
 end
 
