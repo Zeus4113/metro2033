@@ -2,9 +2,9 @@
 -- The shared init file. You'll want to fill out the info for your schema and include any other files that you need.
 
 -- Schema info
-Schema.name = "Metro 2033"
+Schema.name = "Metro 2033 | Hardcore Survival"
 Schema.author = "BarneytheBandit"
-Schema.description = "A survival horror gamemode based on Metro 2033."
+Schema.description = "This gamemode is a hardcore survival roleplay where every life counts. You start with 3 lives — lose them all and your character is gone for good. Earn karma through roleplay and spend it to buy lives back.\n\nRadiation and mutants are deadly and everywhere. Never venture out unprepared or alone. Stick with your group, watch each other's backs, and stay equipped.\n\nNew to the Metro? Ask a veteran dweller — they know what it takes to survive down here, and they'll be glad to help."
 
 function GAMEMODE:GetGameDescription()
     return "Metro 2033"
