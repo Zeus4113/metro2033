@@ -4,19 +4,12 @@ function ix.weight.CalculateWeight(character)
     local function AddInventoryWeight(inventory)
         if not inventory then return end
 
+        -- GetItems() already recurses into isBag sub-inventories, so no manual recursion needed.
         for _, item in pairs(inventory:GetItems()) do
             local itemWeight = item:GetWeight()
 
             if itemWeight then
                 total = total + itemWeight
-            end
-
-            -- If item has a sub-inventory (like vest storage), recurse
-            if item.invWidth and isfunction(item.GetInventory) then
-                local subInv = item:GetInventory()
-                if subInv then
-                    AddInventoryWeight(subInv)
-                end
             end
         end
     end
