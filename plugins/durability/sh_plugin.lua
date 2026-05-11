@@ -317,9 +317,6 @@ function PLUGIN:InitializedPlugins()
 			end,
 
 			OnCanRun = function(item)
-				if item:GetData("durability", maxDurability) > maxDurability * 0.25 then
-					return false
-				end
 				local client = item.player
 				if not IsValid(client) then return false end
 				local char = client:GetCharacter()
