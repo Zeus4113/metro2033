@@ -1,4 +1,14 @@
 
+-- Guard against CharacterPreSave being called while the inventory is still
+-- loading from the database (vars.inv[1] == -1). Helix's hook at that point
+-- calls GetInventory():Iter() on the number -1 and crashes.
+hook.Add("CharacterPreSave", "MetroGuardUnloadedInventory", function(character)
+    local inv = character:GetInventory()
+    if not istable(inv) then
+        return false
+    end
+end)
+
 function Schema:OnCharacterCreated(client, character)
     local inv = character:GetInventory()
     if inv then inv:Add("flashlight") end
@@ -192,4 +202,67 @@ hook.Add("PlayerLoadedCharacter", "MetroMigrateEquipmentToItems", function(_, ch
     end
 
     char:SetData("equipment", nil)
+end)
+
+-- When a player closes a world container, Helix's storage cleanup only removes them
+-- from sub-inventories of items with item.isBag. Our equippables no longer set isBag
+-- (to avoid Helix's nested-bag block), so we handle the cleanup ourselves here.
+if SERVER then
+    local _ixStorageRemoveReceiver = ix.storage.RemoveReceiver
+    function ix.storage.RemoveReceiver(client, inventory, bDontRemove)
+        _ixStorageRemoveReceiver(client, inventory, bDontRemove)
+
+        if not inventory then return end
+        for _, item in pairs(inventory:GetItems()) do
+            if item.invWidth then
+                local subInv = item:GetInventory()
+                if subInv then
+                    subInv:RemoveReceiver(client)
+                end
+            end
+        end
+    end
+end
+
+-- Prevent a container's inventory from being mistakenly loaded as a character
+-- secondary inventory. This can happen if a bug sets character_id on the row.
+hook.Add("ShouldRestoreInventory", "MetroPreventContainerAsCharInv", function(_, _, inventoryType)
+    if inventoryType and inventoryType:find("^container:") then
+        return false
+    end
+end)
+
+-- When an equippable item with its own sub-inventory moves into a non-character
+-- inventory (e.g. a world container), release its DB ownership so the original
+-- character's next load doesn't pull the sub-inventory back as their own.
+hook.Add("InventoryItemAdded", "MetroEquipSubInvOwnershipRelease", function(_, newInv, item)
+    if not SERVER then return end
+    if not item or not item.invWidth then return end
+
+    local subInvID = item:GetData("id")
+    if not subInvID then return end
+
+    if newInv.owner then
+        -- Moving into a character-owned inventory: claim sub-inventory ownership immediately
+        local subInv = ix.item.inventories[subInvID]
+        if subInv then
+            subInv:SetOwner(newInv.owner, true)
+        else
+            local query = mysql:Update("ix_inventories")
+                query:Update("character_id", newInv.owner)
+                query:Where("inventory_id", subInvID)
+            query:Execute()
+        end
+    else
+        -- Moving into world/container: release ownership
+        local query = mysql:Update("ix_inventories")
+            query:Update("character_id", 0)
+            query:Where("inventory_id", subInvID)
+        query:Execute()
+
+        local subInv = ix.item.inventories[subInvID]
+        if subInv then
+            subInv.owner = nil
+        end
+    end
 end)

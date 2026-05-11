@@ -67,7 +67,6 @@ end
 function ITEM:OnRegistered()
     if self.invWidth and self.invHeight then
         ix.inventory.Register(self.uniqueID, self.invWidth, self.invHeight, true)
-        self.isBag = true
     end
 end
 
@@ -264,27 +263,33 @@ ITEM.functions.View = {
 -- PREVENT NESTED CONTAINERS
 -- ==============================
 
-hook.Add("CanTransferItem", "MetroPreventNestedEquipContainers", function(item, _, newInv)
+hook.Add("CanTransferItem", "MetroPreventNestedEquipContainers", function(item, old, newInv)
     -- Allow dropping (newInv == nil)
     if not newInv then return end
 
     if newInv:GetID() == 0 then return true end
 
-    local owner = item:GetOwner()
-    local char = IsValid(owner) and owner:GetCharacter()
+    -- Derive the acting player from the source inventory's owner — this is
+    -- reliable even when item.player hasn't been set (e.g. newly created items).
+    local char = old and old.owner and ix.char.loaded[old.owner]
+    local client = char and IsValid(char:GetPlayer()) and char:GetPlayer()
 
-    -- Prevent moving equipped items (weapons and equippables share the same flag)
+    -- Fallback to item.player for server-side operations where old has no owner.
+    if not client then
+        client = IsValid(item.player) and item.player
+        char = client and client:GetCharacter()
+    end
+
+    -- Prevent moving equipped items
     if char and item:GetData("equip", false) then
-        owner:Notify("You cannot move an equipped item.")
+        if client then client:Notify("You cannot move an equipped item.") end
         return false
     end
 
-    -- 🔥 2️⃣ Prevent nesting equip containers
-    if newInv.vars and newInv.vars.isEquipContainer then
-        if item.invWidth then
-            owner:Notify("You cannot place containers inside other containers.")
-            return false
-        end
+    -- Prevent nesting equip containers inside other equip containers (player-initiated only)
+    if client and newInv.vars and newInv.vars.isEquipContainer and item.invWidth then
+        client:Notify("You cannot place containers inside other containers.")
+        return false
     end
 end)
 
@@ -344,6 +349,31 @@ function ITEM:OnRemoved()
     query:Execute()
 end
 
+if SERVER then
+    function ITEM:OnTransferred(oldInv, newInv)
+        if not self.invWidth then return end
+
+        local subInv = self:GetInventory()
+        if not subInv then return end
+
+        -- Purge all current receivers (container viewers, old owner, etc.)
+        for _, ply in pairs(table.Copy(subInv:GetReceivers())) do
+            subInv:RemoveReceiver(ply)
+        end
+
+        -- Add the new owner as the only receiver
+        if newInv and newInv.owner then
+            local char = ix.char.loaded[newInv.owner]
+            if char then
+                local ply = char:GetPlayer()
+                if IsValid(ply) then
+                    subInv:AddReceiver(ply)
+                end
+            end
+        end
+    end
+end
+
 function ITEM:OnSendData()
     if not self.invWidth then return end
 
@@ -357,17 +387,29 @@ function ITEM:OnSendData()
             inventory:Sync(self.player)
             inventory:AddReceiver(self.player)
         else
-            local owner = self.player:GetCharacter():GetID()
+            local char = IsValid(self.player) and self.player:GetCharacter()
+            local charInv = char and char:GetInventory()
+            -- Only claim ownership when the item is actually in this player's own inventory,
+            -- not when they're merely viewing it through a container someone else owns.
+            local itemBelongsToPlayer = charInv and (self.invID == charInv:GetID())
 
             ix.inventory.Restore(index, self.invWidth, self.invHeight, function(inv)
                 inv.vars.isEquipContainer = self.uniqueID
-                inv:SetOwner(owner, true)
+
+                if itemBelongsToPlayer then
+                    inv:SetOwner(char:GetID(), true)
+                end
 
                 for client, character in ix.util.GetCharacters() do
                     if character:GetID() == inv.owner then
                         inv:AddReceiver(client)
                         break
                     end
+                end
+
+                if IsValid(self.player) and not itemBelongsToPlayer then
+                    inv:AddReceiver(self.player)
+                    inv:Sync(self.player)
                 end
             end)
         end
@@ -399,13 +441,26 @@ ITEM.postHooks.drop = function(item)
         end
     end
 
-    -- Close container UI if open
+    -- Close container UI if open and disown sub-inventory
     if item.invWidth then
         local index = item:GetData("id")
         if index then
             net.Start("ixEquipContainerClose")
                 net.WriteUInt(index, 32)
             net.Send(client)
+
+            -- Release DB ownership so character loading won't pull this sub-inventory
+            -- back as a character inventory while the item is lying in the world.
+            local query = mysql:Update("ix_inventories")
+                query:Update("character_id", 0)
+                query:Where("inventory_id", index)
+            query:Execute()
+
+            local subInv = ix.item.inventories[index]
+            if subInv then
+                subInv.owner = nil
+                subInv:RemoveReceiver(client)
+            end
         end
     end
 

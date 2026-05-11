@@ -1,5 +1,16 @@
 local CHAR = ix.meta.character
 
+-- Helix sets vars.inv[1] = -1 as a loading placeholder while the async DB
+-- restore is in-flight. Wrap GetInventory so callers always get nil (not a
+-- number) during that window — every existing `if not inv` guard already
+-- handles nil correctly, so this one fix covers the whole codebase.
+local _helixGetInventory = CHAR.GetInventory
+function CHAR:GetInventory(index)
+    local inv = _helixGetInventory(self, index)
+    if isnumber(inv) then return nil end
+    return inv
+end
+
 function CHAR:GetEquipment()
     local result = {}
     local inv = self:GetInventory()
