@@ -317,9 +317,15 @@ function PLUGIN:InitializedPlugins()
 			end,
 
 			OnCanRun = function(item)
-				if item:GetData("durability", maxDurability) >= maxDurability then
+				if item:GetData("durability", maxDurability) > maxDurability * 0.25 then
 					return false
 				end
+				local client = item.player
+				if not IsValid(client) then return false end
+				local char = client:GetCharacter()
+				if not char then return false end
+				local mainInv = char:GetInventory()
+				if not mainInv or item.invID ~= mainInv:GetID() then return false end
 				local ixcraft = ix.plugin.list["ixcraft"]
 				if not (ixcraft and ixcraft.craft) then return false end
 				for _, r in pairs(ixcraft.craft.recipes) do
