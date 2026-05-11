@@ -30,6 +30,10 @@ ITEM.outfitModel = nil
 ITEM.damageReduction = 0
 ITEM.maxDurability = 0
 
+-- Helix uses isBag to auto-open sub-inventory panels when the player opens their inventory.
+-- We override the nested-bag CanTransferItem check below to still allow placement in world containers.
+ITEM.isBag = true
+
 -- ==============================
 -- CONTAINER SUPPORT
 -- ==============================
@@ -284,6 +288,12 @@ hook.Add("CanTransferItem", "MetroPreventNestedEquipContainers", function(item, 
     if char and item:GetData("equip", false) then
         if client then client:Notify("You cannot move an equipped item.") end
         return false
+    end
+
+    -- World containers set vars.isBag = true (so other bags can't nest inside them).
+    -- Explicitly allow any item into world containers so Helix's nested-bag check never fires.
+    if newInv.vars and newInv.vars.isContainer then
+        return true
     end
 
     -- Prevent nesting equip containers inside other equip containers (player-initiated only)
