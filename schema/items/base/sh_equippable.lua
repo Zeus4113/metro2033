@@ -30,10 +30,6 @@ ITEM.outfitModel = nil
 ITEM.damageReduction = 0
 ITEM.maxDurability = 0
 
--- Helix uses isBag to auto-open sub-inventory panels when the player opens their inventory.
--- We override the nested-bag CanTransferItem check below to still allow placement in world containers.
-ITEM.isBag = true
-
 -- ==============================
 -- CONTAINER SUPPORT
 -- ==============================
@@ -71,6 +67,10 @@ end
 function ITEM:OnRegistered()
     if self.invWidth and self.invHeight then
         ix.inventory.Register(self.uniqueID, self.invWidth, self.invHeight, true)
+        -- isBag makes Helix auto-open the sub-inventory panel when the player's inventory opens.
+        -- Only set it when a sub-inventory actually exists; otherwise the logging plugin crashes
+        -- trying to iterate a nil GetInventory() result.
+        self.isBag = true
     end
 end
 
