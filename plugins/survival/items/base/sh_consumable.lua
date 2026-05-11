@@ -38,8 +38,8 @@ function ITEM:HandleConsume(character, item)
 
     for i = 1, self.duration do
         timer.Simple(i, function()
-            
-            if not character:GetPlayer():Alive() then return end
+            local ply = character:GetPlayer()
+            if not IsValid(ply) or not ply:Alive() then return end
 
             if self.thirst and self.thirst ~= 0 then
                 local thirst = character:GetThirst()
