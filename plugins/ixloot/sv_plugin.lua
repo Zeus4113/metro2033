@@ -72,7 +72,7 @@ function PLUGIN:SearchLootContainer(ent, client)
         local itemID
         local plugin = ix.plugin.Get("ixloot")
 
-        if ent.lootTier and ent.lootType and math.random(1, ent.rareChance or 5) == 1 then
+        if ent.lootTier and ent.lootType and math.random(1, ent.rareChance or 10) == 1 then
             itemID = table.Random(plugin.loot[ent.lootTier][ent.lootType]["rare"])
         else
             itemID = table.Random(plugin.loot[ent.lootTier][ent.lootType]["common"])
