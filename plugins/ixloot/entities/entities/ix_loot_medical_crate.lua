@@ -29,7 +29,7 @@ ENT.models = {
 ENT.lootTier = 4
 ENT.lootType = "medical"
 
-ENT.respawnTime = 3600
+ENT.respawnTime = 900
 ENT.searchTime = 0.5
 
 if ( SERVER ) then

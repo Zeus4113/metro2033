@@ -29,7 +29,7 @@ ENT.models = {
 ENT.lootTier = 1
 ENT.lootType = "chemicals"
 
-ENT.respawnTime = 900
+ENT.respawnTime = 360
 ENT.searchTime = 1
 
 if ( SERVER ) then
