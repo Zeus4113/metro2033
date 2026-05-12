@@ -33,6 +33,8 @@ ENT.lootType = "library"
 
 ENT.respawnTime = 900
 ENT.searchTime = 1
+ENT.rareChance = 5
+
 
 if ( SERVER ) then
     function ENT:Initialize()

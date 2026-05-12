@@ -31,6 +31,8 @@ ENT.lootType = "medical"
 
 ENT.respawnTime = 900
 ENT.searchTime = 0.5
+ENT.rareChance = 5
+
 
 if ( SERVER ) then
     function ENT:Initialize()
