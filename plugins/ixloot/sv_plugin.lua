@@ -42,12 +42,17 @@ function PLUGIN:SearchLootContainer(ent, client)
 
     client:SetAction(ent.searchText or "Searching..." , ent.searchTime or 5, function()
 
+        if not IsValid(client) then return end
+
         local char = client:GetCharacter()
+        if not char then client:Freeze(false) return end
+
         local inventory = char:GetInventory()
-        
+        if not inventory then client:Freeze(false) return end
+
         if ent.requiredTools then
             for k, v in pairs(ent.requiredTools) do
-                local item = client:GetCharacter():GetInventory():HasItem(v)
+                local item = inventory:HasItem(v)
                 if not item then continue end
                 if not item.maxDurability then continue end
 
@@ -72,7 +77,7 @@ function PLUGIN:SearchLootContainer(ent, client)
         local itemID
         local plugin = ix.plugin.Get("ixloot")
 
-        if ent.lootTier and ent.lootType and math.random(1, ent.rareChance or 10) == 1 then
+        if ent.lootTier and ent.lootType and math.random(1, 100) <= ix.config.Get("lootRareChanceTier" .. (ent.lootTier or 0), 10) then
             itemID = table.Random(plugin.loot[ent.lootTier][ent.lootType]["rare"])
         else
             itemID = table.Random(plugin.loot[ent.lootTier][ent.lootType]["common"])
@@ -97,7 +102,7 @@ function PLUGIN:SearchLootContainer(ent, client)
 
     end)
 
-    ent.nextLootTime = CurTime() + (ent.respawnTime or 180)
+    ent.nextLootTime = CurTime() + ix.config.Get("lootRespawnTier" .. (ent.lootTier or 0), 180)
 end
 
 function Schema:SpawnRandomLoot(position, rareItem)

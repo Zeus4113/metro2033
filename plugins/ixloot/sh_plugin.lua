@@ -24,6 +24,20 @@ ix.config.Add("toolDurabilityDec", 15, "How much durability required tools lose 
     category = PLUGIN.name
 })
 
+-- Respawn times (seconds) per tier
+ix.config.Add("lootRespawnTier0",  120, "Respawn time (seconds) for Tier 0 lootables.", nil, { data = {min = 60, max = 1800}, category = PLUGIN.name })
+ix.config.Add("lootRespawnTier1",  300, "Respawn time (seconds) for Tier 1 lootables.", nil, { data = {min = 60, max = 1800}, category = PLUGIN.name })
+ix.config.Add("lootRespawnTier2",  600, "Respawn time (seconds) for Tier 2 lootables.", nil, { data = {min = 60, max = 1800}, category = PLUGIN.name })
+ix.config.Add("lootRespawnTier3",  900, "Respawn time (seconds) for Tier 3 lootables.", nil, { data = {min = 60, max = 1800}, category = PLUGIN.name })
+ix.config.Add("lootRespawnTier4", 1800, "Respawn time (seconds) for Tier 4 lootables.", nil, { data = {min = 60, max = 1800}, category = PLUGIN.name })
+
+-- Rare chance percentage per tier: percentage chance (0-100) of rolling a rare item
+ix.config.Add("lootRareChanceTier0", 50, "Rare drop chance (%) for Tier 0 lootables.", nil, { data = {min = 0, max = 100}, category = PLUGIN.name })
+ix.config.Add("lootRareChanceTier1", 33, "Rare drop chance (%) for Tier 1 lootables.", nil, { data = {min = 0, max = 100}, category = PLUGIN.name })
+ix.config.Add("lootRareChanceTier2", 33, "Rare drop chance (%) for Tier 2 lootables.", nil, { data = {min = 0, max = 100}, category = PLUGIN.name })
+ix.config.Add("lootRareChanceTier3", 33, "Rare drop chance (%) for Tier 3 lootables.", nil, { data = {min = 0, max = 100}, category = PLUGIN.name })
+ix.config.Add("lootRareChanceTier4", 25, "Rare drop chance (%) for Tier 4 lootables.", nil, { data = {min = 0, max = 100}, category = PLUGIN.name })
+
 ix.util.Include("sv_plugin.lua")
 
 PLUGIN.loot = {
@@ -158,7 +172,8 @@ PLUGIN.loot = {
         ["medical"] = {
             ["common"] = {
                 "syringe",
-                "medical_journal",
+                "medkit",
+                "anti_radiation_pills",
             },
             ["rare"] = {
                 "first_aid_kit",

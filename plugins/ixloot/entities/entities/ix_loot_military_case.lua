@@ -33,9 +33,7 @@ ENT.models = {
 ENT.lootTier = 4
 ENT.lootType = "military"
 
-ENT.respawnTime = 900
 ENT.searchTime = 0.5
-ENT.rareChance = 5
 
 if ( SERVER ) then
     function ENT:Initialize()

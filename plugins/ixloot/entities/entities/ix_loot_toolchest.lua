@@ -29,7 +29,6 @@ ENT.models = {
 ENT.lootTier = 3
 ENT.lootType = "mechanics"
 
-ENT.respawnTime = 720
 ENT.searchTime = 1
 
 if ( SERVER ) then
