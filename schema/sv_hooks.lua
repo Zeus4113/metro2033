@@ -1,4 +1,18 @@
 
+-- Guard against PerformInventoryAction crashing when the client sends an invID whose
+-- inventory is absent or improperly initialised server-side (stale sub-inventory IDs,
+-- race between OnRemoved cleanup and a queued net message, etc.).
+-- Helix resolves `ix.item.inventories[invID or 0]` with no nil-check before calling
+-- inventory:OnCheckAccess, so we pre-resolve and guard here.
+if SERVER then
+    local _PerformInventoryAction = ix.item.PerformInventoryAction
+    function ix.item.PerformInventoryAction(client, action, item, invID, data)
+        local inventory = ix.item.inventories[invID or 0]
+        if not inventory or not inventory.OnCheckAccess then return end
+        return _PerformInventoryAction(client, action, item, invID, data)
+    end
+end
+
 -- Guard against CharacterPreSave being called while the inventory is still
 -- loading from the database (vars.inv[1] == -1). Helix's hook at that point
 -- calls GetInventory():Iter() on the number -1 and crashes.

@@ -294,7 +294,9 @@ function PLUGIN:InitializedPlugins()
 
 				-- Check player has 1 of that ingredient
 				local ingredientItem = nil
-				for _, invItem in pairs(client:GetCharacter():GetInventory():GetItems()) do
+				local repairInv = client:GetCharacter() and client:GetCharacter():GetInventory()
+				if not repairInv then return false end
+				for _, invItem in pairs(repairInv:GetItems()) do
 					if invItem.uniqueID == bestID then
 						ingredientItem = invItem
 						break
