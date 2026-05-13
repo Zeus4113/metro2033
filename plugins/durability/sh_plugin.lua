@@ -258,38 +258,42 @@ function PLUGIN:InitializedPlugins()
 					return false
 				end
 
-				-- Find a recipe that produces this item
-				local ixcraft = ix.plugin.list["ixcraft"]
-				local recipe = nil
-				if ixcraft and ixcraft.craft then
-					for _, r in pairs(ixcraft.craft.recipes) do
-						if r.results and r.results[item.uniqueID] then
-							recipe = r
-							break
-						end
-					end
-				end
-
-				if not recipe then
-					client:Notify("This item has no repair recipe.")
-					return false
-				end
-
-				-- Find the most expensive ingredient by price
-				local bestID = nil
-				local bestPrice = -1
-				for ingredientID, _ in pairs(recipe.requirements) do
-					local def = ix.item.Get(ingredientID)
-					local price = (def and def.price) or 0
-					if price > bestPrice then
-						bestPrice = price
-						bestID = ingredientID
-					end
-				end
+				-- repairIngredient on the item overrides the recipe lookup
+				local bestID = item.repairIngredient
 
 				if not bestID then
-					client:Notify("This item has no repair recipe.")
-					return false
+					-- Find a recipe that produces this item
+					local ixcraft = ix.plugin.list["ixcraft"]
+					local recipe = nil
+					if ixcraft and ixcraft.craft then
+						for _, r in pairs(ixcraft.craft.recipes) do
+							if r.results and r.results[item.uniqueID] then
+								recipe = r
+								break
+							end
+						end
+					end
+
+					if not recipe then
+						client:Notify("This item has no repair recipe.")
+						return false
+					end
+
+					-- Find the most expensive ingredient by price
+					local bestPrice = -1
+					for ingredientID, _ in pairs(recipe.requirements) do
+						local def = ix.item.Get(ingredientID)
+						local price = (def and def.price) or 0
+						if price > bestPrice then
+							bestPrice = price
+							bestID = ingredientID
+						end
+					end
+
+					if not bestID then
+						client:Notify("This item has no repair recipe.")
+						return false
+					end
 				end
 
 				-- Check player has 1 of that ingredient
@@ -325,6 +329,7 @@ function PLUGIN:InitializedPlugins()
 				if not char then return false end
 				local mainInv = char:GetInventory()
 				if not mainInv or item.invID ~= mainInv:GetID() then return false end
+				if item.repairIngredient then return true end
 				local ixcraft = ix.plugin.list["ixcraft"]
 				if not (ixcraft and ixcraft.craft) then return false end
 				for _, r in pairs(ixcraft.craft.recipes) do
