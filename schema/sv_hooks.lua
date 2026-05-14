@@ -98,9 +98,9 @@ hook.Add("EntityTakeDamage", "metroArmorDurabilitySystem", function(ent, dmgInfo
     end
 
 
-    -- Durability loss distribution
+    -- Durability loss distribution (equipment slots only, not weapons)
     for _, item in pairs(inventory:GetItems()) do
-        if item:GetData("equip") then
+        if item:GetData("equip") and item.equipSlot then
             local durability = item:GetData("durability", 0)
 
             if durability > 0 then
