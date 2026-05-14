@@ -99,10 +99,10 @@ if (SERVER) then
 						decRate = ix.config.Get("decDurability", 0.5)
 					end
 
-					if (originalDamage < 1) then
+					if (originalDamage < 2) then
 						durability = math.max(durability - decRate, 0)
 					else
-						durability = math.max(durability - (originalDamage / 100), 0) -- 100 = drainScale
+						durability = math.max(durability - (originalDamage / 100), 0)
 					end
 
 					if (oldDurability ~= durability) then
