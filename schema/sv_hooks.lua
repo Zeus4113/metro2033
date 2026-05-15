@@ -246,6 +246,73 @@ hook.Add("ShouldRestoreInventory", "MetroPreventContainerAsCharInv", function(_,
     end
 end)
 
+-- Release a cuffed player when any player presses E on them, returning the cuffs.
+hook.Add("PlayerUse", "MetroHandcuffRelease", function(client, entity)
+	if not IsValid(entity) or not entity:IsPlayer() then return end
+	if not entity:GetNetVar("cuffed") then return end
+
+	entity:SetRestricted(false)
+	entity:SetNetVar("cuffed", nil)
+
+	local name = entity:GetCharacter():GetName()
+	client:Notify("You have released " .. name .. ".")
+	entity:Notify("You have been released.")
+
+	local inv = client:GetCharacter() and client:GetCharacter():GetInventory()
+	if not (inv and inv:Add("handcuffs")) then
+		ix.item.Spawn("handcuffs", client:GetPos() + Vector(0, 0, 10))
+	end
+
+	return false
+end)
+
+-- If a cuffed player disconnects, clear their state and drop the cuffs in world.
+hook.Add("PlayerDisconnected", "MetroHandcuffCleanup", function(ply)
+	if not ply:GetNetVar("cuffed") then return end
+	ply:SetRestricted(false)
+	ix.item.Spawn("handcuffs", ply:GetPos() + Vector(0, 0, 10))
+end)
+
+-- Block item transfers from a cuffed player's inventory (makes /search view-only).
+hook.Add("CanTransferItem", "MetroCuffedInventoryReadOnly", function(curInv)
+	local owner = curInv.owner
+	if not owner then return end
+	local char = ix.char.loaded[owner]
+	if not char then return end
+	local ply = char:GetPlayer()
+	if IsValid(ply) and ply:GetNetVar("cuffed") then
+		return false
+	end
+end)
+
+-- Search a restrained player's inventory (view-only due to MetroCuffedInventoryReadOnly).
+ix.command.Add("search", {
+	description = "Search a restrained person's inventory.",
+	arguments = ix.type.player,
+	OnRun = function(self, client, target)
+		if not IsValid(target) or not target:IsPlayer() then
+			return "Invalid target."
+		end
+
+		if not target:GetNetVar("cuffed") then
+			return "This person is not restrained."
+		end
+
+		local char = target:GetCharacter()
+		if not char then return "Invalid target." end
+
+		local inv = char:GetInventory()
+		if not inv then return "Invalid target." end
+
+		ix.storage.Open(client, inv, {
+			entity = target,
+			name = char:GetName() .. "'s Inventory",
+			searchTime = 3,
+			searchText = "Searching...",
+		})
+	end
+})
+
 -- When an equippable item with its own sub-inventory moves into a non-character
 -- inventory (e.g. a world container), release its DB ownership so the original
 -- character's next load doesn't pull the sub-inventory back as their own.
