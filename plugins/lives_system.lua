@@ -194,15 +194,15 @@ function PLUGIN:PlayerDeath(client, inflictor, attacker)
 
     if lives > 1 then
         char:SetLives(lives - 1)
+        char:Save()
         client:ChatPrint("You have " .. (lives - 1) .. " lives remaining.")
-    elseif lives == 1 then
-        char:SetLives(0)
-        client:ChatPrint("You have died on your last life. Your character is permanently dead.")
     else
+        char:SetData("permakilled", true)
+        char:Save()
         client:ChatPrint("You have no lives remaining. Your character is permanently dead.")
     end
 end
 
-function PLUGIN:OnCharacterCreated(client, character)
+function PLUGIN:OnCharacterCreated(_, character)
     character:SetLives(ix.config.Get("maxLives"))
 end
