@@ -31,6 +31,16 @@ ix.config.Add("lootRespawnTier2",  600, "Respawn time (seconds) for Tier 2 loota
 ix.config.Add("lootRespawnTier3",  900, "Respawn time (seconds) for Tier 3 lootables.", nil, { data = {min = 60, max = 1800}, category = PLUGIN.name })
 ix.config.Add("lootRespawnTier4", 1800, "Respawn time (seconds) for Tier 4 lootables.", nil, { data = {min = 60, max = 1800}, category = PLUGIN.name })
 
+ix.config.Add("lootScaleMaxPlayers", 32, "Player count at which no loot respawn scaling is applied.", nil, {
+    data = {min = 1, max = 128},
+    category = PLUGIN.name
+})
+
+ix.config.Add("lootScaleMultiplier", 2.0, "Respawn time multiplier at minimum players (1 player online).", nil, {
+    data = {min = 1.0, max = 10.0},
+    category = PLUGIN.name
+})
+
 -- Rare chance percentage per tier: percentage chance (0-100) of rolling a rare item
 ix.config.Add("lootRareChanceTier0", 50, "Rare drop chance (%) for Tier 0 lootables.", nil, { data = {min = 0, max = 100}, category = PLUGIN.name })
 ix.config.Add("lootRareChanceTier1", 33, "Rare drop chance (%) for Tier 1 lootables.", nil, { data = {min = 0, max = 100}, category = PLUGIN.name })

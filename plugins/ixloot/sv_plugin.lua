@@ -102,7 +102,12 @@ function PLUGIN:SearchLootContainer(ent, client)
 
     end)
 
-    ent.nextLootTime = CurTime() + ix.config.Get("lootRespawnTier" .. (ent.lootTier or 0), 180)
+    local baseTime    = ix.config.Get("lootRespawnTier" .. (ent.lootTier or 0), 180)
+    local maxPlayers  = ix.config.Get("lootScaleMaxPlayers", 32)
+    local maxMult     = ix.config.Get("lootScaleMultiplier", 2.0)
+    local playerCount = math.max(1, #player.GetAll())
+    local scale       = maxMult - (maxMult - 1) * math.Clamp(playerCount / maxPlayers, 0, 1)
+    ent.nextLootTime  = CurTime() + (baseTime * scale)
 end
 
 function Schema:SpawnRandomLoot(position, rareItem)
