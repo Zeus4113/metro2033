@@ -197,23 +197,21 @@ if SERVER then
 	The bread and butter.
 ---------------------------------------------------------------------------]]
 	function PLUGIN:Think()
-		local frequency = ix.config.Get("ItemSpawnInterval", 300)
-		local waves = ix.config.Get("ItemSpawnPerWave", 5)
-		local max_items = ix.config.Get("ItemSpawnMaxItems", 75)
-		local min_players = ix.config.Get("ItemMinimumPlayers", 2)
 		if #self.spawners < 1 then return end
-		if not NextItemSpawn or NextItemSpawn <= CurTime() then
-			if #player.GetAll() >= min_players and #ents.FindByClass("ix_item") < max_items then
-				for i = 1, waves do
-					local spawned = self:SpawnRandomItemSafe()
+		if NextItemSpawn and NextItemSpawn > CurTime() then return end
 
-					if spawned then
-						print("Item spawner(s) spawned item(s).")
-					end
-				end
+		local frequency = ix.config.Get("ItemSpawnInterval", 300)
+		NextItemSpawn = CurTime() + frequency
 
-				NextItemSpawn = CurTime() + frequency
-			end
+		local min_players = ix.config.Get("ItemMinimumPlayers", 2)
+		if #player.GetAll() < min_players then return end
+
+		local max_items = ix.config.Get("ItemSpawnMaxItems", 75)
+		if #ents.FindByClass("ix_item") >= max_items then return end
+
+		local waves = ix.config.Get("ItemSpawnPerWave", 5)
+		for i = 1, waves do
+			self:SpawnRandomItemSafe()
 		end
 	end
 end

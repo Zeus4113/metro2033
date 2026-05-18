@@ -28,7 +28,7 @@ ix.util.Include("sv_plugin.lua")
 
 if CLIENT then
 	-- Single timer iterates all mushrooms for smooth scale — avoids per-entity Think overhead.
-	timer.Create("ixMushroomGrowthClient", 0.1, 0, function()
+	timer.Create("ixMushroomGrowthClient", 1, 0, function()
 		local growthTime = ix.config.Get("mushroomGrowthTime", 300)
 		local curTime = CurTime()
 		for _, ent in pairs(ents.FindByClass("ix_mushroom")) do

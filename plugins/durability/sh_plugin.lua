@@ -49,29 +49,20 @@ ix.lang.AddTable("english", {
 })
 
 if (SERVER) then
-	function PLUGIN:Tick()
-		local curTime = CurTime()
-
+	timer.Create("ixDurabilityTick", 0.1, 0, function()
 		for _, v in ipairs(player.GetAll()) do
-			if (curTime >= (v.ixNextTickDurability or 0) and v:Alive() and v:GetCharacter()) then
+			if v:Alive() and v:GetCharacter() then
 				local weapon = v:GetActiveWeapon()
-
-				if (IsValid(weapon) and weapon.ixItem and weapon.ixItem.maxDurability) then
-					local canShoot = weapon.ixItem:GetData("durability", weapon.ixItem.maxDurability or ix.config.Get("maxValueDurability", 100)) > 0
-
-					if (!v:IsWepRaised()) then
-						canShoot = false
-					end
-
-					if (canShoot ~= v:CanShootWeapon()) then
+				if IsValid(weapon) and weapon.ixItem and weapon.ixItem.maxDurability then
+					local canShoot = weapon.ixItem:GetData("durability", weapon.ixItem.maxDurability) > 0
+					if not v:IsWepRaised() then canShoot = false end
+					if canShoot ~= v:CanShootWeapon() then
 						v:SetNetVar("canShoot", canShoot)
 					end
 				end
-
-				v.ixNextTickDurability = curTime + 0.1
 			end
 		end
-	end
+	end)
 
 	function PLUGIN:EntityFireBullets(entity, bullet)
 		if (IsValid(entity) and entity:IsPlayer()) then

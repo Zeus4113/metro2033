@@ -35,6 +35,14 @@ function PLUGIN:Think()
     if CurTime() < NEXT_TICK then return end
     NEXT_TICK = CurTime() + ix.config.Get("radiationTickRate", 1)
 
+    local noMaskThreshold = ix.config.Get("noGasmaskRadiationThreshold")
+    local noMaskDamage    = ix.config.Get("noGasmaskRadiationDamage", 10)
+    local survivalResist  = ix.config.Get("survivalRadResist")
+    local radThreshold    = ix.config.Get("radiationThreshold", 60)
+    local radMax          = ix.config.Get("radiationMax", 100)
+    local baseDamage      = ix.config.Get("radiationDamage", 2)
+    local radDecay        = ix.config.Get("radiationDecay", 0.5)
+
     for _, client in ipairs(player.GetAll()) do
         if not client:Alive() then continue end
         local char = client:GetCharacter()
@@ -44,17 +52,17 @@ function PLUGIN:Think()
 
         local radiationGain = char:GetData("radiationToAdd")
 
-        if not radiationGain then return end
+        if not radiationGain then continue end
 
         local mask = GetEquippedItem(char, "Helmet")
 
         -- If no filter time or gasmask and in high rad zone, damage player
-        if radiationGain > ix.config.Get("noGasmaskRadiationThreshold") then
+        if radiationGain > noMaskThreshold then
             if not mask or not mask.isGasmask then
-                self:ApplyRadiationDamage(client, ix.config.Get("noGasmaskRadiationDamage", 10))
+                self:ApplyRadiationDamage(client, noMaskDamage)
             else
                 if mask:GetData("filterTime", 0) <= 0 then
-                    self:ApplyRadiationDamage(client, ix.config.Get("noGasmaskRadiationDamage", 10))
+                    self:ApplyRadiationDamage(client, noMaskDamage)
                 end
             end
         end
@@ -65,7 +73,7 @@ function PLUGIN:Think()
             local protection = char:GetRadiationProtection()
 
             local survival = char:GetAttribute("survival", 0)
-            radiationGain = radiationGain * (1 - survival * ix.config.Get("survivalRadResist"))
+            radiationGain = radiationGain * (1 - survival * survivalResist)
 
             char:AddRadiation(radiationGain * (1 - protection))
 
@@ -97,16 +105,12 @@ function PLUGIN:Think()
             end
 
         else
-            char:AddRadiation(-ix.config.Get("radiationDecay", 0.5))
+            char:AddRadiation(-radDecay)
         end
 
-        local threshold = ix.config.Get("radiationThreshold", 60)
-
-        if char:GetRadiation() >= threshold then
-            local radMax    = ix.config.Get("radiationMax", 100)
-            local baseDamage = ix.config.Get("radiationDamage", 2)
-            local range     = radMax - threshold
-            local t         = range > 0 and (char:GetRadiation() - threshold) / range or 1
+        if char:GetRadiation() >= radThreshold then
+            local range = radMax - radThreshold
+            local t     = range > 0 and (char:GetRadiation() - radThreshold) / range or 1
             self:ApplyRadiationDamage(client, baseDamage * Lerp(t, 1, 10))
         end
     end

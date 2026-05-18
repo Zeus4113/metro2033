@@ -31,137 +31,52 @@ end
 
 -- Armor durability
 
-local ARMOR_DEBUG = false
-
 hook.Add("EntityTakeDamage", "metroArmorDurabilitySystem", function(ent, dmgInfo)
     if not ent:IsPlayer() then return end
-
     local char = ent:GetCharacter()
     if not char then return end
-
     if dmgInfo:IsDamageType(DMG_RADIATION) then return end
-
     local inventory = char:GetInventory()
     if not inventory then return end
 
     local damage = dmgInfo:GetDamage()
-    local originalDamage = damage
     local totalReduction = 0
+    local equipped = {}
 
-    if ARMOR_DEBUG then
-        print("---- ARMOR DEBUG ----")
-        print("Incoming Damage:", damage)
-    end
-
-    for _, item in pairs(inventory:GetItems()) do
-        if item:GetData("equip") and item.damageReduction and item.damageReduction > 0 then
-            local durability = item:GetData("durability", 0)
-
-            if durability > 0 then
-                totalReduction = totalReduction + item.damageReduction
-
-                if ARMOR_DEBUG then
-                    print(string.format(
-                        "[%s] %s | Reduction: %.2f | Durability: %.2f",
-                        item.equipSlot,
-                        item.name,
-                        item.damageReduction,
-                        durability
-                    ))
-                end
-            elseif ARMOR_DEBUG then
-                print(string.format(
-                    "[%s] %s is broken (Durability 0)",
-                    item.equipSlot,
-                    item.name
-                ))
-            end
-        end
-    end
-
-    if totalReduction <= 0 then
-        if ARMOR_DEBUG then
-            print("No active armor. Full damage applied.")
-            print("---------------------")
-        end
-        return
-    end
-
-    totalReduction = math.min(totalReduction, 0.8)
-    local absorbed = damage * totalReduction
-    local finalDamage = damage - absorbed
-
-    if ARMOR_DEBUG then
-        print("Total Reduction:", totalReduction)
-        print("Absorbed Damage:", absorbed)
-        print("Final Damage:", finalDamage)
-    end
-
-
-    -- Durability loss distribution (equipment slots only, not weapons)
     for _, item in pairs(inventory:GetItems()) do
         if item:GetData("equip") and item.equipSlot then
             local durability = item:GetData("durability", 0)
-
             if durability > 0 then
-                local portion = damage * ix.config.Get("decDurabilityEquipment", 0.1)
-                local newDurability = math.max(durability - portion, 0)
-
-                item:SetData("durability", newDurability)
-
-                if ARMOR_DEBUG then
-                    print(string.format(
-                        "[%s] %s durability reduced by %.2f → %.2f",
-                        item.equipSlot,
-                        item.name,
-                        portion,
-                        newDurability
-                    ))
-                end
-
-                -- Break handling
-                if newDurability <= 0 then
-                    item:SetData("equip", nil)
-                    char:UpdateWeight()
-
-                    ent:Notify(item.name .. " has broken and was unequipped!")
-
-                    if item.equipSlot == "Outfit" and ent.ApplyOutfit then
-                        ent:ApplyOutfit()
-                    end
-
-                    -- Close container if open
-                    if item.invWidth then
-                        local index = item:GetData("id")
-                        if index then
-                            net.Start("ixEquipContainerClose")
-                                net.WriteUInt(index, 32)
-                            net.Send(ent)
-                        end
-                    end
-
-                    ent:EmitSound(item.useSound, 80)
-
-                    if ARMOR_DEBUG then
-                        print(item.name .. " BROKE.")
-                    end
+                equipped[#equipped + 1] = item
+                if item.damageReduction and item.damageReduction > 0 then
+                    totalReduction = totalReduction + item.damageReduction
                 end
             end
         end
     end
 
-    -- Apply reduced damage
-    dmgInfo:SetDamage(finalDamage)
+    if totalReduction <= 0 then return end
+    totalReduction = math.min(totalReduction, 0.8)
+    dmgInfo:SetDamage(damage * (1 - totalReduction))
 
-    if ARMOR_DEBUG then
-        print("Final Damage Applied:", finalDamage)
+    local portion = damage * ix.config.Get("decDurabilityEquipment", 0.1)
+    for _, item in ipairs(equipped) do
+        local newDurability = math.max(item:GetData("durability", 0) - portion, 0)
+        item:SetData("durability", newDurability)
 
-        timer.Simple(0, function()
-            if IsValid(ent) then
-                print("Post-damage Health:", ent:Health())
-                print("---------------------")
+        if newDurability <= 0 then
+            item:SetData("equip", nil)
+            char:UpdateWeight()
+            ent:Notify(item.name .. " has broken and was unequipped!")
+            if item.equipSlot == "Outfit" and ent.ApplyOutfit then ent:ApplyOutfit() end
+            if item.invWidth then
+                local index = item:GetData("id")
+                if index then
+                    net.Start("ixEquipContainerClose") net.WriteUInt(index, 32) net.Send(ent)
+                end
             end
-        end)
+            ent:EmitSound(item.useSound, 80)
+        end
     end
 end)
 

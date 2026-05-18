@@ -36,6 +36,11 @@ PLUGIN.list = {
     },
 }
 
+ix.config.Add("ragdollLifetime", 120, "Seconds before an unbutchered corpse ragdoll is automatically removed.", nil, {
+    data = {min = 10, max = 600},
+    category = PLUGIN.name
+})
+
 if SERVER then
     ix.log.AddType("playerButchered", function(client, corpse)
         return string.format("%s butchered %s.", client:Name(), corpse:GetModel())
@@ -85,6 +90,10 @@ if SERVER then
         ragdoll:Spawn()
         ragdoll:SetCollisionGroup(COLLISION_GROUP_WEAPON)
         ragdoll:Activate()
+
+        timer.Simple(ix.config.Get("ragdollLifetime", 120), function()
+            if IsValid(ragdoll) then ragdoll:Remove() end
+        end)
 
         local velocity = npc:GetVelocity()
         for i = 0, ragdoll:GetPhysicsObjectCount() - 1 do
