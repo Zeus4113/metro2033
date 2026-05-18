@@ -2,7 +2,7 @@
 FACTION.name = "Redline"
 FACTION.description = "Soldiers of the Communist state reborn beneath the earth — disciplined, fanatical, and convinced that the metro's salvation lies in total collectivism."
 FACTION.isDefault = false
-FACTION.color = Color(180, 30, 30)
+FACTION.color = Color(115, 50, 50)
 FACTION.models = {
 "models/half-dead/metroll/a1b1.mdl",
 "models/half-dead/metroll/a2b1.mdl",

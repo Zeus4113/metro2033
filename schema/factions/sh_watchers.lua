@@ -2,7 +2,7 @@
 FACTION.name = "Invisible Watchers"
 FACTION.description = "Those who observe from the shadows, keeping order in a world that does not know they exist."
 FACTION.isDefault = false
-FACTION.color = Color(90, 60, 120)
+FACTION.color = Color(60, 50, 75)
 FACTION.models = {
 "models/half-dead/metroll/a1b1.mdl",
 "models/half-dead/metroll/a2b1.mdl",
