@@ -5,25 +5,25 @@ PLUGIN.author = "Bilwin"
 
 PLUGIN.list = {
     ["models/m2033r/npc/churzik.mdl"] = {
-        butcheringTime    = 2,
+        butcheringTime    = 1,
         slicingSound      = {"ambient/machines/slicer2.wav", "ambient/machines/slicer3.wav"},
         butcheringWeapons = {"tfa_nmrih_kknife"},
         items             = {"mutant_meat", "mutant_guts"},
     },
     ["models/m2033r/npc/nosach_male.mdl"] = {
-        butcheringTime    = 3,
+        butcheringTime    = 2,
         slicingSound      = {"ambient/machines/slicer2.wav", "ambient/machines/slicer3.wav"},
         butcheringWeapons = {"tfa_nmrih_kknife"},
         items             = {"mutant_meat", "mutant_meat", "mutant_skin"},
     },
     ["models/m2033r/npc/nosach.mdl"] = {
-        butcheringTime    = 3,
+        butcheringTime    = 2,
         slicingSound      = {"ambient/machines/slicer2.wav", "ambient/machines/slicer3.wav"},
         butcheringWeapons = {"tfa_nmrih_kknife"},
         items             = {"mutant_meat", "mutant_meat", "mutant_skin"},
     },
     ["models/m2033r/npc/murzik.mdl"] = {
-        butcheringTime    = 3,
+        butcheringTime    = 2,
         slicingSound      = {"ambient/machines/slicer2.wav", "ambient/machines/slicer3.wav"},
         butcheringWeapons = {"tfa_nmrih_kknife"},
         items             = {"watcher_hide", "mutant_meat", "mutant_meat"},
@@ -33,6 +33,30 @@ PLUGIN.list = {
         slicingSound      = {"ambient/machines/slicer2.wav", "ambient/machines/slicer3.wav"},
         butcheringWeapons = {"tfa_nmrih_kknife"},
         items             = {"mutant_meat"},
+    },
+    ["models/m2033r/npc/demon.mdl"] = {
+        butcheringTime    = 3,
+        slicingSound      = {"ambient/machines/slicer2.wav", "ambient/machines/slicer3.wav"},
+        butcheringWeapons = {"tfa_nmrih_kknife"},
+        items             = {"mutant_meat", "mutant_meat", "mutant_skin", "mutant_skin", "mutant_skin"},
+    },
+    ["models/m2033r/npc/demon2.mdl"] = {
+        butcheringTime    = 3,
+        slicingSound      = {"ambient/machines/slicer2.wav", "ambient/machines/slicer3.wav"},
+        butcheringWeapons = {"tfa_nmrih_kknife"},
+        items             = {"mutant_meat", "mutant_meat", "mutant_skin", "mutant_skin", "mutant_skin"},
+    },
+    ["models/m2033r/npc/demon_buffed.mdl"] = {
+        butcheringTime    = 3,
+        slicingSound      = {"ambient/machines/slicer2.wav", "ambient/machines/slicer3.wav"},
+        butcheringWeapons = {"tfa_nmrih_kknife"},
+        items             = {"mutant_meat", "mutant_meat", "mutant_skin", "mutant_skin", "mutant_skin"},
+    },
+    ["models/m2033r/npc/librarian.mdl"] = {
+        butcheringTime    = 3,
+        slicingSound      = {"ambient/machines/slicer2.wav", "ambient/machines/slicer3.wav"},
+        butcheringWeapons = {"tfa_nmrih_kknife"},
+        items             = {"mutant_meat", "mutant_meat", "mutant_skin", "mutant_skin"},
     },
 }
 
