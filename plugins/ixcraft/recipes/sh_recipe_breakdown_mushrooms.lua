@@ -8,7 +8,7 @@ RECIPE.requirements = {
 }
 
 RECIPE.results = {
-	["organics"] = 2,
+	["organics"] = 1,
 }
 
 RECIPE.skillIncrease = 0.24

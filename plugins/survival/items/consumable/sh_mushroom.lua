@@ -2,10 +2,10 @@ ITEM.name = "Mushroom"
 ITEM.description = "Edible cave mushroom commonly farmed in the Metro. Used in food recipes and organic processing."
 ITEM.model = "models/avoxgaming/mrp/jake/props/mushroom_2.mdl"
 
-ITEM.width = 2
-ITEM.height = 2
+ITEM.width = 1
+ITEM.height = 1
 ITEM.weight = 1.0
-ITEM.price = 16
+ITEM.price = 8
 
 ITEM.thirst = 0
 ITEM.hunger = 25

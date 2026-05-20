@@ -19,7 +19,7 @@ ix.config.Add("mushroomBrewingTime", 300, "Time in seconds to brew mushroom vodk
 
 PLUGIN.brewIngredients = {
 	{ id = "purified_water", count = 3 },
-	{ id = "organics",       count = 6 },
+	{ id = "mushroom",       count = 6 },
 }
 
 PLUGIN.brewSkillReq = 6

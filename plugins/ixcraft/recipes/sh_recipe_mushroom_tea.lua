@@ -4,7 +4,7 @@ RECIPE.model = "models/wick/wrbstalker/anomaly/items/dez_drink_tea.mdl"
 RECIPE.category = "Food & Drink"
 
 RECIPE.requirements = {
-    ["organics"] = 1,
+    ["mushroom"] = 1,
 	["purified_water"] = 1,
 }
 
