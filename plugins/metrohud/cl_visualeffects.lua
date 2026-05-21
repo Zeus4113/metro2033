@@ -26,24 +26,34 @@ local staticMat = Material("effects/combine_binocoverlay")
 
 --------------------------------------------------------
 -- STAMINA SWAY
+-- Phase accumulates at a rate driven by the same pitch formula as the
+-- breath audio (90 + intensity*25)/100, so sway and sound stay in sync.
 --------------------------------------------------------
 
-hook.Add("CalcView", "Metro_LowStaminaSway", function(ply, origin, angles, fov)
+local swayPhase = 0
 
+hook.Add("Think", "Metro_StaminaSwayPhase", function()
+    local client = LocalPlayer()
+    if not IsValid(client) then return end
+    local stamina = client:GetLocalVar("stm", 100)
+    if stamina >= staminaThreshold then return end
+    local intensity  = 1 - (stamina / staminaThreshold)
+    local pitchScale = (90 + intensity * 25) / 100
+    local baseRate   = 1.2 + intensity * 0.8
+    swayPhase = (swayPhase + FrameTime() * baseRate * pitchScale) % (math.pi * 2)
+end)
+
+hook.Add("CalcView", "Metro_LowStaminaSway", function(ply, origin, angles, fov)
     local stamina = ply:GetLocalVar("stm", 100)
     if stamina >= staminaThreshold then return end
 
     local intensity = 1 - (stamina / staminaThreshold)
 
-    angles.roll = angles.roll + math.sin(CurTime() * 2) * intensity * 1.5
-    angles.pitch = angles.pitch + math.sin(CurTime() * 1.5) * intensity * 1
+    angles.pitch = angles.pitch + math.sin(swayPhase)       * intensity * 1.2
+    angles.yaw   = angles.yaw   + math.sin(swayPhase * 0.7) * intensity * 0.6
+    angles.roll  = angles.roll  + math.sin(swayPhase * 0.5) * intensity * 0.4
 
-    return {
-        origin = origin,
-        angles = angles,
-        fov = fov
-    }
-
+    return { origin = origin, angles = angles, fov = fov }
 end)
 
 --------------------------------------------------------

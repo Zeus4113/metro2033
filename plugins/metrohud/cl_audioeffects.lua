@@ -4,7 +4,7 @@ if not CLIENT then return end
 -- METRO PLAYER AUDIO CONTROLLER
 --------------------------------------------------------
 
-local staminaThreshold = ix.config.Get("staminaThreshold", 50)
+local staminaThreshold = ix.config.Get("staminaThreshold", 25)
 local healthThreshold = ix.config.Get("healthThreshold", 50)
 local radThreshold = ix.config.Get("radiationThreshold", 500)
 

@@ -62,6 +62,16 @@ ix.config.Add("cookingFarmChance", 0.03, "Gathering chance per cooking.", nil, {
     category = "attributes"
 })
 
+ix.config.Add("jumpStaminaCost", 15, "Stamina consumed per jump.", nil, {
+    data = {min = 0, max = 50},
+    category = "attributes"
+})
+
+ix.config.Add("jumpMinStamina", 10, "Minimum stamina required to jump.", nil, {
+    data = {min = 0, max = 50},
+    category = "attributes"
+})
+
 ix.config.Add("skillIncreaseModifier", 1, "Modifier for skill increases gained via crafting.", nil, {
     data = {min = 0.1, max = 2, decimals = 1},
     category = "attributes"
@@ -74,6 +84,25 @@ ix.config.Add("characterCreationPoints", 40, "Number of points a player can use 
 
 function PLUGIN:GetDefaultAttributePoints(client, count)
     return ix.config.Get("characterCreationPoints", 20)
+end
+
+do
+    local IN_JUMP_KEY = IN_JUMP
+
+    function PLUGIN:StartCommand(client, cmd)
+        local stamina = client:GetLocalVar("stm", 100)
+        local pressing = bit.band(cmd:GetButtons(), IN_JUMP_KEY) ~= 0
+
+        if stamina < ix.config.Get("jumpMinStamina", 10) then
+            cmd:RemoveKey(IN_JUMP_KEY)
+        elseif SERVER and pressing and not client.ixPrevJump and client:OnGround() then
+            client:ConsumeStamina(ix.config.Get("jumpStaminaCost", 15))
+        end
+
+        if SERVER then
+            client.ixPrevJump = pressing
+        end
+    end
 end
 
 if not SERVER then return end
@@ -120,3 +149,4 @@ function PLUGIN:PlayerThrowPunch(client, trace)
 		client:GetCharacter():UpdateAttrib("strength", 0.001)
 	end
 end
+
