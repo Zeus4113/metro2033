@@ -2,7 +2,7 @@
 FACTION.name = "Fourth Reich"
 FACTION.description = "Fanatical soldiers of a reborn fascist order, carving out iron-fisted dominion over their stations and waging war on all they deem unworthy of survival."
 FACTION.isDefault = false
-FACTION.color = Color(45, 45, 45)
+FACTION.color = Color(62, 62, 65)
 FACTION.models = {
 "models/half-dead/metroll/a1b1.mdl",
 "models/half-dead/metroll/a2b1.mdl",
