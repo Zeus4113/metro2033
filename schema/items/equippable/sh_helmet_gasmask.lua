@@ -17,7 +17,7 @@ ITEM.useSound = "interface/gasmask/gasmask_holster_fast.mp3"
 
 ITEM.equipSlot = "Helmet"
 ITEM.radiationProtection = 0.5
-ITEM.maxDurability = 100
+ITEM.craftTier = 1
 
 
 ITEM.isGasmask = true

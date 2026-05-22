@@ -12,6 +12,6 @@ ITEM.outfitModel = "models/survivors/sacrifice_sold.mdl"
 ITEM.equipSlot = "Outfit"
 ITEM.damageReduction = 0.2
 ITEM.radiationProtection = 0.3
-ITEM.maxDurability = 100
+ITEM.craftTier = 4
 
 

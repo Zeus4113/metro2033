@@ -18,7 +18,7 @@ ITEM.useSound = "npc/combine_soldier/zipline_clip1.wav"
 ITEM.equipSlot = "Helmet"
 ITEM.damageReduction = 0.2
 ITEM.radiationProtection = 0.7
-ITEM.maxDurability = 100
+ITEM.craftTier = 4
 
 ITEM.isGasmask = true
 ITEM.filterDrainRate = 1

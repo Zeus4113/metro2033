@@ -10,6 +10,7 @@ ITEM.price = 400
 
 
 ITEM.repairType = "gun"
+ITEM.craftTier = 5
 ITEM.class = "arccw_sksinss"
 ITEM.weaponCategory = "primary"
 ITEM.slot = "primary"

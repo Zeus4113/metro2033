@@ -12,4 +12,4 @@ ITEM.outfitModel = "models/stlkrenegadaski/stalker_bandit_3_face_1.mdl"
 ITEM.equipSlot = "Outfit"
 ITEM.damageReduction = 0
 ITEM.radiationProtection = 0.05
-ITEM.maxDurability = 100
+ITEM.craftTier = 1

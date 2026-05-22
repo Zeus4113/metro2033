@@ -14,7 +14,7 @@ ITEM.iconCam = {
 }
 
 ITEM.equipSlot = "Backpack"
-ITEM.maxDurability = 100
+ITEM.craftTier = 3
 
 ITEM.invWidth = 6
 ITEM.invHeight = 6

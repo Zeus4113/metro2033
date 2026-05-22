@@ -10,6 +10,7 @@ ITEM.price = 88
 
 
 ITEM.repairType = "gun"
+ITEM.craftTier = 3
 ITEM.class = "arccw_metrorevolver"
 ITEM.weaponCategory = "sidearm"
 ITEM.slot = "sidearm"

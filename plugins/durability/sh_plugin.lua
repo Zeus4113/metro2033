@@ -6,7 +6,9 @@ PLUGIN.description = "Adds durability for all weapons."
 -- bullet.Damage = (bullet.Damage / 100) * durability
 -- bullet.Damage always 0
 
-ix.config.Add("maxValueDurability", 100, "Maximum value of the durability.", nil, {
+local TIER_DURABILITY = { [1] = 50, [2] = 87, [3] = 125, [4] = 162, [5] = 200 }
+
+ix.config.Add("defaultDurability", 100, "Default max durability for items without a craft tier.", nil, {
 	data = {min = 1, max = 9999},
 	category = PLUGIN.name
 })
@@ -72,7 +74,7 @@ if (SERVER) then
 				local item = weapon.ixItem
 
 				if (item.maxDurability) then
-					local durability = item:GetData("durability", item.maxDurability or ix.config.Get("maxValueDurability", 100))
+					local durability = item:GetData("durability", item.maxDurability or ix.config.Get("defaultDurability", 100))
 					local oldDurability = durability
 					local originalDamage = bullet.Damage
 
@@ -90,7 +92,7 @@ if (SERVER) then
 						decRate = ix.config.Get("decDurability", 0.5)
 					end
 
-					if (originalDamage < 2) then
+					if (originalDamage < 1) then
 						durability = math.max(durability - decRate, 0)
 					else
 						durability = math.max(durability - (originalDamage / 100), 0)
@@ -120,6 +122,10 @@ end
 function PLUGIN:InitializedPlugins()
 
 	for _, v in pairs(ix.item.list) do
+		if v.craftTier then
+			v.maxDurability = TIER_DURABILITY[v.craftTier] or ix.config.Get("defaultDurability", 100)
+		end
+
 		if (!v.maxDurability) then continue end
 
 		local maxDurability = v.maxDurability
@@ -214,11 +220,10 @@ function PLUGIN:InitializedPlugins()
 
 
 				local durability = item:GetData("durability", maxDurability)
-				local durabilityPercent = math.Clamp(durability / maxDurability, 0, maxDurability)
+				local durabilityPercent = math.Clamp(durability / maxDurability, 0, 1)
 
 				if (durabilityPercent > 0) then
-					-- 2.55 = (255 / 100)
-					local durabilityColor = Color(2.55 * (100 - durability), 2.55 * durability, 0, 255)
+					local durabilityColor = Color(255 * (1 - durabilityPercent), 255 * durabilityPercent, 0, 255)
 
 					surface.SetDrawColor(durabilityColor)
 					surface.DrawRect(0, h - 2, w * durabilityPercent, 2)
@@ -336,6 +341,6 @@ end
 
 function PLUGIN:CanPlayerEquipItem(_, itemObj)
 	if (ix.config.Get("unequipItemDurability", false)) then
-		return itemObj:GetData("durability", ix.config.Get("maxValueDurability", 100)) > 0
+		return itemObj:GetData("durability", itemObj.maxDurability or ix.config.Get("defaultDurability", 100)) > 0
 	end
 end

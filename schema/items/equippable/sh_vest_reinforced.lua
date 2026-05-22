@@ -18,7 +18,7 @@ ITEM.useSound = "npc/combine_soldier/zipline_hitground1.wav"
 ITEM.equipSlot = "Vest"
 ITEM.damageReduction = 0.3
 ITEM.radiationProtection = 0
-ITEM.maxDurability = 100
+ITEM.craftTier = 3
 
 ITEM.invWidth = 5
 ITEM.invHeight = 4

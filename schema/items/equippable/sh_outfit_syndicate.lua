@@ -12,7 +12,7 @@ ITEM.outfitModel = "models/hassty/chaos_insurgency_a.mdl"
 ITEM.equipSlot = "Outfit"
 ITEM.damageReduction = 0.20
 ITEM.radiationProtection = 0.15
-ITEM.maxDurability = 100
+ITEM.craftTier = 3
 
 -- Not craftable; repairIngredient tells the durability plugin what to consume on repair.
 ITEM.repairIngredient = "ballistic_plate"

@@ -10,6 +10,7 @@ ITEM.price = 247
 
 
 ITEM.repairType = "gun"
+ITEM.craftTier = 4
 ITEM.class = "arccw_metrokalash"
 ITEM.weaponCategory = "primary"
 ITEM.slot = "primary"

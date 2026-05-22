@@ -13,6 +13,7 @@ ITEM.class = "arccw_uc_usp"
 ITEM.weaponCategory = "sidearm"
 ITEM.slot = "sidearm"
 ITEM.repairType = "gun"
+ITEM.craftTier = 5
 
 
 ITEM.iconCam = {

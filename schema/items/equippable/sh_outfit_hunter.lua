@@ -12,4 +12,4 @@ ITEM.outfitModel = "models/catnike/port/driga/stalker_neutral2a_gp5.mdl"
 ITEM.equipSlot = "Outfit"
 ITEM.damageReduction = 0.1
 ITEM.radiationProtection = 0.1
-ITEM.maxDurability = 100
+ITEM.craftTier = 2

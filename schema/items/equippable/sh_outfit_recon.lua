@@ -12,4 +12,4 @@ ITEM.outfitModel = "models/hasst/randomguy/l_1.mdl"
 ITEM.equipSlot = "Outfit"
 ITEM.damageReduction = 0.2
 ITEM.radiationProtection = 0.15
-ITEM.maxDurability = 100
+ITEM.craftTier = 3

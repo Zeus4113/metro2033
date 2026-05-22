@@ -10,6 +10,7 @@ ITEM.price = 53
 
 
 ITEM.repairType = "gun"
+ITEM.craftTier = 2
 ITEM.class = "arccw_helsing"
 ITEM.weaponCategory = "primary"
 ITEM.slot = "primary"

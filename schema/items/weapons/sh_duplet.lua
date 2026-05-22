@@ -10,6 +10,7 @@ ITEM.price = 156
 
 
 ITEM.repairType = "gun"
+ITEM.craftTier = 3
 ITEM.class = "arccw_duplet"
 ITEM.weaponCategory = "primary"
 ITEM.slot = "primary"

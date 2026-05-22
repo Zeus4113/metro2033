@@ -11,6 +11,7 @@ ITEM.price = 107
 
 
 ITEM.repairType = "gun"
+ITEM.craftTier = 3
 ITEM.class = "arccw_bastardgun"
 ITEM.weaponCategory = "primary"
 ITEM.slot = "primary"

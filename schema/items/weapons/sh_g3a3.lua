@@ -10,6 +10,7 @@ ITEM.price = 500
 
 
 ITEM.repairType = "gun"
+ITEM.craftTier = 5
 ITEM.class = "arccw_ur_g3"
 ITEM.weaponCategory = "primary"
 ITEM.slot = "primary"

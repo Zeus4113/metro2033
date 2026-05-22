@@ -10,6 +10,7 @@ ITEM.price = 50
 
 
 ITEM.repairType = "gun"
+ITEM.craftTier = 2
 ITEM.class = "arccw_tikhar"
 ITEM.weaponCategory = "primary"
 ITEM.slot = "primary"

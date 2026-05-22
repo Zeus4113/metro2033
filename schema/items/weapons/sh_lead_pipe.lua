@@ -8,6 +8,7 @@ ITEM.slot = "melee"
 ITEM.price = 1
 ITEM.weight = 3
 ITEM.repairType = "tool"
+ITEM.craftTier = 1
 
 ITEM.model = "models/weapons/tfa_nmrih/w_me_pipe_lead.mdl"
 ITEM.width = 1

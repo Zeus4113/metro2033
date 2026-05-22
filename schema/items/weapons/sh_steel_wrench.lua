@@ -8,7 +8,7 @@ ITEM.slot = "melee"
 ITEM.price = 1
 ITEM.weight = 2
 ITEM.repairType = "tool"
-ITEM.maxDurability = 90
+ITEM.craftTier = 1
 
 ITEM.model = "models/weapons/tfa_nmrih/w_me_wrench.mdl"
 ITEM.width = 1
