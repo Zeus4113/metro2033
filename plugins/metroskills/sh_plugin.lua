@@ -90,6 +90,8 @@ do
     local IN_JUMP_KEY = IN_JUMP
 
     function PLUGIN:StartCommand(client, cmd)
+        if client:GetMoveType() == MOVETYPE_NOCLIP then return end
+
         local stamina = client:GetLocalVar("stm", 100)
         local pressing = bit.band(cmd:GetButtons(), IN_JUMP_KEY) ~= 0
 
@@ -106,6 +108,21 @@ do
 end
 
 if not SERVER then return end
+
+hook.Add("PlayerNoClip", "ixObserverStaminaRegen", function(client, enabled)
+    local timerID = "ixObserverRegen" .. client:SteamID()
+    if enabled then
+        timer.Create(timerID, 0.25, 0, function()
+            if not IsValid(client) or client:GetMoveType() ~= MOVETYPE_NOCLIP then
+                timer.Remove(timerID)
+                return
+            end
+            client:RestoreStamina(ix.config.Get("staminaRegeneration", 1.75))
+        end)
+    else
+        timer.Remove(timerID)
+    end
+end)
 
 function PLUGIN:GetPlayerPunchDamage(client, damage, context)
     local char = client:GetCharacter()
