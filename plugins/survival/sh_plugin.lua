@@ -4,18 +4,18 @@ PLUGIN.name = "Survival"
 PLUGIN.author = "BarneytheBandit"
 PLUGIN.description = "Survial stats for characters"
 
-ix.config.Add("DrainTick", 1, "Duration between ticks.", nil, {
-	data = {min = 0, max = 100},
+ix.config.Add("DrainTick", 60, "Duration in seconds between drain ticks.", nil, {
+	data = {min = 1, max = 300},
 	category = "Survival"
 })
 
-ix.config.Add("HungerDrain", 10, "Hunger lost per tick.", nil, {
-	data = {min = 0, max = 100},
+ix.config.Add("HungerDrain", 1, "Hunger lost per tick.", nil, {
+	data = {min = 0, max = 100, decimals = 2},
 	category = "Survival"
 })
 
-ix.config.Add("ThirstDrain", 10, "Thirst lost per tick.", nil, {
-	data = {min = 0, max = 100},
+ix.config.Add("ThirstDrain", 1.5, "Thirst lost per tick.", nil, {
+	data = {min = 0, max = 100, decimals = 2},
 	category = "Survival"
 })
 
@@ -24,7 +24,7 @@ ix.config.Add("StarvationDamage", 2, "Damage applied to player when they are sta
 	category = "Survival"
 })
 
-ix.config.Add("DehydrationDamage", 2, "Damage applied to player when they are dehydrated.", nil, {
+ix.config.Add("DehydrationDamage", 3, "Damage applied to player when they are dehydrated.", nil, {
 	data = {min = 0, max = 10},
 	category = "Survival"
 })

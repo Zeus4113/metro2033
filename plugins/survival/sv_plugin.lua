@@ -4,8 +4,8 @@ hook.Add("PlayerDeath", "ResetHungerThirst",  function( victim, inflictor, attac
     if not victim then return end
     local character = victim:GetCharacter()
     if not character then return end
-    character:SetHunger(100)
-	character:SetThirst(100)
+    character:SetHunger(math.min(character:GetHunger() + 25, 100))
+    character:SetThirst(math.min(character:GetThirst() + 25, 100))
 end)
 
 function PLUGIN:Think()
