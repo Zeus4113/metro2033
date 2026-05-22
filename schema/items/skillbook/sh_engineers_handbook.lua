@@ -6,4 +6,4 @@ ITEM.category = "Books"
 ITEM.price = 150
 
 ITEM.skill = "engineering" -- The skill that this book teaches or improves.
-ITEM.skillIncrease = 4 -- The amount by which this book increases the skill level.
+ITEM.skillIncrease = 2 -- The amount by which this book increases the skill level.
