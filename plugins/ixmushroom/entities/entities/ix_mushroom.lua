@@ -27,7 +27,14 @@ if SERVER then
 		self.isGrown = false
 		self.isDouble = math.random(1, 100) <= ix.config.Get("mushroomDoubleChance", 20)
 		self:SetModel(self.isDouble and MODEL_DOUBLE or MODEL_SINGLE)
+		self:SetModelScale(0, 0)
+
+		local baseTime = ix.config.Get("mushroomGrowthTime", 300)
+		local variance = ix.config.Get("mushroomGrowthVariance", 20) / 100
+		self.growthDuration = baseTime * (1 + math.Remap(math.random(), 0, 1, -variance, variance))
+
 		self:SetNWFloat("growthStart", self.growthStartTime)
+		self:SetNWFloat("growthDuration", self.growthDuration)
 	end
 
 	function ENT:Use(activator)
@@ -51,6 +58,7 @@ if SERVER then
 			end
 		end
 
+		self:EmitSound("physics/flesh/flesh_squishy_impact_hard1.wav", 70, math.random(95, 105))
 		activator:Notify("You picked " .. (count == 2 and "two mushrooms" or "a mushroom") .. ".")
 
 		self:StartGrowth()
@@ -67,6 +75,14 @@ if SERVER then
 end
 
 if CLIENT then
+	function ENT:Think()
+		local growthStart = self:GetNWFloat("growthStart", 0)
+		local growthDuration = self:GetNWFloat("growthDuration", ix.config.Get("mushroomGrowthTime", 300))
+		if growthStart <= 0 or growthDuration <= 0 then return end
+		local fraction = math.Clamp((CurTime() - growthStart) / growthDuration, 0, 1)
+		self:SetModelScale(fraction, 0)
+	end
+
 	ENT.PopulateEntityInfo = true
 
 	function ENT:OnPopulateEntityInfo(tooltip)
