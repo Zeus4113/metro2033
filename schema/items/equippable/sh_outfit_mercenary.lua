@@ -10,8 +10,8 @@ ITEM.price = 157
 ITEM.outfitModel = "models/hasst/randomguy/l_1.mdl"
 
 ITEM.equipSlot = "Outfit"
-ITEM.damageReduction = 0.2
-ITEM.radiationProtection = 0.15
+ITEM.damageReduction = 0.18
+ITEM.radiationProtection = 0.12
 ITEM.craftTier = 3
 
 

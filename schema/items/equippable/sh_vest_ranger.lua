@@ -16,9 +16,9 @@ ITEM.iconCam = {
 ITEM.useSound = "npc/combine_soldier/zipline_hitground1.wav"
 
 ITEM.equipSlot = "Vest"
-ITEM.damageReduction = 0.4
+ITEM.damageReduction = 0.18
 ITEM.craftTier = 4
 
 ITEM.invWidth = 6
 ITEM.invHeight = 5
-ITEM.extraCarryWeight = 25
+ITEM.extraCarryWeight = 15

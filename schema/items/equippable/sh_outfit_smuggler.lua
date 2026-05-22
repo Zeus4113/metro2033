@@ -10,8 +10,8 @@ ITEM.price = 23
 ITEM.outfitModel = "models/player/axelnoir/resident_evil_4/bio4/em/em18/merchanto_pm.mdl"
 
 ITEM.equipSlot = "Outfit"
-ITEM.damageReduction = 0
-ITEM.radiationProtection = 0.05
+ITEM.damageReduction = 0.03
+ITEM.radiationProtection = 0.08
 ITEM.craftTier = 1
 
 

@@ -17,6 +17,6 @@ ITEM.iconCam = {
 ITEM.equipSlot = "Backpack"
 ITEM.craftTier = 4
 
-ITEM.extraCarryWeight = 40
+ITEM.extraCarryWeight = 20
 ITEM.invWidth = 8
 ITEM.invHeight = 8

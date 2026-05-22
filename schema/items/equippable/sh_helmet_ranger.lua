@@ -16,8 +16,8 @@ ITEM.iconCam = {
 ITEM.useSound = "npc/combine_soldier/zipline_clip1.wav"
 
 ITEM.equipSlot = "Helmet"
-ITEM.damageReduction = 0.2
-ITEM.radiationProtection = 0.7
+ITEM.damageReduction = 0.14
+ITEM.radiationProtection = 0.55
 ITEM.craftTier = 4
 
 ITEM.isGasmask = true

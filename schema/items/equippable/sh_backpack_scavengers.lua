@@ -19,4 +19,4 @@ ITEM.craftTier = 1
 
 ITEM.invWidth = 5
 ITEM.invHeight = 5
-ITEM.extraCarryWeight = 20
+ITEM.extraCarryWeight = 12
