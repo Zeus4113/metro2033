@@ -94,7 +94,7 @@ if SERVER then
 
 	function ENT:CollectVodka(client)
 		local inv = client:GetCharacter():GetInventory()
-		for _ = 1, 3 do
+		for _ = 1, 1 do
 			if not inv:Add("mushroom_vodka") then
 				ix.item.Spawn("mushroom_vodka", client:GetPos() + Vector(0, 0, 10))
 			end
