@@ -15,7 +15,7 @@ ITEM.iconCam = {
 
 ITEM.useSound = "interface/gasmask/gasmask_holster_fast.mp3"
 
-ITEM.equipSlot = "Helmet"
+ITEM.equipSlot = "Mask"
 ITEM.radiationProtection = 0.45
 ITEM.craftTier = 1
 
