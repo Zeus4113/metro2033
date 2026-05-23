@@ -58,6 +58,14 @@ local function FindItemInSlot(char, slot)
     end
 end
 
+local function FindEquippedGasmask(char)
+    local inv = char:GetInventory()
+    if not inv then return nil end
+    for _, it in pairs(inv:GetItems()) do
+        if it:GetData("equip") and it.isGasmask then return it end
+    end
+end
+
 
 
 -- ==============================
@@ -123,6 +131,11 @@ ITEM.functions.Equip = {
             return false
         end
 
+        if item.isGasmask and FindEquippedGasmask(char) then
+            client:Notify("You already have a gasmask equipped.")
+            return false
+        end
+
         -- Prevent equipping broken armor
         if item.maxDurability and item.maxDurability > 0 then
             local durability = item:GetData("durability", 0)
@@ -167,7 +180,9 @@ ITEM.functions.Equip = {
             return false
         end
 
-        return not item:GetData("equip") and not FindItemInSlot(char, item.equipSlot)
+        return not item:GetData("equip")
+            and not FindItemInSlot(char, item.equipSlot)
+            and not (item.isGasmask and FindEquippedGasmask(char))
     end
 }
 
