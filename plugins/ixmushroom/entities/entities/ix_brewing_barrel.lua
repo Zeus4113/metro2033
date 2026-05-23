@@ -195,18 +195,8 @@ if CLIENT then
 			tools:SizeToContents()
 		end
 
-		local brewState = self:GetNWString("brewState", "idle")
-		local descText
-		if brewState == "brewing" then
-			local remaining = math.max(0, math.ceil(self:GetNWFloat("brewEndTime", 0) - CurTime()))
-			descText = "A barrel used to brew mushroom vodka from organic materials. Brewing in progress — " .. remaining .. "s remaining."
-		elseif brewState == "ready" then
-			descText = "A barrel used to brew mushroom vodka from organic materials. Brewing complete — press [E] to collect your vodka."
-		else
-			descText = "A barrel used to brew mushroom vodka from organic materials. Press [E] to begin brewing."
-		end
 		local desc = tooltip:AddRow("desc")
-		desc:SetText(descText)
+		desc:SetText("A barrel used to brew mushroom vodka from organic materials.")
 		desc:SizeToContents()
 	end
 end
