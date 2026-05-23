@@ -5,6 +5,6 @@ ITEM.model = "models/kek1ch/medoballs_trans.mdl"
 ITEM.width = 1
 ITEM.height = 1
 ITEM.weight = 1.0
-ITEM.price = 8
+ITEM.price = 2
 
 
