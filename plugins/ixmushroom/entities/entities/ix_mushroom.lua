@@ -96,14 +96,8 @@ if CLIENT then
 		title:SetImportant()
 		title:SizeToContents()
 
-		local descText
-		if fraction >= 1 then
-			descText = (isDouble and "A large mushroom cluster" or "A cave mushroom") .. " ready to harvest. Press [E] to pick."
-		else
-			descText = (isDouble and "A large mushroom cluster" or "A cave mushroom") .. string.format(" still growing. %d%% complete.", math.floor(fraction * 100))
-		end
 		local desc = tooltip:AddRow("desc")
-		desc:SetText(descText)
+		desc:SetText("Cave mushroom commonly farmed in the metro")
 		desc:SizeToContents()
 	end
 end
