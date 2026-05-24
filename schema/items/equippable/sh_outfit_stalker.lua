@@ -10,8 +10,8 @@ ITEM.price = 378
 ITEM.outfitModel = "models/survivors/sacrifice_sold.mdl"
 
 ITEM.equipSlot = "Outfit"
-ITEM.damageReduction = 0.18
-ITEM.radiationProtection = 0.35
+ITEM.damageReduction = 0.10
+ITEM.radiationProtection = 0.40
 ITEM.craftTier = 4
 
 

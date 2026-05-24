@@ -22,15 +22,9 @@ ITEM.functions.Insert = {
         local client = item.player
         local char = client:GetCharacter()
 
-        local maskID = char:GetEquipment()["Helmet"]
+        local mask = char:GetEquippedMask()
 
-        if not maskID then
-            client:Notify("You are not wearing a gasmask.")
-            return false
-        end
-
-        local mask = ix.item.instances[maskID]
-        if not mask or not mask.isGasmask then
+        if not mask then
             client:Notify("You are not wearing a gasmask.")
             return false
         end

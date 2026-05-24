@@ -11,7 +11,7 @@ ITEM.outfitModel = "models/player/axelnoir/resident_evil_4/bio4/em/em18/merchant
 
 ITEM.equipSlot = "Outfit"
 ITEM.damageReduction = 0.03
-ITEM.radiationProtection = 0.08
+ITEM.radiationProtection = 0.12
 ITEM.craftTier = 1
 
 

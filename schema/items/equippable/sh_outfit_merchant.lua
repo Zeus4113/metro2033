@@ -10,6 +10,6 @@ ITEM.price = 25
 ITEM.outfitModel = "models/stlkrenegadaski/stalker_bandit_3_face_1.mdl"
 
 ITEM.equipSlot = "Outfit"
-ITEM.damageReduction = 0.03
-ITEM.radiationProtection = 0.05
+ITEM.damageReduction = 0.08
+ITEM.radiationProtection = 0.03
 ITEM.craftTier = 1

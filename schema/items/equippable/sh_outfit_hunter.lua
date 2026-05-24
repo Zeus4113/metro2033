@@ -10,6 +10,6 @@ ITEM.price = 42
 ITEM.outfitModel = "models/catnike/port/driga/stalker_neutral2a_gp5.mdl"
 
 ITEM.equipSlot = "Outfit"
-ITEM.damageReduction = 0.1
-ITEM.radiationProtection = 0.08
+ITEM.damageReduction = 0.14
+ITEM.radiationProtection = 0.05
 ITEM.craftTier = 2

@@ -54,7 +54,7 @@ function PLUGIN:Think()
 
         if not radiationGain then continue end
 
-        local mask = GetEquippedItem(char, "Helmet")
+        local mask = char:GetEquippedMask()
 
         -- If no filter time or gasmask and in high rad zone, damage player
         if radiationGain > noMaskThreshold then
