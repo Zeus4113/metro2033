@@ -202,3 +202,22 @@ ix.char.RegisterVar("eyes", {
 		return value
 	end,
 })
+
+if CLIENT then
+	hook.Add("PopulateCharacterInfo", "physical_chars_tooltip", function(_, character, container)
+		local height = character:GetHeight("")
+		local weight = character:GetWeight("")
+		local eyes   = character:GetEyes("")
+
+		local parts = {}
+		if height ~= "" then parts[#parts + 1] = height .. "cm" end
+		if weight ~= "" then parts[#parts + 1] = weight .. "kg" end
+		if eyes   ~= "" then parts[#parts + 1] = eyes:sub(1, 1):upper() .. eyes:sub(2) end
+
+		if #parts == 0 then return end
+
+		local row = container:AddRow("physChars")
+		row:SetText(table.concat(parts, "  ·  "))
+		row:SizeToContents()
+	end)
+end
