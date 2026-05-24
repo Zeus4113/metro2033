@@ -5,7 +5,7 @@ ITEM.description = "A crude alcoholic drink distilled from fermented mushrooms a
 ITEM.width = 1
 ITEM.height = 2
 ITEM.weight = 0.5
-ITEM.price = 34
+ITEM.price = 20
 
 ITEM.thirst = 25
 ITEM.hunger = 0

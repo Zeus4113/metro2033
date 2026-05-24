@@ -94,7 +94,7 @@ if SERVER then
 
 	function ENT:CollectVodka(client)
 		local inv = client:GetCharacter():GetInventory()
-		for _ = 1, 1 do
+		for _ = 1, 2 do
 			if not inv:Add("mushroom_vodka") then
 				ix.item.Spawn("mushroom_vodka", client:GetPos() + Vector(0, 0, 10))
 			end
@@ -105,7 +105,7 @@ if SERVER then
 				self:EmitSound("physics/glass/glass_impact_soft1.wav", 75, math.random(95, 110))
 			end
 		end)
-		client:Notify("You collected 3x mushroom vodka.")
+		client:Notify("You collected 2x mushroom vodka.")
 		self.state = "idle"
 		self:SetNWString("brewState", "idle")
 	end
