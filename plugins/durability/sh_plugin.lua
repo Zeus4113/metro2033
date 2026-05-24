@@ -147,11 +147,12 @@ function PLUGIN:InitializedPlugins()
 
 		if CLIENT then
 
-			local SLOT_LETTERS = { 
-				Outfit = "Outfit", 
-				Vest = "Vest", 
+			local SLOT_LETTERS = {
+				Outfit = "Outfit",
+				Vest = "Vest",
 				Helmet = "Helmet",
-				Backpack = "Backpack"
+				Backpack = "Backpack",
+				Mask = "Mask"
 			}
 
 			function v:PaintOver(item, w, h)
