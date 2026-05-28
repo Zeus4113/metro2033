@@ -36,5 +36,5 @@ end)
 
 RECIPE:PostHook("OnCanSee", function(recipeTable, client)
 	if not client or not client:GetCharacter() then return false end
-	return client:GetCharacter():GetFaction() == FACTION_REDLINE
+	return client:GetCharacter():GetFaction() == FACTION_REDLINE and client:HasClassWhitelist(CLASS_REDLINE_VETERAN)
 end)
