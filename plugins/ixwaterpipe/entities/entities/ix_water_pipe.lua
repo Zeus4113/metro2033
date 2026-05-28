@@ -44,15 +44,28 @@ if SERVER then
 		local char = activator:GetCharacter()
 		if not char then return end
 
-		if self.nextUseTime and self.nextUseTime > CurTime() then
-			local remaining = math.ceil(self.nextUseTime - CurTime())
-			activator:Notify("The pipe is dry. Try again in " .. remaining .. " seconds.")
+		if self:GetNWBool("filling", false) then return end
+
+		local inv = char:GetInventory()
+		if not inv then return end
+
+		local tinCan
+		for item in inv:Iter() do
+			if item.uniqueID == "tin_can" then
+				tinCan = item
+				break
+			end
+		end
+
+		if not tinCan then
+			activator:Notify("You need a tin can to collect water.")
 			return
 		end
 
 		local fillTime = ix.config.Get("waterPipeFillTime", 3)
-		local cooldown = ix.config.Get("waterPipeCooldown", 120)
 		local ent = self
+
+		inv:Remove(tinCan:GetID())
 
 		self.usingPlayer = activator
 		self:SetNWBool("filling", true)
@@ -78,17 +91,13 @@ if SERVER then
 		activator:SetAction("Filling container...", fillTime, function()
 			if not IsValid(ent) then return end
 			ent:StopFilling()
-			ent.nextUseTime = CurTime() + cooldown
-
-			local inv = char:GetInventory()
-			if not inv then return end
 
 			local success = inv:Add("dirty_water")
 			if success then
-				activator:Notify("You filled a bottle with dirty water.")
+				activator:Notify("You filled the tin with dirty water.")
 			else
 				ix.item.Spawn("dirty_water", activator:GetPos() + activator:GetForward() * 40 + Vector(0, 0, 20))
-				activator:Notify("You filled a bottle with dirty water, but your inventory is full.")
+				activator:Notify("You filled the tin with dirty water, but your inventory is full.")
 			end
 		end)
 	end
@@ -149,7 +158,7 @@ if CLIENT then
 		title:SizeToContents()
 
 		local desc = tooltip:AddRow("desc")
-		desc:SetText("A leaking pipe. Use it to collect dirty water.")
+		desc:SetText("A leaking pipe. Use it with a tin can to collect dirty water.")
 		desc:SizeToContents()
 	end
 end
