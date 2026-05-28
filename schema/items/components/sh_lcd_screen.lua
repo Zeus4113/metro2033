@@ -4,7 +4,7 @@ ITEM.model = "models/illusion/eftcontainers/lcdclean.mdl"
 
 ITEM.width = 1
 ITEM.height = 1
-ITEM.weight = 1.0
-ITEM.price = 40
+ITEM.weight = 0.15
+ITEM.price = 30
 
 

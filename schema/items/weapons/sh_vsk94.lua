@@ -1,12 +1,12 @@
 ﻿ITEM.name = "VSK-94"
-ITEM.description = "A suppressed marksman rifle requiring high-quality mechanical parts and weapon components. Favoured for stealth and long-range engagements."
+ITEM.description = "A suppressed marksman rifle. Favoured for stealth and long-range engagements."
 ITEM.model = "models/weapons/c_vsv.mdl"
 
 
 ITEM.width = 4
 ITEM.height = 2
-ITEM.weight = 4.5
-ITEM.price = 261
+ITEM.weight = 3
+ITEM.price = 105
 
 
 ITEM.repairType = "gun"

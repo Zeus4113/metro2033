@@ -4,5 +4,5 @@ ITEM.model = "models/clutter/9voltbattery.mdl"
 
 ITEM.width = 1
 ITEM.height = 1
-ITEM.weight = 1.0
-ITEM.price = 20
+ITEM.weight = 0.05
+ITEM.price = 15

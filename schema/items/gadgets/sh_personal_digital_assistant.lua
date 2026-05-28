@@ -1,11 +1,11 @@
 ITEM.name = "Personal Digital Assistant"
-ITEM.description = "A small handheld computer constructed using advanced electronic components and display technology. Useful for storing information and monitoring systems."
+ITEM.description = "A small handheld computer constructed using advanced electronic components and display technology."
 ITEM.model = "models/spec45as/stalker/items/pda.mdl"
 
 ITEM.width = 1
 ITEM.height = 1
-ITEM.weight = 1.0
-ITEM.price = 177
+ITEM.weight = 0.2
+ITEM.price = 69
 
 ITEM.iconCam = {
 	pos = Vector(0, 0, 200),

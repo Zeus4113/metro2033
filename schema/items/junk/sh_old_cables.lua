@@ -4,8 +4,8 @@ ITEM.model = "models/illusion/eftcontainers/militarycable.mdl"
 
 ITEM.width = 2
 ITEM.height = 2
-ITEM.weight = 2.0
-ITEM.price = 24
+ITEM.weight = 0.8
+ITEM.price = 6
 
 ITEM.iconCam = {
 	pos = Vector(0, 0, 200),

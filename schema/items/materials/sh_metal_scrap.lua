@@ -4,6 +4,6 @@ ITEM.model = "models/clutter/scrapmetal.mdl"
 
 ITEM.width = 1
 ITEM.height = 1
-ITEM.weight = 1.0
+ITEM.weight = 0.3
 ITEM.price = 1
 

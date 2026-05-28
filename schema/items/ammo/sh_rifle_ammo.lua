@@ -1,11 +1,11 @@
 ﻿ITEM.name = "Rifle Ammo"
-ITEM.description = "Dirty rifle cartridges manufactured using larger amounts of scrap metal and propellant. A staple for automatic rifles and combat weapons."
-ITEM.model = "models/items/boxmrounds.mdl"
+ITEM.description = "Military-grade rifle cartridges manufactured using larger amounts of scrap metal and propellant."
+ITEM.model = "models/kek1ch/ammo_545x39_ap.mdl"
 
 ITEM.width = 1
 ITEM.height = 1
-ITEM.weight = 0.5
-ITEM.price = 30
+ITEM.weight = 0.015
+ITEM.price = 11
 
 ITEM.ammo = "ar2" -- type of the ammo
 ITEM.ammoAmount = 90 -- amount of the ammo

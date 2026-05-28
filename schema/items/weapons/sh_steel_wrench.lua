@@ -1,16 +1,16 @@
 ITEM.name = "Steel Wrench"
-ITEM.description = "A heavy metal wrench marked with signs of age. Very useful for dismantling mechanical items."
+ITEM.description = "A heavy steel wrench. Can be broken down into dense metal scrap."
 
 ITEM.class = "tfa_nmrih_wrench"
 ITEM.weaponCategory = "melee"
 ITEM.slot = "melee"
 
 ITEM.price = 1
-ITEM.weight = 2
+ITEM.weight = 0.6
 ITEM.repairType = "tool"
 ITEM.craftTier = 1
 
-ITEM.model = "models/weapons/tfa_nmrih/w_me_wrench.mdl"
+ITEM.model = "models/props_c17/tools_wrench01a.mdl"
 ITEM.width = 1
 ITEM.height = 2
 ITEM.iconCam = {

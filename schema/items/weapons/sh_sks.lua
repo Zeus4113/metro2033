@@ -1,11 +1,11 @@
 ﻿ITEM.name = "SKS"
-ITEM.description = "A semi-automatic rifle that fires 7.62x39mm rounds. It is a reliable and widely used firearm, known for its durability and ease of use. It is a common choice among survivors in the Metro."
+ITEM.description = "A semi-automatic rifle chambered in 7.62×39mm. Reliable and widely used among Metro survivors."
 ITEM.model = "models/weapons/sksnew/w_sks_01.mdl"
 
 
 ITEM.width = 4
 ITEM.height = 2
-ITEM.weight = 4
+ITEM.weight = 3.8
 ITEM.price = 400
 
 

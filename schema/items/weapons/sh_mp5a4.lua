@@ -1,11 +1,11 @@
 ITEM.name = "MP5A4"
-ITEM.description = "A compact submachine gun known for its reliability and ease of use. It is a popular choice for close-quarters combat and is favored by many survivors in the Metro."
+ITEM.description = "A compact submachine gun favoured for close-quarters combat."
 ITEM.model = "models/weapons/arccw/c_ur_mp5.mdl"
 
 
 ITEM.width = 3
 ITEM.height = 2
-ITEM.weight = 3
+ITEM.weight = 2.5
 ITEM.price = 400
 
 

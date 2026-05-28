@@ -4,8 +4,8 @@ ITEM.description = "A simple cooked meal made by roasting mutant meat over an op
 
 ITEM.width = 2
 ITEM.height = 1
-ITEM.weight = 0.5
-ITEM.price = 3
+ITEM.weight = 0.3
+ITEM.price = 5
 
 ITEM.thirst = 0
 ITEM.hunger = 33

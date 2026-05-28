@@ -1,11 +1,11 @@
 ITEM.name = "Mutant Meat"
-ITEM.model = "models/fallout 3/human_meat.mdl"
-ITEM.description = "Small cuts of meat taken from mutated creatures. Commonly used in simple survival meals."
+ITEM.model = "models/fallout 3/meat.mdl"
+ITEM.description = "Raw meat harvested from mutated creatures. Unsafe to eat without proper cooking or preparation."
 
 ITEM.width = 2
 ITEM.height = 1
-ITEM.weight = 1.0
-ITEM.price = 3
+ITEM.weight = 0.4
+ITEM.price = 5
 
 ITEM.thirst = 0
 ITEM.hunger = 33

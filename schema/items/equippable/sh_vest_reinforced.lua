@@ -1,11 +1,11 @@
 ﻿ITEM.name = "Reinforced Vest"
-ITEM.description = "A heavily armored vest featuring additional ballistic layers and hardened plating, offering strong protection against high-caliber rounds."
-ITEM.model = "models/hardbass/stalker_skat9m_razgryz.mdl"
+ITEM.description = "A heavily armoured vest featuring additional ballistic layers and hardened plating."
+ITEM.model = "models/hardbass/neutral_bact_razgruz.mdl"
 
 ITEM.width = 3
 ITEM.height = 3
-ITEM.weight = 7
-ITEM.price = 177
+ITEM.weight = 4
+ITEM.price = 75
 
 ITEM.iconCam = {
 	pos = Vector(-196.86, -35.22, 0.5),

@@ -6,11 +6,11 @@ ITEM.weaponCategory = "melee"
 ITEM.slot = "melee"
 
 ITEM.price = 1
-ITEM.weight = 3
+ITEM.weight = 2.5
 ITEM.repairType = "tool"
 ITEM.craftTier = 1
 
-ITEM.model = "models/weapons/tfa_nmrih/w_me_pipe_lead.mdl"
+ITEM.model = "models/props_canal/mattpipe.mdl"
 ITEM.width = 1
 ITEM.height = 3
 ITEM.iconCam = {

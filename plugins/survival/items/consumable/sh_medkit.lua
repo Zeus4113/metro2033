@@ -1,11 +1,11 @@
 ITEM.name = "Medkit"
 ITEM.model = "models/wick/wrbstalker/anomaly/items/wick_dev_aptechka_low.mdl"
-ITEM.description = "A compact medical kit containing chemical treatments and organic reagents used for emergency care."
+ITEM.description = "A compact medical kit containing chemical treatments and organic reagents for emergency care."
 
 ITEM.width = 1
 ITEM.height = 1
-ITEM.weight = 1.0
-ITEM.price = 55
+ITEM.weight = 0.3
+ITEM.price = 23
 
 ITEM.thirst = 0
 ITEM.hunger = 0

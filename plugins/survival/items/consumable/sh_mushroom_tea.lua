@@ -4,8 +4,8 @@ ITEM.description = "A warm drink brewed from cave mushrooms and purified water."
 
 ITEM.width = 1
 ITEM.height = 2
-ITEM.weight = 0.5
-ITEM.price = 7
+ITEM.weight = 0.4
+ITEM.price = 5
 
 ITEM.thirst = 25
 ITEM.hunger = 0

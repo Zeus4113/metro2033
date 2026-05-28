@@ -1,11 +1,11 @@
 ITEM.name = "Recon Outfit"
-ITEM.description = "A specialized outfit designed for reconnaissance missions and stealth operations. Provides enhanced mobility and moderate protection against physical threats, along with improved camouflage capabilities."
-ITEM.model = "models/spec45as/stalker/items/rukzak2.mdl"
+ITEM.description = "Lightweight combat clothing with basic ballistic protection, worn by scouts."
+ITEM.model = "models/hasst/randomguy/l_2.mdl"
 
 ITEM.width = 2
 ITEM.height = 2
-ITEM.weight = 4
-ITEM.price = 147
+ITEM.weight = 1.8
+ITEM.price = 75
 
 ITEM.outfitModel = "models/hasst/randomguy/l_1.mdl"
 

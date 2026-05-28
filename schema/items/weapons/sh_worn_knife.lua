@@ -6,7 +6,7 @@ ITEM.weaponCategory = "melee"
 ITEM.slot = "melee"
 
 ITEM.price = 1
-ITEM.weight = 0.5
+ITEM.weight = 0.15
 ITEM.repairType = "tool"
 ITEM.craftTier = 1
 

@@ -4,8 +4,8 @@ ITEM.model = "models/props_junk/garbage_plasticbottle001a.mdl"
 
 ITEM.width = 1
 ITEM.height = 2
-ITEM.weight = 3.0
-ITEM.price = 18
+ITEM.weight = 0.8
+ITEM.price = 4
 
 ITEM.iconCam = {
 	pos = Vector(-200, 0, 0),

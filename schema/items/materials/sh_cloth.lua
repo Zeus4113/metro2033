@@ -4,7 +4,7 @@ ITEM.model = "models/wick/wrbstalker/anomaly/items/wick_prt_o_fabrics_2.mdl"
 
 ITEM.width = 1
 ITEM.height = 1
-ITEM.weight = 1.0
-ITEM.price = 6
+ITEM.weight = 0.1
+ITEM.price = 5
 
 

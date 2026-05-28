@@ -4,8 +4,8 @@ ITEM.model = "models/illusion/eftcontainers/powercord.mdl"
 
 ITEM.width = 1
 ITEM.height = 1
-ITEM.weight = 1.0
-ITEM.price = 8
+ITEM.weight = 0.2
+ITEM.price = 3
 
 ITEM.iconCam = {
 	pos = Vector(0, 0, 200),

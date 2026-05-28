@@ -1,11 +1,11 @@
 ﻿ITEM.name = "Broken Motor"
-ITEM.description = "A seized electric motor. Difficult to repair, but excellent for salvaging mechanical components and copper windings."
+ITEM.description = "A seized electric motor. Excellent for salvaging mechanical components and copper windings."
 ITEM.model = "models/illusion/eftcontainers/engine.mdl"
 
 ITEM.width = 2
 ITEM.height = 2
-ITEM.weight = 4.0
-ITEM.price = 16
+ITEM.weight = 2
+ITEM.price = 10
 
 ITEM.iconCam = {
 	pos = Vector(-194.4, -46.83, 2.01),

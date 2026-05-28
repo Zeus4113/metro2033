@@ -1,11 +1,11 @@
 ITEM.name = "Gasmask Filter"
-ITEM.description = "A replaceable filter for gasmasks. Provides protection against airborne toxins and contaminants, but has a limited lifespan."
-ITEM.model = "models/teebeutel/metro/objects/gasmask_filter.mdl"
+ITEM.description = "A replaceable filter cartridge for gasmasks. Keeps toxic air from reaching the wearer."
+ITEM.model = "models/illusion/eftcontainers/gasmaskfilter.mdl"
 
 ITEM.width = 1
 ITEM.height = 1
-ITEM.weight = 0.5
-ITEM.price = 16
+ITEM.weight = 0.2
+ITEM.price = 9
 
 ITEM.filterAmount = 180
 

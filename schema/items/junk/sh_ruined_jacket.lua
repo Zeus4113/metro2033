@@ -4,8 +4,8 @@ ITEM.model = "models/kek1ch/novice_outfit.mdl"
 
 ITEM.width = 2
 ITEM.height = 2
-ITEM.weight = 2.0
-ITEM.price = 12
+ITEM.weight = 0.5
+ITEM.price = 10
 
 ITEM.iconCam = {
 	pos = Vector(0, 0, 200),

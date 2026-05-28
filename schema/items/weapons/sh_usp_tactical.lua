@@ -1,11 +1,11 @@
 ﻿ITEM.name = "USP Tactical"
-ITEM.description = "A compact and versatile semi-automatic pistol, known for its reliability and accuracy. It is a popular choice for close-quarters combat and self-defense."
+ITEM.description = "A compact and versatile semi-automatic pistol, known for its reliability and accuracy."
 ITEM.model = "models/weapons/arccw/c_uc_usp.mdl"
 
 
 ITEM.width = 2
 ITEM.height = 1
-ITEM.weight = 1.5
+ITEM.weight = 0.8
 ITEM.price = 300
 
 

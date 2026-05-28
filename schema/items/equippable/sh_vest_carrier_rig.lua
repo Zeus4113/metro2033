@@ -1,11 +1,11 @@
 ﻿ITEM.name = "Carrier Rig"
-ITEM.description = "A strung together carrier rig made from layers of cloth and leather."
+ITEM.description = "A strung-together carrier rig made from layers of cloth and leather."
 ITEM.model = "models/hardbass/stalker_sv_nauchniyrazgryz.mdl"
 
 ITEM.width = 3
 ITEM.height = 3
-ITEM.weight = 4
-ITEM.price = 30
+ITEM.weight = 1
+ITEM.price = 15
 
 ITEM.iconCam = {
 	pos = Vector(-196.86, -35.22, 0.5),

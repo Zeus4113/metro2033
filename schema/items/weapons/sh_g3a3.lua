@@ -1,11 +1,11 @@
 ﻿ITEM.name = "G3A3"
-ITEM.description = "A rugged battle rifle chambered in 7.62×51mm, prized for its stopping power and reliability in harsh conditions. Heavy recoil, but devastating at medium to long range."
+ITEM.description = "A rugged battle rifle chambered in 7.62×51mm. Heavy recoil, but devastating at medium to long range."
 ITEM.model = "models/weapons/arccw/c_ur_g3.mdl"
 
 
 ITEM.width = 4
 ITEM.height = 2
-ITEM.weight = 5
+ITEM.weight = 4
 ITEM.price = 500
 
 

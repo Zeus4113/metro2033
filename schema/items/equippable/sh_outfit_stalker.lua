@@ -1,11 +1,11 @@
 ﻿ITEM.name = "Stalker Outfit"
-ITEM.description = "An upgraded version of the standard Stalker outfit, offering improved protection and durability. Favored by experienced stalkers who venture into more dangerous areas of the Metro."
-ITEM.model = "models/spec45as/stalker/items/rukzak2.mdl"
+ITEM.description = "Heavy-duty radiation-resistant gear worn by experienced stalkers exploring the surface."
+ITEM.model = "models/survivors/sacrifice_sold.mdl"
 
 ITEM.width = 2
 ITEM.height = 2
-ITEM.weight = 5
-ITEM.price = 378
+ITEM.weight = 3
+ITEM.price = 165
 
 ITEM.outfitModel = "models/survivors/sacrifice_sold.mdl"
 

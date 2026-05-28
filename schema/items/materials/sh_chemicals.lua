@@ -4,7 +4,7 @@ ITEM.model = "models/wick/wrbstalker/anomaly/items/dez_jar.mdl"
 
 ITEM.width = 1
 ITEM.height = 1
-ITEM.weight = 1.0
-ITEM.price = 9
+ITEM.weight = 0.2
+ITEM.price = 4
 
 

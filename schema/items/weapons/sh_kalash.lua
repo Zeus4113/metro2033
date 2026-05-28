@@ -1,12 +1,12 @@
 ﻿ITEM.name = "Kalash"
-ITEM.description = "A reliable and widely used assault rifle, known for its durability and ease of use. It is a common choice among survivors in the Metro."
-ITEM.model = "models/weapons/w_kalash74.mdl"
+ITEM.description = "A reliable and widely used assault rifle known for its durability and ease of use."
+ITEM.model = "models/weapons/c_kalash.mdl"
 
 
 ITEM.width = 4
 ITEM.height = 2
-ITEM.weight = 5
-ITEM.price = 247
+ITEM.weight = 3.5
+ITEM.price = 105
 
 
 ITEM.repairType = "gun"

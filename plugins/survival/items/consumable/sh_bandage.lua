@@ -1,11 +1,11 @@
 ITEM.name = "Bandage"
 ITEM.model = "models/wick/wrbstalker/anomaly/items/wick_dev_bandage.mdl"
-ITEM.description = "A simple medical dressing crafted from cloth and treated with basic chemical disinfectant"
+ITEM.description = "A simple medical dressing crafted from cloth and treated with basic chemical disinfectant."
 
 ITEM.width = 1
 ITEM.height = 1
-ITEM.weight = 0.2
-ITEM.price = 6
+ITEM.weight = 0.1
+ITEM.price = 9
 
 ITEM.thirst = 0
 ITEM.hunger = 0

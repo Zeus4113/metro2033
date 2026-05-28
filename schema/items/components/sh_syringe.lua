@@ -4,5 +4,5 @@ ITEM.model = "models/illusion/eftcontainers/medsyringe.mdl"
 
 ITEM.width = 1
 ITEM.height = 1
-ITEM.weight = 1.0
-ITEM.price = 70
+ITEM.weight = 0.04
+ITEM.price = 60

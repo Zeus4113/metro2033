@@ -1,11 +1,11 @@
 ﻿ITEM.name = "Pistol Ammo"
-ITEM.model = "models/items/boxsrounds.mdl"
-ITEM.description = "Standard sidearm cartridges assembled from recycled metal casings and chemical propellant. Cheap to manufacture and commonly crafted by Metro gunsmiths."
+ITEM.model = "models/kek1ch/ammo_9x18_fmj.mdl"
+ITEM.description = "Standard sidearm cartridges assembled from recycled metal casings and chemical propellant."
 
 ITEM.width = 1
 ITEM.height = 1
-ITEM.weight = 0.3
-ITEM.price = 13
+ITEM.weight = 0.01
+ITEM.price = 6
 
 ITEM.ammo = "pistol" -- type of the ammo
 ITEM.ammoAmount = 40 -- amount of the ammo

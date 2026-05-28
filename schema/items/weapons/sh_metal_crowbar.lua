@@ -1,12 +1,12 @@
 ﻿ITEM.name = "Crowbar"
-ITEM.description = "A solid steel crowbar. Used to open sealed crates, it can also be recycled into dense metal scraps."
+ITEM.description = "A solid steel crowbar. Used to open sealed crates; can also be recycled into dense metal scraps."
 
 ITEM.class = "tfa_nmrih_crowbar"
 ITEM.weaponCategory = "melee"
 ITEM.slot = "melee"
 
 ITEM.price = 1
-ITEM.weight = 3
+ITEM.weight = 1.5
 ITEM.repairType = "tool"
 ITEM.craftTier = 1
 

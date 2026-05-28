@@ -1,11 +1,11 @@
 ﻿ITEM.name = "Textile Patch"
-ITEM.description = "A small piece of textile used for repairing or modifying clothing and gear."
-ITEM.model = "models/kek1ch/textile_patch_b.mdl"
+ITEM.description = "A layer of ballistic fibre used when crafting protective armour and tactical gear."
+ITEM.model = "models/wick/wrbstalker/anomaly/items/wick_prt_o_retardant_11.mdl"
 
 ITEM.width = 1
 ITEM.height = 1
-ITEM.weight = 1.0
-ITEM.price = 20
+ITEM.weight = 0.08
+ITEM.price = 15
 
 
 

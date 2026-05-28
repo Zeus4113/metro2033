@@ -1,13 +1,13 @@
 ﻿ITEM.name = "Bastard Gun"
-ITEM.description = "A crude automatic firearm cobbled together from scavenged machine parts. Easy to manufacture but infamous for its poor reliability."
+ITEM.description = "A crude automatic firearm cobbled together from scavenged machine parts. Infamous for poor reliability."
 ITEM.model = "models/weapons/c_bastardgun.mdl"
 
 
 
 ITEM.width = 4
 ITEM.height = 2
-ITEM.weight = 4.5
-ITEM.price = 107
+ITEM.weight = 2.5
+ITEM.price = 46
 
 
 ITEM.repairType = "gun"

@@ -1,11 +1,11 @@
 ﻿ITEM.name = "Ranger Helmet"
-ITEM.description = "A durable helmet used by experienced stalkers. Combines mechanical fittings and reinforced materials for better protection in hazardous environments."
+ITEM.description = "A durable helmet combining mechanical fittings and reinforced materials for better protection."
 ITEM.model = "models/maver1k_xvii/metro_digger_helmet.mdl"
 
 ITEM.width = 2
 ITEM.height = 2
-ITEM.weight = 5
-ITEM.price = 368
+ITEM.weight = 2
+ITEM.price = 165
 
 ITEM.iconCam = {
 	pos = Vector(-195.82, -40.66, -0.42),

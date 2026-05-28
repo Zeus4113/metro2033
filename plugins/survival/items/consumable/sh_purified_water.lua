@@ -4,8 +4,8 @@ ITEM.description = "Water that has been boiled and filtered to remove harmful co
 
 ITEM.width = 1
 ITEM.height = 2
-ITEM.weight = 1.0
-ITEM.price = 5
+ITEM.weight = 0.5
+ITEM.price = 3
 
 ITEM.thirst = 33
 ITEM.hunger = 0

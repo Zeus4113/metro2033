@@ -4,8 +4,8 @@ ITEM.description = "Contaminated water gathered from underground sources. Must b
 
 ITEM.width = 1
 ITEM.height = 2
-ITEM.weight = 1.0
-ITEM.price = 4
+ITEM.weight = 0.5
+ITEM.price = 3
 
 ITEM.thirst = 33
 ITEM.hunger = 0

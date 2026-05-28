@@ -1,11 +1,11 @@
 ITEM.name = "Ranger Vest"
-ITEM.description = "A combat vest reinforced with kevlar fibers and ballistic plates. Designed to provide reliable protection during firefights."
-ITEM.model = "models/hardbass/stalker_bandit_1_lrazgryz.mdl"
+ITEM.description = "A combat vest reinforced with kevlar fibres and ballistic plates."
+ITEM.model = "models/hardbass/stalker_bandit_2_b_razgryz.mdl"
 
 ITEM.width = 3
 ITEM.height = 3
-ITEM.weight = 9
-ITEM.price = 135
+ITEM.weight = 5.5
+ITEM.price = 165
 
 ITEM.iconCam = {
 	pos = Vector(-195.49, -41.38, 7.45),

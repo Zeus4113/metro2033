@@ -4,8 +4,8 @@ ITEM.model = "models/props_junk/Shoe001a.mdl"
 
 ITEM.width = 2
 ITEM.height = 2
-ITEM.weight = 1.0
-ITEM.price = 18
+ITEM.weight = 0.4
+ITEM.price = 10
 
 ITEM.iconCam = {
 	pos = Vector(0, 200, 0),
