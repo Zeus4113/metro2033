@@ -61,12 +61,11 @@ function PLUGIN:SearchLootContainer(ent, client)
                 if item:GetData("durability", item.maxDurability) <= 0 then
                     if item.Unequip then
                         item:Unequip(client)
-                        local size = item.width * item.height
-                        item:Remove()
-                        inventory:Add("metal_scrap", size)
-                    else
-                        item:Remove()
                     end
+
+                    local size = math.max(1, (item.width or 1) * (item.height or 1))
+                    item:Remove()
+                    inventory:Add("metal_scrap", size)
                     client:Notify(item.name .. " has broken.")
                 end
             end

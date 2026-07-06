@@ -62,6 +62,4 @@ function PLUGIN:CanPlayerTradeWithVendor(client, entity, uniqueID, isSellingToVe
 			return false
 		end
 	end
-
-	return true
 end

@@ -8,6 +8,10 @@ RECIPE.requirements = {
 	["organics"] = 2,
 }
 
+RECIPE.tools = {
+	"cast_iron_pot",
+}
+
 RECIPE.results = {
     ["dweller_stew"] = 1
 }

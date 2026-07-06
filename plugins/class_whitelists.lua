@@ -64,6 +64,10 @@ if (SERVER) then
 			self:SetData("classWhitelists", classWhitelists)
 			self:SaveData()
 
+			-- Let the class resolver re-apply the player's forced class immediately
+			-- (e.g. admin-assigned faction Sergeant/Officer).
+			hook.Run("OnClassWhitelistChanged", self, class, whitelisted)
+
 			return true
 		end
 

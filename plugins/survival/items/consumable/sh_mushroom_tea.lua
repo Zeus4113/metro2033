@@ -1,5 +1,5 @@
 ITEM.name = "Mushroom Tea"
-ITEM.model = "models/wick/wrbstalker/anomaly/items/dez_drink_tea.mdl"
+ITEM.model = "models/kek1ch/drink_tea.mdl"
 ITEM.description = "A warm drink brewed from cave mushrooms and purified water."
 
 ITEM.width = 1

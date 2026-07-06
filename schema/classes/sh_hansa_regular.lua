@@ -1,13 +1,13 @@
-CLASS.name = "Red Line Veteran"
-CLASS.faction = FACTION_REDLINE
+CLASS.name      = "Hansa Regular"
+CLASS.faction   = FACTION_HANSA
 CLASS.isDefault = false
-CLASS_REDLINE_VETERAN = CLASS.index
+CLASS_HANSA_REGULAR = CLASS.index
 
 -- Force-set by reputation; not manually selectable.
 function CLASS:CanSwitchTo(client)
-    return false
+	return false
 end
 
 function CLASS:OnCanBe(client)
-    return false
+	return false
 end

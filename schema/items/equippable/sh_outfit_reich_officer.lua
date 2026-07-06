@@ -4,12 +4,12 @@ ITEM.model = "models/spec45as/stalker/items/rukzak1.mdl"
 
 ITEM.width = 2
 ITEM.height = 2
-ITEM.weight = 3
-ITEM.price = 55
+ITEM.weight = 1.6
+ITEM.price = 60
 
-ITEM.outfitModel = "models/devcon/mrp/act/player/reich_offizier_jake.mdl"
+ITEM.outfitModel = "models/reich/reich_officer.mdl"
 
 ITEM.equipSlot = "Outfit"
-ITEM.damageReduction = 0.10
+ITEM.damageReduction = 0.07
 ITEM.radiationProtection = 0.06
 ITEM.craftTier = 2

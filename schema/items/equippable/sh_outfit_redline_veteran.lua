@@ -4,12 +4,12 @@ ITEM.model = "models/spec45as/stalker/items/rukzak1.mdl"
 
 ITEM.width = 2
 ITEM.height = 2
-ITEM.weight = 4
-ITEM.price = 140
+ITEM.weight = 2.6
+ITEM.price = 150
 
-ITEM.outfitModel = "models/devcon/mrp/act/player/redline_nco.mdl"
+ITEM.outfitModel = "models/redlines/redline_soldier_hazmat.mdl"
 
 ITEM.equipSlot = "Outfit"
-ITEM.damageReduction = 0.18
-ITEM.radiationProtection = 0.10
+ITEM.damageReduction = 0.13
+ITEM.radiationProtection = 0.21
 ITEM.craftTier = 3

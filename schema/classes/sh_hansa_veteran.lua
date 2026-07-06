@@ -3,8 +3,9 @@ CLASS.faction = FACTION_HANSA
 CLASS.isDefault = false
 CLASS_HANSA_VETERAN = CLASS.index
 
+-- Force-set by reputation; not manually selectable.
 function CLASS:CanSwitchTo(client)
-    return client:HasClassWhitelist(self.index)
+    return false
 end
 
 function CLASS:OnCanBe(client)

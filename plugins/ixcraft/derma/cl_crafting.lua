@@ -60,7 +60,7 @@ function PANEL:Init()
 
 	self.categories = self:Add("DScrollPanel")
 	self.categories:Dock(LEFT)
-	self.categories:SetWide(260)
+	self.categories:SetWide(160)
 	self.categories.Paint = function(this, w, h)
 		surface.SetDrawColor(0, 0, 0, 66)
 		surface.DrawRect(0, 0, w, h)
@@ -98,11 +98,14 @@ function PANEL:Init()
 		end
 	end
 
+	local maxWidth = 0
+
 	for category, realName in SortedPairs(self.categoryPanels) do
 		local button = self.categories:Add("ixMenuButton")
 		button:Dock(TOP)
 		button:SetText(category)
 		button:SizeToContents()
+		maxWidth = math.max(maxWidth, button:GetWide())
 		button.Paint = function(this, w, h)
 			surface.SetDrawColor(self.selected == this and ix.config.Get("color") or color_transparent)
 			surface.DrawRect(0, 0, w, h)
@@ -125,6 +128,10 @@ function PANEL:Init()
 
 		self.categoryPanels[realName] = button
 	end
+
+	-- Fit the category column to the widest entry (+ room for the scrollbar),
+	-- clamped to a sensible minimum so short lists don't look cramped.
+	self.categories:SetWide(math.max(maxWidth + 16, 160))
 
 	if (self.selected) then
 		self:LoadRecipes(self.selected.category)

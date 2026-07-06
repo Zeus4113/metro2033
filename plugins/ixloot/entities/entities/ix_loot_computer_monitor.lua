@@ -22,6 +22,10 @@ ENT.searchSounds = {
     "physics/metal/metal_computer_impact_soft3.wav"
 }
 
+ENT.requiredTools = {
+    "screwdriver"
+}
+
 ENT.models = {
     "models/props_lab/monitor02.mdl"
 }
