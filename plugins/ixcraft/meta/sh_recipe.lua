@@ -253,8 +253,7 @@ if (SERVER) then
 		if self.skills then
 			for v, k in pairs(self.skills) do
 				local attribKey = string.lower(v)
-				local attribDef = ix.attributes.list and ix.attributes.list[attribKey]
-				local maxVal = (attribDef and attribDef.maxValue) or 100
+				local maxVal = ix.attributes.GetMax(character, attribKey)
 				local newVal = math.min(character:GetAttribute(attribKey) + (self.skillIncrease * ix.config.Get("skillIncreaseModifier", 0)), maxVal)
 				character:SetAttrib(attribKey, newVal)
 			end

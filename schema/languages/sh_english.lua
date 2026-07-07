@@ -17,4 +17,6 @@ LANGUAGE = {
 	eyes = "Eye Colour",
 	physicalCharacteristics = "Physical Characteristics",
 	affiliation = "Affiliation",
+	specialisation = "Specialisation",
+	specNotChosen = "You must choose a craft skill to specialise in.",
 }
