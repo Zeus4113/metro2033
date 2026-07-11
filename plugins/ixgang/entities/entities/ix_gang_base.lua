@@ -75,7 +75,7 @@ if CLIENT then
 		local hname  = plugin and plugin:GetHideoutName(hkey) or "Hideout"
 
 		local title = tooltip:AddRow("ganghideout")
-		title:SetText(hname)
+		title:SetText(hname .. " Claimable")
 		title:SetImportant()
 		title:SizeToContents()
 

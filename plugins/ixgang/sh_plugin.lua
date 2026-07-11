@@ -35,7 +35,7 @@ ix.config.Add("gangMaxMembers",          8,     "Maximum members per group.", ni
 -- faction plugin's factionMeta pattern.
 
 PLUGIN.hideouts = {
-	backroom   = { name = "Backroom Hideout",   class = function() return CLASS_BACKROOM end },
+	backroom   = { name = "Backroom",           class = function() return CLASS_BACKROOM end },
 	encampment = { name = "Encampment",         class = function() return CLASS_ENCAMPMENT end },
 	hideout    = { name = "Hideout",            class = function() return CLASS_HIDEOUT end },
 	safehouse  = { name = "Safehouse",          class = function() return CLASS_SAFEHOUSE end },
