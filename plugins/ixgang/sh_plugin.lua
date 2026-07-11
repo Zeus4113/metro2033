@@ -39,7 +39,7 @@ PLUGIN.hideouts = {
 	encampment = { name = "Encampment",         class = function() return CLASS_ENCAMPMENT end },
 	hideout    = { name = "Hideout",            class = function() return CLASS_HIDEOUT end },
 	safehouse  = { name = "Safehouse",          class = function() return CLASS_SAFEHOUSE end },
-	station    = { name = "Station",            class = function() return CLASS_STATION end },
+	barracks   = { name = "Barracks",           class = function() return CLASS_BARRACKS end },
 	bunker     = { name = "Bunker",             class = function() return CLASS_BUNKER end },
 	den        = { name = "Den",                class = function() return CLASS_DEN end },
 }
