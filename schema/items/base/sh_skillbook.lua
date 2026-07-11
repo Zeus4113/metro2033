@@ -13,18 +13,30 @@ ITEM.functions.Read = {
         local character = item.player:GetCharacter()
         if not character then return false end
 
-        -- Check if the player already has the skill
-        local currentLevel = character:GetAttribute(item.skill, 0) or 0
+        -- Craft skills live in ix.skill (dynamic cap); anything else is a plain attribute.
+        local isSkill = ix.skill and ix.skill.IsValid(item.skill)
 
-        if currentLevel >= 20 then
-            item.player:Notify("Your " .. item.skill .. " skill is already at the maximum level.")
+        local currentLevel = isSkill and ix.skill.Get(character, item.skill)
+            or (character:GetAttribute(item.skill, 0) or 0)
+
+        local ceiling = isSkill and ix.skill.GetCap(character, item.skill) or 20
+
+        if currentLevel >= ceiling then
+            item.player:Notify("Your " .. item.skill .. " skill cannot be improved any further right now.")
             return false
         end
-        
-        -- Increase the skill level
-        character:SetAttrib(item.skill, math.min(currentLevel + item.skillIncrease, 20))
 
-        item.player:Notify("You have read the " .. item.name .. " and your " .. item.skill .. " skill has increased to " .. character:GetAttribute(item.skill, 0) .. ".")
+        -- Increase the skill level (AddXP clamps to the current cap for craft skills).
+        if isSkill then
+            ix.skill.AddXP(character, item.skill, item.skillIncrease)
+        else
+            character:SetAttrib(item.skill, math.min(currentLevel + item.skillIncrease, 20))
+        end
+
+        local newLevel = isSkill and math.floor(ix.skill.Get(character, item.skill))
+            or character:GetAttribute(item.skill, 0)
+
+        item.player:Notify("You have read the " .. item.name .. " and your " .. item.skill .. " skill has increased to " .. newLevel .. ".")
 
         return true
     end,

@@ -42,8 +42,8 @@ if SERVER then
 	function ENT:TryStartBrewing(client)
 		local char = client:GetCharacter()
 		local skillReq = ix.plugin.Get("ixmushroom").brewSkillReq
-		if char:GetAttribute("chemistry") < skillReq then
-			client:Notify("You need Chemistry " .. skillReq .. " to brew. (Current: " .. char:GetAttribute("chemistry") .. ")")
+		if ix.skill.Get(char, "chemistry") < skillReq then
+			client:Notify("You need Chemistry " .. skillReq .. " to brew. (Current: " .. math.floor(ix.skill.Get(char, "chemistry")) .. ")")
 			return
 		end
 

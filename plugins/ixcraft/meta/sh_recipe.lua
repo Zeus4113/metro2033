@@ -75,11 +75,7 @@ function RECIPE:OnCanSee(client)
 
         for v, k in pairs(self.skills) do
 
-			if not (character:GetAttribute(string.lower(v)))then
-				continue
-			end
-
-            if (character:GetAttribute(string.lower(v)) + 5 >= k) then
+            if (ix.skill.Get(character, string.lower(v)) + 5 >= k) then
                 index = index + 1
             end
         end 
@@ -125,12 +121,12 @@ function RECIPE:OnCanCraft(client)
 
 	-- Skill Check
 
-    if(self.skills)then    
+    if(self.skills)then
         for v, k in pairs(self.skills) do
-            if (character:GetAttribute(string.lower(v)) < k) then
+            if (ix.skill.Get(character, string.lower(v)) < k) then
                 bHasSkill = false
             end
-        end 
+        end
     end
 
 	if(bHasSkill == false) then
@@ -252,10 +248,8 @@ if (SERVER) then
 		
 		if self.skills then
 			for v, k in pairs(self.skills) do
-				local attribKey = string.lower(v)
-				local maxVal = ix.attributes.GetMax(character, attribKey)
-				local newVal = math.min(character:GetAttribute(attribKey) + (self.skillIncrease * ix.config.Get("skillIncreaseModifier", 0)), maxVal)
-				character:SetAttrib(attribKey, newVal)
+				-- ix.skill.AddXP owns the dynamic-cap clamp and fires the tier/point events.
+				ix.skill.AddXP(character, string.lower(v), (self.skillIncrease or 0) * ix.config.Get("skillIncreaseModifier", 1))
 			end
 		end
 
