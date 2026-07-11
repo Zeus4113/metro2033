@@ -13,7 +13,7 @@ end
 
 if SERVER then
 	function ENT:Initialize()
-		self:SetModel("models/props_phx/construct/metal_plate1.mdl")
+		self:SetModel("models/clutter/hamradio.mdl")
 		self:PhysicsInit(SOLID_VPHYSICS)
 		self:SetMoveType(MOVETYPE_VPHYSICS)
 		self:SetSolid(SOLID_VPHYSICS)
