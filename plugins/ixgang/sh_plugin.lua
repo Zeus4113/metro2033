@@ -27,6 +27,9 @@ ix.config.Add("gangBaseRange",           96,    "Interaction radius for hideout 
 ix.config.Add("gangMaxMembers",          8,     "Maximum members per group.", nil, {
 	data = { min = 2, max = 64 }, category = PLUGIN.name,
 })
+ix.config.Add("gangMinClaimMembers",     2,     "Minimum group members required to claim a hideout.", nil, {
+	data = { min = 1, max = 64 }, category = PLUGIN.name,
+})
 
 -- ── Hideout → class map ───────────────────────────────────────────────────────
 --

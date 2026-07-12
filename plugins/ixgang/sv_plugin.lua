@@ -261,6 +261,12 @@ function PLUGIN:ClaimBase(client, char, entity)
 		return
 	end
 
+	local minMembers = ix.config.Get("gangMinClaimMembers", 2)
+	if #group.members < minMembers then
+		client:Notify("Your group needs at least " .. minMembers .. " members to claim a hideout.")
+		return
+	end
+
 	local baseKey  = self:GetBaseKey(entity)
 	local hideout  = entity:GetHideoutKey()
 	local classIdx = self:GetHideoutClass(hideout)
@@ -420,6 +426,8 @@ function PLUGIN:GetBaseState(char, entity)
 			claimReason = "Only your group leader can claim."
 		elseif group.baseKey then
 			claimReason = "Your group already holds a hideout."
+		elseif #group.members < ix.config.Get("gangMinClaimMembers", 2) then
+			claimReason = "Your group needs at least " .. ix.config.Get("gangMinClaimMembers", 2) .. " members to claim."
 		else
 			canClaim = true
 		end
