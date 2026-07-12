@@ -59,9 +59,12 @@ PLUGIN.loot = {
                 "steel_wrench",
                 "metal_crowbar",
                 "lead_pipe",
-                "cast_iron_pot"
+                "screwdriver",
+                "cast_iron_pot",
+                "kettle"
             },
             ["rare"] = {
+                "dirty_water",
                 "broken_radio",
                 "antique_clock"
             }

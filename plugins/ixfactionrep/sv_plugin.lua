@@ -999,8 +999,10 @@ function PLUGIN:StartDecayTimer()
 end
 
 -- ── Vendor rep gate ───────────────────────────────────────────────────────────
+-- Gates *opening* the vendor menu (CanPlayerUseVendor fires on Use), not just
+-- trading. CanPlayerTradeWithVendor would only fire once a buy/sell is attempted.
 
-function PLUGIN:CanPlayerTradeWithVendor(client, entity)
+function PLUGIN:CanPlayerUseVendor(client, entity)
 	local fkey = entity:GetNWString("ixVendorRepFaction", "")
 	if fkey == "" then return end
 
