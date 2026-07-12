@@ -7,11 +7,12 @@ ITEM.repairType = "tool"
 ITEM.craftTier = 1
 ITEM.maxDurability = 100
 
-ITEM.model = "models/props_c17/tools_wrench01a.mdl"
+ITEM.model = "models/illusion/eftcontainers/wrench.mdl"
 ITEM.width = 1
 ITEM.height = 2
 ITEM.iconCam = {
-	pos = Vector(0, 200, 0),
-	ang = Angle(-1.71, 270.18, 0),
-	fov = 2.53
+	pos = Vector(0, 0, 200),
+	ang = Angle(90, 0, 0),
+	fov = 3.39
 }
+

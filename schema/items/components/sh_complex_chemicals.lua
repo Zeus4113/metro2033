@@ -1,6 +1,6 @@
 ﻿ITEM.name = "Complex Chemicals"
 ITEM.description = "Refined chemical compounds used in advanced medical and explosive crafting."
-ITEM.model = "models/illusion/eftcontainers/medsyringe.mdl"
+ITEM.model = "models/illusion/eftcontainers/alkali.mdl"
 
 ITEM.width = 1
 ITEM.height = 1

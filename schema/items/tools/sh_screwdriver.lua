@@ -9,9 +9,10 @@ ITEM.maxDurability = 100
 
 ITEM.model = "models/illusion/eftcontainers/screwdriver.mdl"
 ITEM.width = 1
-ITEM.height = 1
+ITEM.height = 2
 ITEM.iconCam = {
-	pos = Vector(0, 200, 0),
-	ang = Angle(-1.71, 270.18, 0),
-	fov = 2.53
+	pos = Vector(0, 0, 200),
+	ang = Angle(90, 0, 0),
+	fov = 2.73
 }
+

@@ -142,10 +142,10 @@ PLUGIN.contractPools = {
 		{ id = "rl_col_helsing",     type = "collect", target = "helsing",     count = 1,  reward = 12, name = "Helsing Contract",   desc = "Supply a crafted Helsing to the special operations unit." },
 		{ id = "rl_col_vsk",         type = "collect", target = "vsk94",       count = 1,  reward = 14, name = "VSK-94 Priority",    desc = "Deliver a crafted VSK-94 to Red Line command." },
 		-- Ammunition
-		{ id = "rl_col_rifle_ammo",  type = "collect", target = "rifle_ammo",  count = 15, reward = 7,  name = "Rifle Ammunition",   desc = "Supply %d rifle rounds to the Red Line depot." },
-		{ id = "rl_col_pistol_ammo", type = "collect", target = "pistol_ammo", count = 20, reward = 6,  name = "Pistol Ammunition",  desc = "Deliver %d pistol rounds to the armoury." },
-		{ id = "rl_col_shotgun_ammo",type = "collect", target = "shotgun_ammo",count = 12, reward = 6,  name = "Shotgun Shells",     desc = "Supply %d shotgun shells to the tunnel garrison." },
-		{ id = "rl_col_magnum_ammo", type = "collect", target = "magnum_ammo", count = 10, reward = 8,  name = "Magnum Rounds",      desc = "Deliver %d magnum rounds to the Red Line sniper corps." },
+		{ id = "rl_col_rifle_ammo",  type = "collect", target = "rifle_ammo",  count = 3,  reward = 7,  name = "Rifle Ammunition",   desc = "Supply %d boxes of rifle ammo to the Red Line depot." },
+		{ id = "rl_col_pistol_ammo", type = "collect", target = "pistol_ammo", count = 4,  reward = 6,  name = "Pistol Ammunition",  desc = "Deliver %d boxes of pistol ammo to the armoury." },
+		{ id = "rl_col_shotgun_ammo",type = "collect", target = "shotgun_ammo",count = 3,  reward = 6,  name = "Shotgun Shells",     desc = "Supply %d boxes of shotgun ammo to the tunnel garrison." },
+		{ id = "rl_col_magnum_ammo", type = "collect", target = "magnum_ammo", count = 2,  reward = 8,  name = "Magnum Rounds",      desc = "Deliver %d boxes of magnum ammo to the Red Line sniper corps." },
 	},
 
 	reich = {
