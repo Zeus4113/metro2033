@@ -96,38 +96,43 @@ PLUGIN.rankOrder = { "rookie", "regular", "veteran", "sergeant", "officer" }
 
 -- ── Contract pools ────────────────────────────────────────────────────────────
 --
--- Hansa   — Medical supplies, equipment (helmets/vests/backpacks), outfits
--- Redline — Weapons and ammo only
+-- Redline — Engineering: mechanical parts, weapon components, weapons, ammo
+-- Hansa   — Tailoring: leather, cloth, equipment components, outfits, vests,
+--           helmets, backpacks
 -- Reich   — Killing mutants only
 --
--- All collect targets are crafted item outputs, not raw materials.
+-- Collect targets are crafted/salvaged item outputs, not chemical raw materials.
 
 PLUGIN.contractPools = {
 
 	hansa = {
-		-- Medical supplies
-		{ id = "hn_col_medkit",           type = "collect", target = "medkit",               count = 1, reward = 12, name = "Medical Priority",      desc = "Deliver a medkit to the Hansa field clinic." },
-		{ id = "hn_col_first_aid",        type = "collect", target = "first_aid_kit",        count = 2, reward = 9,  name = "Aid Kit Stockpile",     desc = "Deliver %d first aid kits to the Ring Line hospital." },
-		{ id = "hn_col_green_stuff",      type = "collect", target = "green_stuff",          count = 2, reward = 8,  name = "Stimulant Supply",      desc = "Deliver %d doses of green stuff to the medical store." },
-		{ id = "hn_col_herbal",           type = "collect", target = "herbal_remedy",        count = 3, reward = 7,  name = "Herbal Stores",         desc = "Supply %d herbal remedies to the apothecary." },
-		{ id = "hn_col_antirad",          type = "collect", target = "anti_radiation_pills", count = 3, reward = 8,  name = "Radiation Treatment",   desc = "Deliver %d anti-radiation pills to the Hansa medical unit." },
-		{ id = "hn_col_bandage",          type = "collect", target = "bandage",              count = 4, reward = 6,  name = "Bandage Order",         desc = "Supply %d bandages to the Ring Line aid post." },
+		-- Tailoring materials
+		{ id = "hn_col_leather",          type = "collect", target = "leather",             count = 4, reward = 7,  name = "Tanned Hides",          desc = "Supply %d leather to the Hansa tailors." },
+		{ id = "hn_col_cloth",            type = "collect", target = "cloth",               count = 5, reward = 6,  name = "Textile Order",         desc = "Deliver %d cloth to the Ring Line garment works." },
+		-- Equipment components
+		{ id = "hn_col_textile_patch",    type = "collect", target = "textile_patch",       count = 3, reward = 8,  name = "Ballistic Fibre",       desc = "Supply %d textile patches to the Hansa armour shop." },
+		{ id = "hn_col_ballistic_plate",  type = "collect", target = "ballistic_plate",     count = 2, reward = 9,  name = "Plate Fabrication",     desc = "Deliver %d ballistic plates to the Ring Line workshop." },
+		{ id = "hn_col_kevlar_weave",     type = "collect", target = "kevlar_weave",        count = 1, reward = 10, name = "Kevlar Requisition",    desc = "Supply a kevlar weave to the Hansa quartermaster." },
 		-- Equipment — helmets, vests, backpacks
-		{ id = "hn_col_helm_gasmask",     type = "collect", target = "helmet_gasmask",       count = 1, reward = 9,  name = "Gasmask Requisition",   desc = "Deliver a gasmask to the Hansa tunnel patrol." },
-		{ id = "hn_col_helm_reinforced",  type = "collect", target = "helmet_reinforced",    count = 1, reward = 9,  name = "Reinforced Helmet",     desc = "Supply a reinforced helmet to the Ring Line garrison." },
-		{ id = "hn_col_vest_carrier",     type = "collect", target = "vest_carrier_rig",     count = 1, reward = 10, name = "Carrier Rig Contract",  desc = "Deliver a carrier rig vest to the Hansa armoury." },
-		{ id = "hn_col_vest_reinforced",  type = "collect", target = "vest_reinforced",      count = 1, reward = 10, name = "Reinforced Vest Order", desc = "Supply a reinforced vest to the Hansa guard corps." },
-		{ id = "hn_col_pack_merchants",   type = "collect", target = "backpack_merchants",   count = 1, reward = 9,  name = "Merchant's Pack",       desc = "Deliver a merchant's backpack to the Ring Line depot." },
-		{ id = "hn_col_pack_scavengers",  type = "collect", target = "backpack_scavengers",  count = 1, reward = 8,  name = "Scavenger's Pouch",     desc = "Supply a scavenger's pouch to the Hansa supply corps." },
+		{ id = "hn_col_helm_gasmask",     type = "collect", target = "helmet_gasmask",      count = 1, reward = 9,  name = "Gasmask Requisition",   desc = "Deliver a gasmask to the Hansa tunnel patrol." },
+		{ id = "hn_col_helm_reinforced",  type = "collect", target = "helmet_reinforced",   count = 1, reward = 9,  name = "Reinforced Helmet",     desc = "Supply a reinforced helmet to the Ring Line garrison." },
+		{ id = "hn_col_vest_carrier",     type = "collect", target = "vest_carrier_rig",    count = 1, reward = 10, name = "Carrier Rig Contract",  desc = "Deliver a carrier rig vest to the Hansa armoury." },
+		{ id = "hn_col_vest_reinforced",  type = "collect", target = "vest_reinforced",     count = 1, reward = 10, name = "Reinforced Vest Order", desc = "Supply a reinforced vest to the Hansa guard corps." },
+		{ id = "hn_col_pack_merchants",   type = "collect", target = "backpack_merchants",  count = 1, reward = 9,  name = "Merchant's Pack",       desc = "Deliver a merchant's backpack to the Ring Line depot." },
+		{ id = "hn_col_pack_scavengers",  type = "collect", target = "backpack_scavengers", count = 1, reward = 8,  name = "Scavenger's Pouch",     desc = "Supply a scavenger's pouch to the Hansa supply corps." },
 		-- Outfits
-		{ id = "hn_col_outfit_hunter",    type = "collect", target = "outfit_hunter",        count = 1, reward = 9,  name = "Hunter's Kit",          desc = "Supply a crafted hunter outfit to the Hansa quartermaster." },
-		{ id = "hn_col_outfit_merchant",  type = "collect", target = "outfit_merchant",      count = 1, reward = 8,  name = "Merchant Attire",       desc = "Deliver a merchant outfit for the Ring Line trade delegation." },
-		{ id = "hn_col_outfit_contractor",type = "collect", target = "outfit_contractor",    count = 1, reward = 8,  name = "Contractor Uniform",    desc = "Supply a contractor outfit to the Hansa labour corps." },
-		{ id = "hn_col_outfit_recon",     type = "collect", target = "outfit_recon",         count = 1, reward = 10, name = "Recon Gear",            desc = "Deliver a recon outfit to the Hansa scouting division." },
-		{ id = "hn_col_outfit_stalker",   type = "collect", target = "outfit_stalker",       count = 1, reward = 9,  name = "Stalker Outfit",        desc = "Supply a stalker outfit to the Hansa forward post." },
+		{ id = "hn_col_outfit_hunter",    type = "collect", target = "outfit_hunter",       count = 1, reward = 9,  name = "Hunter's Kit",          desc = "Supply a crafted hunter outfit to the Hansa quartermaster." },
+		{ id = "hn_col_outfit_merchant",  type = "collect", target = "outfit_merchant",     count = 1, reward = 8,  name = "Merchant Attire",       desc = "Deliver a merchant outfit for the Ring Line trade delegation." },
+		{ id = "hn_col_outfit_contractor",type = "collect", target = "outfit_contractor",   count = 1, reward = 8,  name = "Contractor Uniform",    desc = "Supply a contractor outfit to the Hansa labour corps." },
+		{ id = "hn_col_outfit_recon",     type = "collect", target = "outfit_recon",        count = 1, reward = 10, name = "Recon Gear",            desc = "Deliver a recon outfit to the Hansa scouting division." },
+		{ id = "hn_col_outfit_stalker",   type = "collect", target = "outfit_stalker",      count = 1, reward = 9,  name = "Stalker Outfit",        desc = "Supply a stalker outfit to the Hansa forward post." },
 	},
 
 	redline = {
+		-- Mechanical parts & weapon components
+		{ id = "rl_col_mech_parts",  type = "collect", target = "mechanical_parts", count = 4,  reward = 7,  name = "Machine Salvage",    desc = "Deliver %d mechanical parts to the Red Line workshop." },
+		{ id = "rl_col_spring",      type = "collect", target = "metal_spring",     count = 3,  reward = 8,  name = "Spring Requisition", desc = "Supply %d metal springs to the Red Line armourers." },
+		{ id = "rl_col_gauge",       type = "collect", target = "pressure_gauge",   count = 2,  reward = 9,  name = "Pressure Systems",   desc = "Deliver %d pressure gauges to the pneumatics bench." },
 		-- Crafted weapons
 		{ id = "rl_col_kalash",      type = "collect", target = "kalash",      count = 1,  reward = 12, name = "Kalash Requisition", desc = "Deliver a crafted Kalash rifle to the Red Line armoury." },
 		{ id = "rl_col_bastard",     type = "collect", target = "bastard",     count = 1,  reward = 11, name = "Bastard Delivery",   desc = "Supply a crafted Bastard SMG to the weapons depot." },
