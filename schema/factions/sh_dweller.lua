@@ -12,6 +12,15 @@ FACTION.models = {
 "models/half-dead/metroll/a3b1.mdl",
 "models/half-dead/metroll/a4b1.mdl",
 "models/half-dead/metroll/a5b1.mdl",
+"models/half-dead/metroll/m2b1.mdl",
+"models/half-dead/metroll/m1b1.mdl",
+"models/half-dead/metroll/m3b1.mdl",
+"models/half-dead/metroll/m4b1.mdl",
+"models/half-dead/metroll/m5b1.mdl",
+"models/half-dead/metroll/m6b1.mdl",
+"models/half-dead/metroll/m7b1.mdl",
+"models/half-dead/metroll/m8b1.mdl",
+"models/half-dead/metroll/m9b1.mdl",
 }
 
 -- You should define a global variable for this faction's index for easy access wherever you need. FACTION.index is
