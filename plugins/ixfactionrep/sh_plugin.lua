@@ -24,10 +24,10 @@ ix.config.Add("factionRepKillPenalty",        10,   "Reputation lost for killing
 
 -- ── Rep thresholds ─────────────────────────────────────────────────────────────
 
-ix.config.Add("factionRepTransferThreshold",  20,   "Minimum rep to enlist in a faction (Rookie rank).", nil, {
+ix.config.Add("factionRepTransferThreshold",  40,   "Minimum rep to enlist in a faction (Rookie rank).", nil, {
 	data = { min = 1, max = 100 }, category = PLUGIN.name,
 })
-ix.config.Add("factionRepRegularThreshold",   50,   "Minimum rep to be force-set to the Regular rank.", nil, {
+ix.config.Add("factionRepRegularThreshold",   60,   "Minimum rep to be force-set to the Regular rank.", nil, {
 	data = { min = 1, max = 100 }, category = PLUGIN.name,
 })
 ix.config.Add("factionRepVeteranThreshold",   80,   "Minimum rep to be force-set to the Veteran rank.", nil, {

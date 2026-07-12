@@ -60,23 +60,23 @@ local function calcPanelH(n, descLines, bountyCount)
 end
 
 local function getRepColor(rep)
-	if rep >= 80     then return Color(210, 190, 80,  220)   -- Sergeant (gold)
-	elseif rep >= 60 then return Color(200, 140, 50,  220)   -- Specialist (amber)
-	elseif rep >= 40 then return Color(55,  130, 55,  220)   -- Veteran (green)
-	elseif rep >= 20 then return Color(70,  100, 50,  220)   -- Enlisted (olive)
-	elseif rep >= 0  then return Color(70,  70,  70,  220)   -- Stranger/Affiliate (grey)
-	else                  return Color(120, 45,  45,  220)   -- Hostile (red)
+	if rep >= 80     then return Color(210, 190, 80,  220)   -- Veteran (gold)
+	elseif rep >= 60 then return Color(200, 140, 50,  220)   -- Regular (amber)
+	elseif rep >= 40 then return Color(55,  130, 55,  220)   -- Enlisted (green)
+	elseif rep >= 20 then return Color(70,  100, 50,  220)   -- Affiliated (olive)
+	elseif rep >= 0  then return Color(70,  70,  70,  220)   -- Stranger (grey)
+	elseif rep >= -50 then return Color(120, 45,  45,  220)  -- Weary (red)
+	else                  return Color(150, 30,  30,  220)   -- Wanted (deep red)
 	end
 end
 
 local function getTierName(rep)
-	if rep >= 80     then return "SERGEANT"
-	elseif rep >= 60 then return "SPECIALIST"
-	elseif rep >= 40 then return "VETERAN"
-	elseif rep >= 20 then return "ENLISTED"
-	elseif rep >= 10 then return "AFFILIATE"
+	if rep >= 80     then return "VETERAN"
+	elseif rep >= 60 then return "REGULAR"
+	elseif rep >= 40 then return "ENLISTED"
+	elseif rep >= 20 then return "AFFILIATED"
 	elseif rep >= 0  then return "STRANGER"
-	elseif rep >= -50 then return "HOSTILE"
+	elseif rep >= -50 then return "WEARY"
 	else                  return "WANTED"
 	end
 end
