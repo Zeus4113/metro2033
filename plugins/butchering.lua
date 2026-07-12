@@ -7,55 +7,55 @@ PLUGIN.list = {
     ["models/m2033r/npc/churzik.mdl"] = {
         butcheringTime    = 1,
         slicingSound      = {"ambient/machines/slicer2.wav", "ambient/machines/slicer3.wav"},
-        butcheringWeapons = {"tfa_nmrih_kknife"},
+        butcheringItems   = {"worn_knife"},
         items             = {"mutant_meat", "mutant_guts"},
     },
     ["models/m2033r/npc/nosach_male.mdl"] = {
         butcheringTime    = 2,
         slicingSound      = {"ambient/machines/slicer2.wav", "ambient/machines/slicer3.wav"},
-        butcheringWeapons = {"tfa_nmrih_kknife"},
+        butcheringItems   = {"worn_knife"},
         items             = {"mutant_meat", "mutant_meat", "mutant_skin"},
     },
     ["models/m2033r/npc/nosach.mdl"] = {
         butcheringTime    = 2,
         slicingSound      = {"ambient/machines/slicer2.wav", "ambient/machines/slicer3.wav"},
-        butcheringWeapons = {"tfa_nmrih_kknife"},
+        butcheringItems   = {"worn_knife"},
         items             = {"mutant_meat", "mutant_meat", "mutant_skin"},
     },
     ["models/m2033r/npc/murzik.mdl"] = {
         butcheringTime    = 2,
         slicingSound      = {"ambient/machines/slicer2.wav", "ambient/machines/slicer3.wav"},
-        butcheringWeapons = {"tfa_nmrih_kknife"},
+        butcheringItems   = {"worn_knife"},
         items             = {"watcher_hide", "mutant_meat", "mutant_meat"},
     },
     ["models/m2033r/npc/baby_murzik.mdl"] = {
         butcheringTime    = 1,
         slicingSound      = {"ambient/machines/slicer2.wav", "ambient/machines/slicer3.wav"},
-        butcheringWeapons = {"tfa_nmrih_kknife"},
+        butcheringItems   = {"worn_knife"},
         items             = {"mutant_meat"},
     },
     ["models/m2033r/npc/demon.mdl"] = {
         butcheringTime    = 3,
         slicingSound      = {"ambient/machines/slicer2.wav", "ambient/machines/slicer3.wav"},
-        butcheringWeapons = {"tfa_nmrih_kknife"},
+        butcheringItems   = {"worn_knife"},
         items             = {"mutant_meat", "mutant_meat", "mutant_skin", "mutant_skin", "mutant_skin"},
     },
     ["models/m2033r/npc/demon2.mdl"] = {
         butcheringTime    = 3,
         slicingSound      = {"ambient/machines/slicer2.wav", "ambient/machines/slicer3.wav"},
-        butcheringWeapons = {"tfa_nmrih_kknife"},
+        butcheringItems   = {"worn_knife"},
         items             = {"mutant_meat", "mutant_meat", "mutant_skin", "mutant_skin", "mutant_skin"},
     },
     ["models/m2033r/npc/demon_buffed.mdl"] = {
         butcheringTime    = 3,
         slicingSound      = {"ambient/machines/slicer2.wav", "ambient/machines/slicer3.wav"},
-        butcheringWeapons = {"tfa_nmrih_kknife"},
+        butcheringItems   = {"worn_knife"},
         items             = {"mutant_meat", "mutant_meat", "mutant_skin", "mutant_skin", "mutant_skin"},
     },
     ["models/m2033r/npc/librarian.mdl"] = {
         butcheringTime    = 3,
         slicingSound      = {"ambient/machines/slicer2.wav", "ambient/machines/slicer3.wav"},
-        butcheringWeapons = {"tfa_nmrih_kknife"},
+        butcheringItems   = {"worn_knife"},
         items             = {"mutant_meat", "mutant_meat", "mutant_skin", "mutant_skin"},
     },
 }
@@ -72,12 +72,13 @@ if SERVER then
 
     util.AddNetworkString("ixClearClientRagdolls")
 
-    local function FindButcheringTool(client, allowedWeapons)
+    local function FindButcheringTool(client, allowedItems)
         local inv = client:GetCharacter():GetInventory()
         if not inv then return nil end
-        for _, item in pairs(inv:GetItems()) do
-            if item.class and table.HasValue(allowedWeapons, item.class) then
-                return item
+        for _, uniqueID in ipairs(allowedItems) do
+            local matches = inv:GetItemsByUniqueIDDeep(uniqueID)
+            if #matches > 0 then
+                return matches[1]
             end
         end
     end
@@ -156,8 +157,8 @@ if SERVER then
         if target:GetNetVar("cutting", false) then return end
         if hook.Run("CanButchEntity", client, target) == false then return end
 
-        local allowedWeapons = corpseData.butcheringWeapons or {"weapon_crowbar"}
-        local tool = FindButcheringTool(client, allowedWeapons)
+        local allowedItems = corpseData.butcheringItems or {"worn_knife"}
+        local tool = FindButcheringTool(client, allowedItems)
         if not tool then return end
 
         local physObj = target:GetPhysicsObject()
