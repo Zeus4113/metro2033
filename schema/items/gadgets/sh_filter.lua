@@ -1,6 +1,6 @@
 ITEM.name = "Gasmask Filter"
 ITEM.description = "A replaceable filter cartridge for gasmasks. Keeps toxic air from reaching the wearer."
-ITEM.model = "models/illusion/eftcontainers/gasmaskfilter.mdl"
+ITEM.model = "models/teebeutel/metro/objects/gasmask_filter.mdl"
 
 ITEM.width = 1
 ITEM.height = 1
