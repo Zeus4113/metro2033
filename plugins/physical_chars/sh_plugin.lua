@@ -4,6 +4,13 @@ PLUGIN.name = "Physical Characteristics"
 PLUGIN.author = "Kai Stevens"
 PLUGIN.description = "Adds height, weight, and eye colour fields to characters."
 
+-- Scales a value authored at 1920x1080 to the player's resolution, matching
+-- Helix's ScreenScale (width-proportional); 1920/640 = 3. Only ever called from
+-- the client-side OnDisplay bodies below, so ScreenScale is always available.
+local function Scale(n)
+	return ScreenScale(n / 3)
+end
+
 if SERVER then
 	util.AddNetworkString("ix_physchars_setup")
 	util.AddNetworkString("ix_physchars_setup_submit")
@@ -97,7 +104,7 @@ ix.char.RegisterVar("height", {
 
 		local slider = container:Add("DNumSlider")
 		slider:Dock(TOP)
-		slider:SetTall(40)
+		slider:SetTall(Scale(40))
 		slider:SetMin(170)
 		slider:SetMax(200)
 		slider:SetDecimals(0)
@@ -127,7 +134,7 @@ ix.char.RegisterVar("weight", {
 
 		local slider = container:Add("DNumSlider")
 		slider:Dock(TOP)
-		slider:SetTall(40)
+		slider:SetTall(Scale(40))
 		slider:SetMin(60)
 		slider:SetMax(120)
 		slider:SetDecimals(0)
@@ -163,7 +170,7 @@ ix.char.RegisterVar("eyes", {
 
 		local panel = container:Add("Panel")
 		panel:Dock(TOP)
-		panel:SetTall(36)
+		panel:SetTall(Scale(36))
 
 		payload:Set("eyes", "brown")
 

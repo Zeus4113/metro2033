@@ -13,6 +13,12 @@ local COLOR_RED     = Color(176, 58, 58, 255)
 local COLOR_GREEN   = Color(58, 132, 70, 255)
 local COLOR_BLUE    = Color(54, 104, 150, 255)
 
+-- Scales a value authored at 1920x1080 to the player's resolution, matching
+-- Helix's ScreenScale (width-proportional); 1920/640 = 3.
+local function Scale(n)
+	return ScreenScale(n / 3)
+end
+
 local function accent()
 	return ix.config.Get("color", Color(200, 160, 60))
 end
@@ -52,12 +58,12 @@ end
 local function styledButton(parent, text, baseColor, onClick)
 	local btn = parent:Add("DButton")
 	btn:SetText("")
-	btn:SetTall(38)
+	btn:SetTall(Scale(38))
 	btn.Paint = function(pnl, w, h)
 		local c = pnl:IsHovered()
 			and Color(math.min(baseColor.r + 28, 255), math.min(baseColor.g + 28, 255), math.min(baseColor.b + 28, 255))
 			or baseColor
-		draw.RoundedBox(4, 0, 0, w, h, c)
+		draw.RoundedBox(Scale(4), 0, 0, w, h, c)
 		drawText(text, "ixGenericFont", w * 0.5, h * 0.5, COLOR_TEXT, 0.5, 0.5)
 	end
 	btn.DoClick = onClick
@@ -70,7 +76,7 @@ local PANEL = {}
 
 function PANEL:Init()
 	self:Dock(FILL)
-	self:DockPadding(18, 18, 18, 18)
+	self:DockPadding(Scale(18), Scale(18), Scale(18), Scale(18))
 	self.Paint = function(_, w, h)
 		surface.SetDrawColor(COLOR_PAGE)
 		surface.DrawRect(0, 0, w, h)
@@ -120,24 +126,24 @@ end
 
 function PANEL:BuildNoGroup()
 	local card = self.content:Add("DPanel")
-	card:SetSize(440, 296)
+	card:SetSize(Scale(440), Scale(296))
 	card.Paint = function(_, w, h)
-		draw.RoundedBox(6, 0, 0, w, h, COLOR_CARD)
+		draw.RoundedBox(Scale(6), 0, 0, w, h, COLOR_CARD)
 		surface.SetDrawColor(COLOR_BORDER)
 		surface.DrawOutlinedRect(0, 0, w, h)
-		draw.RoundedBoxEx(6, 0, 0, w, 56, COLOR_CARD_HD, true, true, false, false)
-		drawText("GROUPS & GANGS", "ixMediumFont", 24, 28, accent(), 0, 0.5)
+		draw.RoundedBoxEx(Scale(6), 0, 0, w, Scale(56), COLOR_CARD_HD, true, true, false, false)
+		drawText("GROUPS & GANGS", "ixMediumFont", Scale(24), Scale(28), accent(), 0, 0.5)
 	end
 	self.centerCard = card
 
 	local body = card:Add("DPanel")
 	body:Dock(FILL)
-	body:DockMargin(24, 56 + 18, 24, 24)
+	body:DockMargin(Scale(24), Scale(56 + 18), Scale(24), Scale(24))
 	body.Paint = nil
 
 	local desc = body:Add("DLabel")
 	desc:Dock(TOP)
-	desc:SetTall(48)
+	desc:SetTall(Scale(48))
 	desc:SetWrap(true)
 	desc:SetFont("ixChatFont")
 	desc:SetTextColor(COLOR_DIM)
@@ -145,15 +151,15 @@ function PANEL:BuildNoGroup()
 
 	local lbl = body:Add("DLabel")
 	lbl:Dock(TOP)
-	lbl:DockMargin(0, 8, 0, 4)
-	lbl:SetTall(18)
+	lbl:DockMargin(0, Scale(8), 0, Scale(4))
+	lbl:SetTall(Scale(18))
 	lbl:SetFont("ixSmallFont")
 	lbl:SetTextColor(COLOR_FAINT)
 	lbl:SetText("GROUP NAME")
 
 	local entry = body:Add("DTextEntry")
 	entry:Dock(TOP)
-	entry:SetTall(34)
+	entry:SetTall(Scale(34))
 	entry:SetFont("ixChatFont")
 	entry:SetPlaceholderText("3-32 characters")
 	entry:SetUpdateOnType(true)
@@ -169,8 +175,8 @@ function PANEL:BuildNoGroup()
 		net.SendToServer()
 	end)
 	create:Dock(TOP)
-	create:DockMargin(0, 12, 0, 0)
-	create:SetTall(40)
+	create:DockMargin(0, Scale(12), 0, 0)
+	create:SetTall(Scale(40))
 
 	entry.OnEnter = function() create:DoClick() end
 
@@ -193,16 +199,16 @@ function PANEL:BuildGroup()
 	-- ── Header banner ──
 	local header = self.content:Add("DPanel")
 	header:Dock(TOP)
-	header:SetTall(88)
-	header:DockMargin(0, 0, 0, 14)
+	header:SetTall(Scale(88))
+	header:DockMargin(0, 0, 0, Scale(14))
 	header.Paint = function(_, w, h)
-		draw.RoundedBox(6, 0, 0, w, h, COLOR_CARD)
-		draw.RoundedBoxEx(6, 0, 0, 6, h, accent(), true, false, true, false)
-		drawText(fitText(string.upper(data.name), "ixBigFont", w - 48), "ixBigFont", 24, 30, COLOR_TEXT, 0, 0.5)
+		draw.RoundedBox(Scale(6), 0, 0, w, h, COLOR_CARD)
+		draw.RoundedBoxEx(Scale(6), 0, 0, Scale(6), h, accent(), true, false, true, false)
+		drawText(fitText(string.upper(data.name), "ixBigFont", w - Scale(48)), "ixBigFont", Scale(24), Scale(30), COLOR_TEXT, 0, 0.5)
 		local sub = #data.members .. (#data.members == 1 and " member" or " members")
 			.. "  ·  " .. online .. " online"
 			.. (data.baseName and ("  ·  " .. data.baseName) or "  ·  Unclaimed")
-		drawText(fitText(sub, "ixChatFont", w - 48), "ixChatFont", 24, 62, COLOR_DIM, 0, 0.5)
+		drawText(fitText(sub, "ixChatFont", w - Scale(48)), "ixChatFont", Scale(24), Scale(62), COLOR_DIM, 0, 0.5)
 	end
 
 	-- ── Body split ──
@@ -212,8 +218,8 @@ function PANEL:BuildGroup()
 
 	local left = body:Add("DPanel")
 	left:Dock(LEFT)
-	left:SetWide(320)
-	left:DockMargin(0, 0, 14, 0)
+	left:SetWide(Scale(320))
+	left:DockMargin(0, 0, Scale(14), 0)
 	left.Paint = nil
 
 	local right = body:Add("DPanel")
@@ -229,41 +235,41 @@ function PANEL:BuildSidebar(parent, data, isLeader)
 	-- Claimed-base card — height fits its content
 	local card = parent:Add("DPanel")
 	card:Dock(TOP)
-	card:SetTall(120)
+	card:SetTall(Scale(120))
 	card.Paint = function(_, w, h)
-		draw.RoundedBox(6, 0, 0, w, h, COLOR_CARD)
-		draw.RoundedBoxEx(6, 0, 0, w, 34, COLOR_CARD_HD, true, true, false, false)
-		drawText("CLAIMED BASE", "ixSmallFont", 14, 17, COLOR_FAINT, 0, 0.5)
+		draw.RoundedBox(Scale(6), 0, 0, w, h, COLOR_CARD)
+		draw.RoundedBoxEx(Scale(6), 0, 0, w, Scale(34), COLOR_CARD_HD, true, true, false, false)
+		drawText("CLAIMED BASE", "ixSmallFont", Scale(14), Scale(17), COLOR_FAINT, 0, 0.5)
 
 		if data.baseName then
-			drawText(fitText(data.baseName, "ixMediumFont", w - 28), "ixMediumFont", 14, 60, accent(), 0, 0.5)
+			drawText(fitText(data.baseName, "ixMediumFont", w - Scale(28)), "ixMediumFont", Scale(14), Scale(60), accent(), 0, 0.5)
 			if data.upkeepExpires then
 				local remaining = data.upkeepExpires - os.time()
 				local txt = remaining <= 0 and "Upkeep EXPIRED"
 					or ("Upkeep: " .. formatDuration(remaining) .. " left")
-				drawText(txt, "ixChatFont", 14, 92, remaining <= 0 and COLOR_RED or COLOR_DIM, 0, 0.5)
+				drawText(txt, "ixChatFont", Scale(14), Scale(92), remaining <= 0 and COLOR_RED or COLOR_DIM, 0, 0.5)
 			end
 		else
-			drawText("No claim", "ixMediumFont", 14, 60, COLOR_DIM, 0, 0.5)
+			drawText("No claim", "ixMediumFont", Scale(14), Scale(60), COLOR_DIM, 0, 0.5)
 		end
 	end
 
 	if data.baseName then
-		card:SetTall(data.upkeepExpires and 116 or 86)
+		card:SetTall(data.upkeepExpires and Scale(116) or Scale(86))
 	else
 		-- Unclaimed: the wrapped help text drives the card height
-		local descTop = 82
+		local descTop = Scale(82)
 		local desc = card:Add("DLabel")
-		desc:SetPos(14, descTop)
+		desc:SetPos(Scale(14), descTop)
 		desc:SetWrap(true)
 		desc:SetAutoStretchVertical(true)
 		desc:SetFont("ixChatFont")
 		desc:SetTextColor(COLOR_FAINT)
 		desc:SetText("Claim a base entity to grant your group its gang class.")
 		card.PerformLayout = function(pnl)
-			desc:SetWide(pnl:GetWide() - 28)
+			desc:SetWide(pnl:GetWide() - Scale(28))
 			desc:InvalidateLayout(true)         -- recompute wrapped height now
-			local needed = descTop + desc:GetTall() + 14
+			local needed = descTop + desc:GetTall() + Scale(14)
 			if math.abs(pnl:GetTall() - needed) > 1 then
 				pnl:SetTall(needed)             -- grow/shrink to fit
 				local p = pnl:GetParent()
@@ -275,17 +281,17 @@ function PANEL:BuildSidebar(parent, data, isLeader)
 	-- Actions card
 	local actions = parent:Add("DPanel")
 	actions:Dock(TOP)
-	actions:DockMargin(0, 14, 0, 0)
-	actions:SetTall(isLeader and 150 or 96)
+	actions:DockMargin(0, Scale(14), 0, 0)
+	actions:SetTall(isLeader and Scale(150) or Scale(96))
 	actions.Paint = function(_, w, h)
-		draw.RoundedBox(6, 0, 0, w, h, COLOR_CARD)
-		draw.RoundedBoxEx(6, 0, 0, w, 34, COLOR_CARD_HD, true, true, false, false)
-		drawText("ACTIONS", "ixSmallFont", 14, 17, COLOR_FAINT, 0, 0.5)
+		draw.RoundedBox(Scale(6), 0, 0, w, h, COLOR_CARD)
+		draw.RoundedBoxEx(Scale(6), 0, 0, w, Scale(34), COLOR_CARD_HD, true, true, false, false)
+		drawText("ACTIONS", "ixSmallFont", Scale(14), Scale(17), COLOR_FAINT, 0, 0.5)
 	end
 
 	local pad = actions:Add("DPanel")
 	pad:Dock(FILL)
-	pad:DockMargin(14, 34 + 10, 14, 14)
+	pad:DockMargin(Scale(14), Scale(34 + 10), Scale(14), Scale(14))
 	pad.Paint = nil
 
 	if isLeader then
@@ -300,7 +306,7 @@ function PANEL:BuildSidebar(parent, data, isLeader)
 				end, "Cancel")
 		end)
 		disband:Dock(TOP)
-		disband:DockMargin(0, 8, 0, 0)
+		disband:DockMargin(0, Scale(8), 0, 0)
 	else
 		local leave = styledButton(pad, "Leave Group", COLOR_RED, function()
 			Derma_Query("Leave this group?", "Confirm", "Leave", function()
@@ -317,20 +323,20 @@ function PANEL:BuildRoster(parent, data, isLeader, localID)
 	local card = parent:Add("DPanel")
 	card:Dock(FILL)
 	card.Paint = function(_, w, h)
-		draw.RoundedBox(6, 0, 0, w, h, COLOR_CARD)
-		draw.RoundedBoxEx(6, 0, 0, w, 34, COLOR_CARD_HD, true, true, false, false)
-		drawText("MEMBERS", "ixSmallFont", 14, 17, COLOR_FAINT, 0, 0.5)
-		drawText(tostring(#data.members), "ixSmallFont", w - 14, 17, COLOR_DIM, 1, 0.5)
+		draw.RoundedBox(Scale(6), 0, 0, w, h, COLOR_CARD)
+		draw.RoundedBoxEx(Scale(6), 0, 0, w, Scale(34), COLOR_CARD_HD, true, true, false, false)
+		drawText("MEMBERS", "ixSmallFont", Scale(14), Scale(17), COLOR_FAINT, 0, 0.5)
+		drawText(tostring(#data.members), "ixSmallFont", w - Scale(14), Scale(17), COLOR_DIM, 1, 0.5)
 	end
 
 	local scroll = card:Add("DScrollPanel")
 	scroll:Dock(FILL)
-	scroll:DockMargin(10, 34 + 8, 6, 10)
+	scroll:DockMargin(Scale(10), Scale(34 + 8), Scale(6), Scale(10))
 	local bar = scroll:GetVBar()
-	bar:SetWide(6)
+	bar:SetWide(Scale(6))
 	bar.Paint = function() end
 	bar.btnGrip.Paint = function(_, w, h)
-		draw.RoundedBox(3, 0, 0, w, h, COLOR_BORDER)
+		draw.RoundedBox(Scale(3), 0, 0, w, h, COLOR_BORDER)
 	end
 
 	for _, member in ipairs(data.members) do
@@ -345,29 +351,29 @@ function PANEL:BuildMemberRow(parent, member, data, isLeader, localID)
 
 	local row = parent:Add("DPanel")
 	row:Dock(TOP)
-	row:DockMargin(0, 0, 4, 6)
-	row:SetTall(66)
+	row:DockMargin(0, 0, Scale(4), Scale(6))
+	row:SetTall(Scale(66))
 	row.Paint = function(pnl, w, h)
-		draw.RoundedBox(5, 0, 0, w, h, pnl:IsHovered() and COLOR_ROW_HOV or COLOR_ROW)
+		draw.RoundedBox(Scale(5), 0, 0, w, h, pnl:IsHovered() and COLOR_ROW_HOV or COLOR_ROW)
 
 		-- Avatar badge (vertically centred)
-		local badgeSize = 34
+		local badgeSize = Scale(34)
 		local badgeY    = (h - badgeSize) * 0.5
 		local badgeCol  = isLeaderMember and accent() or Color(70, 70, 80)
-		draw.RoundedBox(6, 14, badgeY, badgeSize, badgeSize, badgeCol)
-		drawText(initial, "ixMediumFont", 14 + badgeSize * 0.5, badgeY + badgeSize * 0.5,
+		draw.RoundedBox(Scale(6), Scale(14), badgeY, badgeSize, badgeSize, badgeCol)
+		drawText(initial, "ixMediumFont", Scale(14) + badgeSize * 0.5, badgeY + badgeSize * 0.5,
 			isLeaderMember and Color(20, 20, 20) or COLOR_TEXT, 0.5, 0.5)
 
 		-- Online status (right side, leaves room for buttons when leader)
-		local statusX  = (isLeader and member.id ~= localID) and (w - 150) or (w - 16)
+		local statusX  = (isLeader and member.id ~= localID) and (w - Scale(150)) or (w - Scale(16))
 		surface.SetDrawColor(member.online and COLOR_ONLINE or COLOR_OFFLINE)
-		surface.DrawRect(statusX - 10, h * 0.5 - 4, 8, 8)
+		surface.DrawRect(statusX - Scale(10), h * 0.5 - Scale(4), Scale(8), Scale(8))
 		drawText(member.online and "Online" or "Offline", "ixSmallFont",
-			statusX - 16, h * 0.5, member.online and COLOR_ONLINE or COLOR_FAINT, 1, 0.5)
+			statusX - Scale(16), h * 0.5, member.online and COLOR_ONLINE or COLOR_FAINT, 1, 0.5)
 
 		-- Name + role block, vertically centred and capped to avoid the status/buttons
-		local textX    = 14 + badgeSize + 12
-		local textMaxW = math.max(40, statusX - textX - 16)
+		local textX    = Scale(14) + badgeSize + Scale(12)
+		local textMaxW = math.max(Scale(40), statusX - textX - Scale(16))
 
 		local roleParts = {}
 		if isLeaderMember then roleParts[#roleParts + 1] = "Leader" end
@@ -375,22 +381,22 @@ function PANEL:BuildMemberRow(parent, member, data, isLeader, localID)
 		local roleText = #roleParts > 0 and table.concat(roleParts, "  ·  ") or "Member"
 
 		drawText(fitText(member.name, "ixGenericFont", textMaxW), "ixGenericFont",
-			textX, h * 0.5 - 11, COLOR_TEXT, 0, 0.5)
+			textX, h * 0.5 - Scale(11), COLOR_TEXT, 0, 0.5)
 		drawText(fitText(roleText, "ixSmallFont", textMaxW), "ixSmallFont",
-			textX, h * 0.5 + 12, isLeaderMember and accent() or COLOR_FAINT, 0, 0.5)
+			textX, h * 0.5 + Scale(12), isLeaderMember and accent() or COLOR_FAINT, 0, 0.5)
 	end
 
 	-- Leader controls
 	if isLeader and member.id ~= localID then
 		local heir = row:Add("DButton")
 		heir:Dock(RIGHT)
-		heir:DockMargin(0, 12, 12, 12)
-		heir:SetWide(74)
+		heir:DockMargin(0, Scale(12), Scale(12), Scale(12))
+		heir:SetWide(Scale(74))
 		heir:SetText("")
 		heir.Paint = function(pnl, w, h)
 			local on = isSuccessor
 			local c = on and accent() or (pnl:IsHovered() and Color(72, 72, 82) or Color(56, 56, 64))
-			draw.RoundedBox(4, 0, 0, w, h, c)
+			draw.RoundedBox(Scale(4), 0, 0, w, h, c)
 			drawText(on and "Heir ✓" or "Set Heir", "ixSmallFont", w * 0.5, h * 0.5,
 				on and Color(20, 20, 20) or COLOR_TEXT, 0.5, 0.5)
 		end
@@ -402,11 +408,11 @@ function PANEL:BuildMemberRow(parent, member, data, isLeader, localID)
 
 		local kick = row:Add("DButton")
 		kick:Dock(RIGHT)
-		kick:DockMargin(0, 12, 6, 12)
-		kick:SetWide(54)
+		kick:DockMargin(0, Scale(12), Scale(6), Scale(12))
+		kick:SetWide(Scale(54))
 		kick:SetText("")
 		kick.Paint = function(pnl, w, h)
-			draw.RoundedBox(4, 0, 0, w, h, pnl:IsHovered() and Color(205, 72, 72) or COLOR_RED)
+			draw.RoundedBox(Scale(4), 0, 0, w, h, pnl:IsHovered() and Color(205, 72, 72) or COLOR_RED)
 			drawText("Kick", "ixSmallFont", w * 0.5, h * 0.5, COLOR_TEXT, 0.5, 0.5)
 		end
 		kick.DoClick = function()

@@ -4,6 +4,13 @@ PLUGIN.description = "Allows for weight to be added to items."
 
 ix.weight = ix.weight or {}
 
+-- Scales a value authored at 1920x1080 to the player's resolution, matching
+-- Helix's ScreenScale (width-proportional); 1920/640 = 3. Only called from the
+-- client-side inventory HUD below, so ScreenScale is always available there.
+local function Scale(n)
+	return ScreenScale(n / 3)
+end
+
 ix.config.Add("maxWeight", 30, "The maximum weight in Kilograms someone can carry in their inventory.", nil, {
 	data = {min = 1, max = 100},
 	category = "Weight"
@@ -112,17 +119,17 @@ if (CLIENT) then
                 local w, h = panel:GetSize()
 
                 -- increased height for new panels
-                panel:SetTall(h + 84)
+                panel:SetTall(h + Scale(84))
 
-                w = w - 10
+                w = w - Scale(10)
 
                 ------------------------------------------------
                 -- Weight Bar
                 ------------------------------------------------
 
                 local weight = panel:Add("DPanel")
-                weight:SetPos(5, h - 4)
-                weight:SetSize(w, 24)
+                weight:SetPos(Scale(5), h - Scale(4))
+                weight:SetSize(w, Scale(24))
 
                 weight.Paint = function(self, w, h)
                     surface.SetDrawColor(35, 35, 35, 85)
@@ -133,26 +140,26 @@ if (CLIENT) then
                 end
 
                 local bar = weight:Add("DPanel")
-                bar:SetSize(w, 24)
+                bar:SetSize(w, Scale(24))
 
                 bar.Paint = function(self)
                     surface.SetDrawColor(color)
-                    surface.DrawRect(4, 4, math.min(((w - 8) / maxWeight) * carry, w - 8), 16)
+                    surface.DrawRect(Scale(4), Scale(4), math.min(((w - Scale(8)) / maxWeight) * carry, w - Scale(8)), Scale(16))
                 end
 
                 local barO = weight:Add("DPanel")
-                barO:SetSize(w, 24)
+                barO:SetSize(w, Scale(24))
 
                 barO.Paint = function(self)
                     surface.SetDrawColor(Color(205, 50, 50))
 
                     if (carry > maxWeight) then
-                        surface.DrawRect(4, 4, math.min(((w - 8) / maxWeight) * (carry - maxWeight), w - 8), 16)
+                        surface.DrawRect(Scale(4), Scale(4), math.min(((w - Scale(8)) / maxWeight) * (carry - maxWeight), w - Scale(8)), Scale(16))
                     end
                 end
 
                 local barT = weight:Add("DLabel")
-                barT:SetSize(w, 24)
+                barT:SetSize(w, Scale(24))
                 barT:SetContentAlignment(5)
 
                 barT.Think = function()
@@ -171,8 +178,8 @@ if (CLIENT) then
                 ------------------------------------------------
 
                 local resistPanel = panel:Add("DPanel")
-                resistPanel:SetPos(5, h + 28)
-                resistPanel:SetSize(w, 52)
+                resistPanel:SetPos(Scale(5), h + Scale(28))
+                resistPanel:SetSize(w, Scale(52))
 
                 resistPanel.Paint = function() end
 
@@ -182,7 +189,7 @@ if (CLIENT) then
 
                 local dmgBar = resistPanel:Add("DPanel")
                 dmgBar:SetPos(0, 0)
-                dmgBar:SetSize(w, 24)
+                dmgBar:SetSize(w, Scale(24))
 
                 dmgBar.Paint = function(self, w2, h2)
                     surface.SetDrawColor(35, 35, 35, 85)
@@ -193,7 +200,7 @@ if (CLIENT) then
                 end
 
                 local dmgFill = dmgBar:Add("DPanel")
-                dmgFill:SetSize(w, 24)
+                dmgFill:SetSize(w, Scale(24))
 
                 dmgFill.Paint = function(self, w2, h2)
                     local char = LocalPlayer():GetCharacter()
@@ -202,11 +209,11 @@ if (CLIENT) then
                     local resist = char:GetDamageResistance() or 0
 
                     surface.SetDrawColor(75, 118, 128)
-                    surface.DrawRect(4, 4, math.min((w2 - 8) * (resist / 100), w2 - 8), 16)
+                    surface.DrawRect(Scale(4), Scale(4), math.min((w2 - Scale(8)) * (resist / 100), w2 - Scale(8)), Scale(16))
                 end
 
                 local dmgText = dmgBar:Add("DLabel")
-                dmgText:SetSize(w, 24)
+                dmgText:SetSize(w, Scale(24))
                 dmgText:SetContentAlignment(5)
 
                 dmgText.Think = function(self)
@@ -221,8 +228,8 @@ if (CLIENT) then
                 ------------------------------------------------
 
                 local radBar = resistPanel:Add("DPanel")
-                radBar:SetPos(0, 28)
-                radBar:SetSize(w, 24)
+                radBar:SetPos(0, Scale(28))
+                radBar:SetSize(w, Scale(24))
 
                 radBar.Paint = function(self, w2, h2)
                     surface.SetDrawColor(35, 35, 35, 85)
@@ -233,7 +240,7 @@ if (CLIENT) then
                 end
 
                 local radFill = radBar:Add("DPanel")
-                radFill:SetSize(w, 24)
+                radFill:SetSize(w, Scale(24))
 
                 radFill.Paint = function(self, w2, h2)
                     local char = LocalPlayer():GetCharacter()
@@ -242,11 +249,11 @@ if (CLIENT) then
                     local resist = char:GetRadiationResistance() or 0
 
                     surface.SetDrawColor(87, 128, 75)
-                    surface.DrawRect(4, 4, math.min((w2 - 8) * (resist / 100), w2 - 8), 16)
+                    surface.DrawRect(Scale(4), Scale(4), math.min((w2 - Scale(8)) * (resist / 100), w2 - Scale(8)), Scale(16))
                 end
 
                 local radText = radBar:Add("DLabel")
-                radText:SetSize(w, 24)
+                radText:SetSize(w, Scale(24))
                 radText:SetContentAlignment(5)
 
                 radText.Think = function(self)

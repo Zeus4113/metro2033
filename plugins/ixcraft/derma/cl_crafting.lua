@@ -4,11 +4,17 @@ local PLUGIN = PLUGIN
 local color_green = Color(50,150,100)
 local color_red = Color(150, 50, 50)
 
+-- Scales a value authored at 1920x1080 to the player's resolution, matching
+-- Helix's ScreenScale (width-proportional); 1920/640 = 3.
+local function Scale(n)
+	return ScreenScale(n / 3)
+end
+
 local PANEL = {}
 
 function PANEL:Init()
 	self:Dock(TOP)
-	self:SetTall(64)
+	self:SetTall(Scale(64))
 
 	self:SetText("")
 end
@@ -19,7 +25,7 @@ function PANEL:SetRecipe(recipeTable)
 	self.icon = self:Add("SpawnIcon")
 	self.icon:InvalidateLayout(true)
 	self.icon:Dock(LEFT)
-	self.icon:DockMargin(0, 0, 8, 0)
+	self.icon:DockMargin(0, 0, Scale(8), 0)
 	self.icon:SetMouseInputEnabled(false)
 	self.icon:SetModel(recipeTable:GetModel(), recipeTable:GetSkin())
 	self.icon.PaintOver = function(this) end
@@ -60,7 +66,7 @@ function PANEL:Init()
 
 	self.categories = self:Add("DScrollPanel")
 	self.categories:Dock(LEFT)
-	self.categories:SetWide(160)
+	self.categories:SetWide(Scale(160))
 	self.categories.Paint = function(this, w, h)
 		surface.SetDrawColor(0, 0, 0, 66)
 		surface.DrawRect(0, 0, w, h)
@@ -131,7 +137,7 @@ function PANEL:Init()
 
 	-- Fit the category column to the widest entry (+ room for the scrollbar),
 	-- clamped to a sensible minimum so short lists don't look cramped.
-	self.categories:SetWide(math.max(maxWidth + 16, 160))
+	self.categories:SetWide(math.max(maxWidth + Scale(16), Scale(160)))
 
 	if (self.selected) then
 		self:LoadRecipes(self.selected.category)

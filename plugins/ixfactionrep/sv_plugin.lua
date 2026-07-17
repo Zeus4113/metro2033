@@ -2,19 +2,14 @@ local PLUGIN = PLUGIN
 
 file.CreateDir("ix")
 PLUGIN.refreshSeed      = tonumber(file.Read("ix/factionrep_refresh_seed.txt", "DATA")) or 0
-PLUGIN.sharedContracts  = ix.data.Get("faction_contracts", {}, false, true) or {}
 PLUGIN.vendorRepData    = ix.data.Get("vendor_rep",         {}, false, true) or {}
 PLUGIN.boardFactionData = ix.data.Get("board_faction",      {}, false, true) or {}
 PLUGIN.factionRoster    = ix.data.Get("faction_roster",     {}, false, true) or {}
 
-local ALL_FACTIONS = { "redline", "hansa", "reich" }
-local REP_DEFAULTS = { redline = 0, hansa = 0, reich = 0 }
+local ALL_FACTIONS = { "redline", "hansa", "reich", "polis" }
+local REP_DEFAULTS = { redline = 0, hansa = 0, reich = 0, polis = 0 }
 
 -- ── Persistence helpers ───────────────────────────────────────────────────────
-
-function PLUGIN:SaveSharedContracts()
-	ix.data.Set("faction_contracts", self.sharedContracts, false, true)
-end
 
 function PLUGIN:Initialize()
 	self:LoadVendorRepData()
@@ -114,8 +109,7 @@ function PLUGIN:OpenBoard(client, ent)
 	local char = client:GetCharacter()
 	if not char then return end
 	local fkey      = ent:GetFactionKey()
-	local contracts = self:GetDailyContracts(fkey)
-	local shared    = self:GetOrInitShared(fkey)
+	local contracts = self:GetDailyContracts(fkey, char)
 	local progress  = self:GetCharProgress(char)
 	local rep       = self:GetRep(char, fkey)
 	local bountyList, activeID, hasCompleted = self:GetBountyStateForClient(client, fkey)
@@ -124,7 +118,6 @@ function PLUGIN:OpenBoard(client, ent)
 		net.WriteEntity(ent)
 		net.WriteString(fkey)
 		net.WriteTable(contracts)
-		net.WriteTable(shared.contracts)
 		net.WriteTable(progress)
 		net.WriteInt(rep, 8)
 		net.WriteTable(bountyList)
@@ -134,15 +127,13 @@ function PLUGIN:OpenBoard(client, ent)
 end
 
 function PLUGIN:PushBoardState(client, fkey, char)
-	local contracts = self:GetDailyContracts(fkey)
-	local shared    = self:GetOrInitShared(fkey)
+	local contracts = self:GetDailyContracts(fkey, char)
 	local progress  = self:GetCharProgress(char)
 	local rep       = self:GetRep(char, fkey)
 	local bountyList, activeID, hasCompleted = self:GetBountyStateForClient(client, fkey)
 
 	net.Start("ixFactionRepStateUpdate")
 		net.WriteTable(contracts)
-		net.WriteTable(shared.contracts)
 		net.WriteTable(progress)
 		net.WriteInt(rep, 8)
 		net.WriteTable(bountyList)
@@ -157,104 +148,11 @@ function PLUGIN:CloseBoard(ply)
 	net.Start("ixFactionRepStateUpdate")
 		net.WriteTable({})
 		net.WriteTable({})
-		net.WriteTable({})
 		net.WriteInt(0, 8)
 		net.WriteTable({})
 		net.WriteString("")
 		net.WriteBool(false)
 	net.Send(ply)
-end
-
--- Refreshes everyone currently viewing a board for the given faction so a
--- contract reservation/release is reflected live on their boards.
-function PLUGIN:PushFactionViewers(fkey)
-	for _, ply in ipairs(player.GetAll()) do
-		local ent = ply.ixFactionRepEnt
-		if IsValid(ent) and ent:GetFactionKey() == fkey then
-			local pchar = ply:GetCharacter()
-			if pchar then
-				self:PushBoardState(ply, fkey, pchar)
-			end
-		end
-	end
-end
-
--- Releases a single reserved-but-uncompleted contract slot. Clears the holder's
--- per-character progress when their character is supplied.
-function PLUGIN:ReleaseContract(fkey, idx, char)
-	local shared = self:GetOrInitShared(fkey)
-	local slot   = shared.contracts[idx]
-	if not slot or slot.claimed or not slot.acceptedBy then return false end
-
-	slot.acceptedBy   = nil
-	slot.acceptedName = nil
-	self:SaveSharedContracts()
-
-	if char then
-		local pkey     = self:GetProgressKey(fkey, idx)
-		local progress = self:GetCharProgress(char)
-		if progress[pkey] and not progress[pkey].claimed then
-			progress[pkey] = nil
-			self:SetCharProgress(char, progress)
-		end
-	end
-	return true
-end
-
--- Returns fkey, idx of the contract this character is currently holding
--- (reserved but not yet completed) today, or nil if none. Characters may only
--- hold one contract at a time.
-function PLUGIN:GetHeldContract(charID)
-	local today = os.date("%Y%m%d")
-	for _, fkey in ipairs(ALL_FACTIONS) do
-		local dayData = self.sharedContracts[today .. "_" .. fkey]
-		if dayData then
-			for idx, slot in pairs(dayData.contracts) do
-				if slot.acceptedBy == charID and not slot.claimed then
-					return fkey, idx
-				end
-			end
-		end
-	end
-end
-
--- Releases every contract a character is holding (used on disconnect / character
--- switch) so the slots become available to others again.
-function PLUGIN:ReleaseCharacterContracts(character)
-	if not character then return end
-	local charID   = character:GetID()
-	local progress = self:GetCharProgress(character)
-
-	local touched, progressChanged = {}, false
-	for key, dayData in pairs(self.sharedContracts) do
-		local fkey = string.match(key, "^%d+_(.+)$")
-		for idx, slot in pairs(dayData.contracts) do
-			if slot.acceptedBy == charID and not slot.claimed then
-				slot.acceptedBy   = nil
-				slot.acceptedName = nil
-				if fkey then touched[fkey] = true end
-
-				-- "<date>_<fkey>_<idx>" matches the per-character progress key
-				local pkey = key .. "_" .. idx
-				if progress[pkey] and not progress[pkey].claimed then
-					progress[pkey]  = nil
-					progressChanged = true
-				end
-			end
-		end
-	end
-
-	if progressChanged then
-		self:SetCharProgress(character, progress)
-		character:Save()
-	end
-
-	if next(touched) then
-		self:SaveSharedContracts()
-		for fkey in pairs(touched) do
-			self:PushFactionViewers(fkey)
-		end
-	end
 end
 
 -- ── Entity faction key persistence ───────────────────────────────────────────
@@ -270,33 +168,7 @@ hook.Add("OnEntityCreated", "ixFactionRepBoardFactionLoad", function(entity)
 	end)
 end)
 
--- ── Contract helpers ──────────────────────────────────────────────────────────
-
-function PLUGIN:GetOrInitShared(factionKey)
-	local today = os.date("%Y%m%d")
-	local key   = today .. "_" .. factionKey
-	local count = ix.config.Get("factionRepContractCount", 3)
-
-	if not self.sharedContracts[key] then
-		local entries = {}
-		for i = 1, count do
-			entries[i] = { claimed = false, claimedBy = nil }
-		end
-		self.sharedContracts[key] = { date = today, contracts = entries }
-		self:SaveSharedContracts()
-	else
-		local entries = self.sharedContracts[key].contracts
-		local changed = false
-		for i = 1, count do
-			if not entries[i] then
-				entries[i] = { claimed = false, claimedBy = nil }
-				changed = true
-			end
-		end
-		if changed then self:SaveSharedContracts() end
-	end
-	return self.sharedContracts[key]
-end
+-- ── Contract helpers (per-character, keyed by stable contract id) ─────────────
 
 function PLUGIN:GetCharProgress(character)
 	return character:GetData("factionRepContracts", {})
@@ -306,8 +178,65 @@ function PLUGIN:SetCharProgress(character, progressTable)
 	character:SetData("factionRepContracts", progressTable)
 end
 
-function PLUGIN:GetProgressKey(factionKey, contractIndex)
-	return os.date("%Y%m%d") .. "_" .. factionKey .. "_" .. contractIndex
+-- Progress keys are "<date>_<factionKey>_<contractID>". The contract id is stable
+-- across days and rank changes, so an accepted contract survives the daily set
+-- being re-rolled underneath the player.
+function PLUGIN:GetProgressKeyByID(factionKey, contractID)
+	return os.date("%Y%m%d") .. "_" .. factionKey .. "_" .. contractID
+end
+
+-- Returns the ids of every contract the character is actively working (accepted,
+-- not yet claimed) for a faction today. Operatives may work any number at once.
+-- Used by GetDailyContracts to keep held contracts visible even after a rank
+-- change rotates the daily set.
+function PLUGIN:GetActiveContractIDs(character, factionKey)
+	local ids = {}
+	if not character then return ids end
+	local prefix   = os.date("%Y%m%d") .. "_" .. factionKey .. "_"
+	local progress = self:GetCharProgress(character)
+	for key, qs in pairs(progress) do
+		if qs and qs.accepted and not qs.claimed and key:sub(1, #prefix) == prefix then
+			ids[#ids + 1] = key:sub(#prefix + 1)
+		end
+	end
+	return ids
+end
+
+-- ── Rank / tier resolution ────────────────────────────────────────────────────
+
+-- Rank level 0–5 for a character within a specific faction. Members of a faction
+-- with rank classes (Red Line/Hansa/Reich) are ranked by their current class;
+-- the Rangers of the Order have no rank classes, so their level is derived from
+-- reputation instead. Non-members are level 0.
+function PLUGIN:GetFactionRankLevel(character, factionKey)
+	local meta = self.factionMeta[factionKey]
+	if not meta then return 0 end
+	if character:GetFaction() ~= meta.faction() then return 0 end
+
+	if meta.rookie then
+		local cls = character:GetClass()
+		if meta.officer  and cls == meta.officer()  then return 5 end
+		if meta.sergeant and cls == meta.sergeant() then return 4 end
+		if meta.veteran  and cls == meta.veteran()  then return 3 end
+		if meta.regular  and cls == meta.regular()  then return 2 end
+		return 1
+	end
+
+	-- No rank classes: derive rank from reputation.
+	local rep      = self:GetRep(character, factionKey)
+	local veteranT = ix.config.Get("factionRepVeteranThreshold", 80)
+	local regularT = ix.config.Get("factionRepRegularThreshold", 60)
+	if rep >= veteranT then return 3 end
+	if rep >= regularT then return 2 end
+	return 1
+end
+
+-- Highest contract tier (1–3) a character may be offered for a faction.
+function PLUGIN:GetUnlockedTier(character, factionKey)
+	local level = self:GetFactionRankLevel(character, factionKey)
+	if level >= 3 then return 3 end
+	if level == 2 then return 2 end
+	return 1
 end
 
 -- ── Rep get / set ─────────────────────────────────────────────────────────────
@@ -398,6 +327,9 @@ function PLUGIN:GetFactionForcedClass(character)
 	end
 	if not meta then return end
 
+	-- Factions without rank classes (Rangers of the Order) never force a class.
+	if not meta.rookie then return end
+
 	local client = character:GetPlayer()
 	if IsValid(client) then
 		if client:HasClassWhitelist(meta.officer())  then return meta.officer() end
@@ -417,15 +349,14 @@ function PLUGIN:GetForcedClass(client, character)
 	return self:GetFactionForcedClass(character)
 end
 
--- Maps a character's current class to a rank level 0–5 (for outfit recipe gating).
+-- Maps a character to their rank level 0–5 within their own faction (for outfit
+-- recipe gating). Delegates to GetFactionRankLevel, which safely handles factions
+-- that have no rank classes.
 function PLUGIN:GetRankLevel(character)
-	local cls = character:GetClass()
-	for _, meta in pairs(self.factionMeta) do
-		if cls == meta.officer()  then return 5 end
-		if cls == meta.sergeant() then return 4 end
-		if cls == meta.veteran()  then return 3 end
-		if cls == meta.regular()  then return 2 end
-		if cls == meta.rookie()   then return 1 end
+	for fkey, meta in pairs(self.factionMeta) do
+		if character:GetFaction() == meta.faction() then
+			return self:GetFactionRankLevel(character, fkey)
+		end
 	end
 	return 0
 end
@@ -490,176 +421,126 @@ hook.Add("OnNPCKilled", "ixFactionRepKillTrack", function(npc, attacker)
 	local char = attacker:GetCharacter()
 	if not char then return end
 
-	local changed = false
+	local npcClass = npc:GetClass()
+	local today    = os.date("%Y%m%d")
+	local progress = PLUGIN:GetCharProgress(char)
+	local changed, touched = false, {}
 
-	for _, fkey in ipairs(ALL_FACTIONS) do
-		local contracts = PLUGIN:GetDailyContracts(fkey)
-		local shared    = PLUGIN:GetOrInitShared(fkey)
-		local progress  = PLUGIN:GetCharProgress(char)
+	-- A single kill advances every active kill contract that targets this NPC,
+	-- across all factions (operatives may work any number of contracts at once).
+	for key, qs in pairs(progress) do
+		if qs and qs.accepted and not qs.claimed and key:sub(1, #today + 1) == today .. "_" then
+			local rest    = key:sub(#today + 2)             -- "<fkey>_<id>"
+			local fkey    = rest:match("^(.-)_")
+			local id      = fkey and rest:sub(#fkey + 2)
+			local contract = fkey and PLUGIN:GetContractByID(fkey, id)
 
-		for i, contract in ipairs(contracts) do
-			if contract.type ~= "kill" then continue end
-			if contract.target ~= npc:GetClass() then continue end
-			if shared.contracts[i] and shared.contracts[i].claimed then continue end
-
-			local pkey = PLUGIN:GetProgressKey(fkey, i)
-			local qs   = progress[pkey]
-			if not qs or not qs.accepted then continue end
-			if (qs.progress or 0) >= contract.count then continue end
-
-			qs.progress    = qs.progress + 1
-			progress[pkey] = qs
-			changed        = true
-		end
-
-		if changed then
-			PLUGIN:SetCharProgress(char, progress)
+			if contract and contract.type == "kill" and contract.target == npcClass
+				and (qs.progress or 0) < contract.count then
+				qs.progress   = (qs.progress or 0) + 1
+				progress[key] = qs
+				changed       = true
+				touched[fkey] = true
+			end
 		end
 	end
 
 	if changed then
+		PLUGIN:SetCharProgress(char, progress)
 		local ent = attacker.ixFactionRepEnt
-		if IsValid(ent) then
+		if IsValid(ent) and touched[ent:GetFactionKey()] then
 			PLUGIN:PushBoardState(attacker, ent:GetFactionKey(), char)
 		end
 	end
 end)
 
--- ── Contract: accept ─────────────────────────────────────────────────────────
-
-net.Receive("ixFactionRepAccept", function(_, client)
+-- Resolves the contract a client is acting on from the row index they sent,
+-- validated against their own current daily set. Returns contract, fkey.
+local function resolveContract(client, char)
 	local ent = client.ixFactionRepEnt
 	if not IsValid(ent) then return end
 
 	local range = ix.config.Get("factionRepBoardRange", 96)
 	if client:GetPos():DistToSqr(ent:GetPos()) > range ^ 2 then return end
 
-	local char = client:GetCharacter()
-	if not char then return end
-
 	local idx  = net.ReadUInt(8)
 	local fkey = ent:GetFactionKey()
 
-	local contracts = PLUGIN:GetDailyContracts(fkey)
-	if not contracts[idx] then return end
+	local contracts = PLUGIN:GetDailyContracts(fkey, char)
+	return contracts[idx], fkey
+end
 
-	local shared = PLUGIN:GetOrInitShared(fkey)
-	local slot   = shared.contracts[idx]
-	if slot and slot.claimed then
-		client:Notify("That contract has already been completed by someone else.")
+-- ── Contract: accept ─────────────────────────────────────────────────────────
+
+net.Receive("ixFactionRepAccept", function(_, client)
+	local char = client:GetCharacter()
+	if not char then return end
+
+	local contract, fkey = resolveContract(client, char)
+	if not contract then return end
+
+	local pkey     = PLUGIN:GetProgressKeyByID(fkey, contract.id)
+	local progress = PLUGIN:GetCharProgress(char)
+	local qs       = progress[pkey]
+
+	if qs and qs.claimed then
+		client:Notify("You have already completed that contract today.")
 		return
 	end
+	if qs and qs.accepted then return end   -- already holding it
 
-	-- Exclusive reservation: only one operative may hold a contract at a time
-	if slot and slot.acceptedBy and slot.acceptedBy ~= char:GetID() then
-		client:Notify("That contract is already taken by " .. (slot.acceptedName or "another operative") .. ".")
-		return
-	end
-
+	-- Non-members can only earn rep up to the transfer cap
 	local meta = PLUGIN.factionMeta[fkey]
 	if meta and char:GetFaction() ~= meta.faction() then
-		local cap        = ix.config.Get("factionRepTransferThreshold", 20)
-		local currentRep = PLUGIN:GetRep(char, fkey)
-		if currentRep >= cap then
+		local cap = ix.config.Get("factionRepTransferThreshold", 20)
+		if PLUGIN:GetRep(char, fkey) >= cap then
 			client:Notify("You are at the " .. cap .. " rep cap. Enlist in the " .. meta.name .. " to earn more.")
 			return
 		end
 	end
 
-	-- Already holding the reservation → nothing to do
-	if slot.acceptedBy == char:GetID() then return end
+	progress[pkey] = { accepted = true, progress = 0 }
+	PLUGIN:SetCharProgress(char, progress)
+	char:Save()
 
-	-- One contract at a time: block if this character already holds another
-	if PLUGIN:GetHeldContract(char:GetID()) then
-		client:Notify("You can only work one contract at a time. Finish or abandon your current contract first.")
-		return
-	end
-
-	-- Reserve the shared slot
-	slot.acceptedBy   = char:GetID()
-	slot.acceptedName = char:GetName()
-	PLUGIN:SaveSharedContracts()
-
-	-- Record per-character progress (preserve any pre-existing progress)
-	local pkey     = PLUGIN:GetProgressKey(fkey, idx)
-	local progress = PLUGIN:GetCharProgress(char)
-	if not (progress[pkey] and progress[pkey].accepted) then
-		progress[pkey] = { accepted = true, progress = 0 }
-		PLUGIN:SetCharProgress(char, progress)
-	end
-
-	-- Refresh every viewer so the contract now shows as taken
-	PLUGIN:PushFactionViewers(fkey)
+	PLUGIN:PushBoardState(client, fkey, char)
 end)
 
--- ── Contract: unclaim (abandon a reserved contract) ───────────────────────────
+-- ── Contract: unclaim (abandon an accepted contract) ──────────────────────────
 
 net.Receive("ixFactionRepUnclaim", function(_, client)
-	local ent = client.ixFactionRepEnt
-	if not IsValid(ent) then return end
-
-	local range = ix.config.Get("factionRepBoardRange", 96)
-	if client:GetPos():DistToSqr(ent:GetPos()) > range ^ 2 then return end
-
 	local char = client:GetCharacter()
 	if not char then return end
 
-	local idx  = net.ReadUInt(8)
-	local fkey = ent:GetFactionKey()
+	local contract, fkey = resolveContract(client, char)
+	if not contract then return end
 
-	local shared = PLUGIN:GetOrInitShared(fkey)
-	local slot   = shared.contracts[idx]
-	if not slot or slot.claimed then return end
-
-	if slot.acceptedBy ~= char:GetID() then
+	local pkey     = PLUGIN:GetProgressKeyByID(fkey, contract.id)
+	local progress = PLUGIN:GetCharProgress(char)
+	local qs       = progress[pkey]
+	if not qs or not qs.accepted or qs.claimed then
 		client:Notify("You haven't taken that contract.")
 		return
 	end
 
-	PLUGIN:ReleaseContract(fkey, idx, char)
-	client:Notify("Contract released. It is available to others again.")
-	PLUGIN:PushFactionViewers(fkey)
-end)
+	progress[pkey] = nil
+	PLUGIN:SetCharProgress(char, progress)
+	char:Save()
 
--- Free a character's reserved contracts when they disconnect or switch character,
--- so others can take them on.
-hook.Add("OnCharacterDisconnect", "ixFactionRepReleaseContracts", function(_, character)
-	PLUGIN:ReleaseCharacterContracts(character)
-end)
-
-hook.Add("PrePlayerLoadedCharacter", "ixFactionRepReleaseContracts", function(_, _, previousChar)
-	if previousChar then
-		PLUGIN:ReleaseCharacterContracts(previousChar)
-	end
+	client:Notify("Contract abandoned.")
+	PLUGIN:PushBoardState(client, fkey, char)
 end)
 
 -- ── Contract: claim ───────────────────────────────────────────────────────────
 
 net.Receive("ixFactionRepClaim", function(_, client)
-	local ent = client.ixFactionRepEnt
-	if not IsValid(ent) then return end
-
-	local range = ix.config.Get("factionRepBoardRange", 96)
-	if client:GetPos():DistToSqr(ent:GetPos()) > range ^ 2 then return end
-
 	local char = client:GetCharacter()
 	if not char then return end
 
-	local idx  = net.ReadUInt(8)
-	local fkey = ent:GetFactionKey()
-
-	local contracts = PLUGIN:GetDailyContracts(fkey)
-	local contract  = contracts[idx]
+	local contract, fkey = resolveContract(client, char)
 	if not contract then return end
 
-	local shared = PLUGIN:GetOrInitShared(fkey)
-	if shared.contracts[idx] and shared.contracts[idx].claimed then
-		client:Notify("Someone already claimed that contract.")
-		PLUGIN:PushBoardState(client, fkey, char)
-		return
-	end
-
-	local pkey     = PLUGIN:GetProgressKey(fkey, idx)
+	local pkey     = PLUGIN:GetProgressKeyByID(fkey, contract.id)
 	local progress = PLUGIN:GetCharProgress(char)
 	local qs       = progress[pkey]
 
@@ -667,11 +548,8 @@ net.Receive("ixFactionRepClaim", function(_, client)
 		client:Notify("You haven't accepted this contract.")
 		return
 	end
-
-	-- Must still hold the reservation to turn it in
-	if shared.contracts[idx].acceptedBy and shared.contracts[idx].acceptedBy ~= char:GetID() then
-		client:Notify("That contract is no longer reserved to you.")
-		PLUGIN:PushBoardState(client, fkey, char)
+	if qs.claimed then
+		client:Notify("You have already completed that contract.")
 		return
 	end
 
@@ -702,30 +580,23 @@ net.Receive("ixFactionRepClaim", function(_, client)
 		end
 	end
 
-	shared.contracts[idx].claimed     = true
-	shared.contracts[idx].claimedBy   = client:SteamID()
-	shared.contracts[idx].acceptedBy  = nil
-	shared.contracts[idx].acceptedName = nil
-	PLUGIN:SaveSharedContracts()
-
 	local newRep = math.Clamp(PLUGIN:GetRep(char, fkey) + contract.reward, -100, 100)
 	PLUGIN:SetRep(char, fkey, newRep)
+
+	local bullets = tonumber(contract.money) or 0
+	if bullets > 0 then char:GiveMoney(bullets) end
+
 	qs.claimed     = true
 	progress[pkey] = qs
 	PLUGIN:SetCharProgress(char, progress)
 	char:Save()
 
 	local fname = PLUGIN.factionMeta[fkey] and PLUGIN.factionMeta[fkey].name or fkey
-	client:Notify("Contract complete! +" .. contract.reward .. " " .. fname .. " reputation. Total: " .. newRep)
+	local msg   = "Contract complete! +" .. contract.reward .. " " .. fname .. " reputation."
+	if bullets > 0 then msg = msg .. " +" .. ix.currency.Get(bullets) .. "." end
+	client:Notify(msg .. " Total rep: " .. newRep)
 
-	for _, ply in ipairs(player.GetAll()) do
-		if IsValid(ply.ixFactionRepEnt) and ply.ixFactionRepEnt == ent then
-			local pchar = ply:GetCharacter()
-			if pchar then
-				PLUGIN:PushBoardState(ply, fkey, pchar)
-			end
-		end
-	end
+	PLUGIN:PushBoardState(client, fkey, char)
 end)
 
 -- ── Board: close ─────────────────────────────────────────────────────────────
@@ -769,9 +640,10 @@ net.Receive("ixFactionRepLeave", function(_, client)
 
 	PLUGIN:PurgeFromRosters(fkey, client:SteamID())
 
-	-- Strip admin rank whitelists (rep ranks are force-set, not whitelisted)
-	client:SetClassWhitelisted(meta.officer(),   false)
-	client:SetClassWhitelisted(meta.sergeant(),  false)
+	-- Strip admin rank whitelists (rep ranks are force-set, not whitelisted).
+	-- Factions without rank classes (Rangers of the Order) have none to strip.
+	if meta.officer  then client:SetClassWhitelisted(meta.officer(),  false) end
+	if meta.sergeant then client:SetClassWhitelisted(meta.sergeant(), false) end
 
 	-- Write rep directly (bypass non-member cap in SetRep)
 	local rep = char:GetData("factionRep", REP_DEFAULTS)
@@ -1032,7 +904,7 @@ net.Receive("ixFactionRepVendorSet", function(_, client)
 	local fkey   = net.ReadString()
 	local num    = net.ReadInt(8)
 	if not IsValid(entity) or entity:GetClass() ~= "ix_vendor" then return end
-	if fkey ~= "" and fkey ~= "redline" and fkey ~= "hansa" and fkey ~= "reich" then return end
+	if fkey ~= "" and not PLUGIN.factionMeta[fkey] then return end
 	entity:SetNWString("ixVendorRepFaction", fkey)
 	entity:SetNWInt("ixVendorRepMin", num)
 	local key = PLUGIN:GetVendorKey(entity)

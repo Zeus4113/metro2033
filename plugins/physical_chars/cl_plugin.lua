@@ -1,5 +1,11 @@
 local PLUGIN = PLUGIN
 
+-- Scales a value authored at 1920x1080 to the player's resolution, matching
+-- Helix's ScreenScale (width-proportional); 1920/640 = 3.
+local function Scale(n)
+	return ScreenScale(n / 3)
+end
+
 local PANEL = {}
 
 function PANEL:Init()
@@ -19,12 +25,12 @@ function PANEL:Init()
 
 		self.time = self:Add("DLabel")
 		self.time:SetFont("ixMediumFont")
-		self.time:SetTall(28)
+		self.time:SetTall(Scale(28))
 		self.time:SetContentAlignment(5)
 		self.time:Dock(TOP)
 		self.time:SetTextColor(color_white)
 		self.time:SetExpensiveShadow(1, Color(0, 0, 0, 150))
-		self.time:DockMargin(0, 0, 0, 32)
+		self.time:DockMargin(0, 0, 0, Scale(32))
 		self.time:SetText(ix.date.GetFormatted(format))
 		self.time.Think = function(this)
 			if ((this.nextTime or 0) < CurTime()) then
@@ -37,11 +43,11 @@ function PANEL:Init()
 	if not suppress.name then
 		self.name = self:Add("ixLabel")
 		self.name:Dock(TOP)
-		self.name:DockMargin(0, 0, 0, 8)
+		self.name:DockMargin(0, 0, 0, Scale(8))
 		self.name:SetFont("ixMenuButtonHugeFont")
 		self.name:SetContentAlignment(5)
 		self.name:SetTextColor(color_white)
-		self.name:SetPadding(8)
+		self.name:SetPadding(Scale(8))
 		self.name:SetScaleWidth(true)
 	end
 
@@ -49,7 +55,7 @@ function PANEL:Init()
 		local physPanel = self:Add("ixCategoryPanel")
 		physPanel:SetText(L("physicalCharacteristics"))
 		physPanel:Dock(TOP)
-		physPanel:DockMargin(0, 0, 0, 8)
+		physPanel:DockMargin(0, 0, 0, Scale(8))
 
 		self.physHeight = physPanel:Add("ixListRow")
 		self.physHeight:Dock(TOP)
@@ -67,7 +73,7 @@ function PANEL:Init()
 	if not suppress.description then
 		self.description = self:Add("DLabel")
 		self.description:Dock(TOP)
-		self.description:DockMargin(0, 0, 0, 8)
+		self.description:DockMargin(0, 0, 0, Scale(8))
 		self.description:SetFont("ixMenuButtonFont")
 		self.description:SetTextColor(color_white)
 		self.description:SetContentAlignment(5)
@@ -98,15 +104,15 @@ function PANEL:Init()
 
 			if (width > self:GetWide()) then
 				this:SetWide(self:GetWide())
-				this:SetTextInset(16, 8)
+				this:SetTextInset(Scale(16), Scale(8))
 				this:SetWrap(true)
 				this:SizeToContentsY()
-				this:SetTall(this:GetTall() + 16)
+				this:SetTall(this:GetTall() + Scale(16))
 
 				self.description:SetContentAlignment(8)
 				this.bWrap = true
 			else
-				this:SetSize(width + 16, height + 16)
+				this:SetSize(width + Scale(16), height + Scale(16))
 			end
 		end
 	end
@@ -158,7 +164,7 @@ function PANEL:Init()
 			self.attributes = self:Add("ixCategoryPanel")
 			self.attributes:SetText(L("attributes"))
 			self.attributes:Dock(TOP)
-			self.attributes:DockMargin(0, 0, 0, 8)
+			self.attributes:DockMargin(0, 0, 0, Scale(8))
 
 			local boost = character:GetBoosts()
 			local bFirst = true
@@ -176,7 +182,7 @@ function PANEL:Init()
 				bar:Dock(TOP)
 
 				if not bFirst then
-					bar:DockMargin(0, 3, 0, 0)
+					bar:DockMargin(0, Scale(3), 0, 0)
 				else
 					bFirst = false
 				end

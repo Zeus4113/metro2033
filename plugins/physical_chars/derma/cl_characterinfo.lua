@@ -1,5 +1,11 @@
 local PLUGIN = PLUGIN
 
+-- Scales a value authored at 1920x1080 to the player's resolution, matching
+-- Helix's ScreenScale (width-proportional); 1920/640 = 3.
+local function Scale(n)
+	return ScreenScale(n / 3)
+end
+
 local PANEL = {}
 
 function PANEL:Init()
@@ -19,12 +25,12 @@ function PANEL:Init()
 
 		self.time = self:Add("DLabel")
 		self.time:SetFont("ixMediumFont")
-		self.time:SetTall(28)
+		self.time:SetTall(Scale(28))
 		self.time:SetContentAlignment(5)
 		self.time:Dock(TOP)
 		self.time:SetTextColor(color_white)
 		self.time:SetExpensiveShadow(1, Color(0, 0, 0, 150))
-		self.time:DockMargin(0, 0, 0, 32)
+		self.time:DockMargin(0, 0, 0, Scale(32))
 		self.time:SetText(ix.date.GetFormatted(format))
 		self.time.Think = function(this)
 			if ((this.nextTime or 0) < CurTime()) then
@@ -37,18 +43,18 @@ function PANEL:Init()
 	if not suppress.name then
 		self.name = self:Add("ixLabel")
 		self.name:Dock(TOP)
-		self.name:DockMargin(0, 0, 0, 8)
+		self.name:DockMargin(0, 0, 0, Scale(8))
 		self.name:SetFont("ixMenuButtonHugeFont")
 		self.name:SetContentAlignment(5)
 		self.name:SetTextColor(color_white)
-		self.name:SetPadding(8)
+		self.name:SetPadding(Scale(8))
 		self.name:SetScaleWidth(true)
 	end
 
 	if not suppress.description then
 		self.description = self:Add("DLabel")
 		self.description:Dock(TOP)
-		self.description:DockMargin(0, 0, 0, 8)
+		self.description:DockMargin(0, 0, 0, Scale(8))
 		self.description:SetFont("ixMenuButtonFont")
 		self.description:SetTextColor(color_white)
 		self.description:SetContentAlignment(5)
@@ -79,15 +85,15 @@ function PANEL:Init()
 
 			if (width > self:GetWide()) then
 				this:SetWide(self:GetWide())
-				this:SetTextInset(16, 8)
+				this:SetTextInset(Scale(16), Scale(8))
 				this:SetWrap(true)
 				this:SizeToContentsY()
-				this:SetTall(this:GetTall() + 16)
+				this:SetTall(this:GetTall() + Scale(16))
 
 				self.description:SetContentAlignment(8)
 				this.bWrap = true
 			else
-				this:SetSize(width + 16, height + 16)
+				this:SetSize(width + Scale(16), height + Scale(16))
 			end
 		end
 	end
@@ -96,7 +102,7 @@ function PANEL:Init()
 		local physPanel = self:Add("ixCategoryPanel")
 		physPanel:SetText(L("physicalCharacteristics"))
 		physPanel:Dock(TOP)
-		physPanel:DockMargin(0, 0, 0, 8)
+		physPanel:DockMargin(0, 0, 0, Scale(8))
 
 		local physList = {}
 
@@ -121,7 +127,7 @@ function PANEL:Init()
 		self.characterInfo:SetText(L("affiliation"))
 		self.characterInfo.list = {}
 		self.characterInfo:Dock(TOP)
-		self.characterInfo:DockMargin(0, 0, 0, 8)
+		self.characterInfo:DockMargin(0, 0, 0, Scale(8))
 
 		if not suppress.faction then
 			self.faction = self.characterInfo:Add("ixListRow")
@@ -146,7 +152,7 @@ function PANEL:Init()
 			self.attributes = self:Add("ixCategoryPanel")
 			self.attributes:SetText(L("attributes"))
 			self.attributes:Dock(TOP)
-			self.attributes:DockMargin(0, 0, 0, 8)
+			self.attributes:DockMargin(0, 0, 0, Scale(8))
 
 			local boost = character:GetBoosts()
 			local bFirst = true
@@ -164,7 +170,7 @@ function PANEL:Init()
 				bar:Dock(TOP)
 
 				if not bFirst then
-					bar:DockMargin(0, 3, 0, 0)
+					bar:DockMargin(0, Scale(3), 0, 0)
 				else
 					bFirst = false
 				end
@@ -227,7 +233,7 @@ function PANEL:Update(character)
 		self.physEyes:SetText(eyesVal:sub(1, 1):upper() .. eyesVal:sub(2))
 		self.physEyes:SizeToContents()
 
-		local labelW = self.physEyes:GetLabelWidth() + 16
+		local labelW = self.physEyes:GetLabelWidth() + Scale(16)
 		self.physHeight:SetLabelWidth(labelW)
 		self.physWeight:SetLabelWidth(labelW)
 		self.physEyes:SetLabelWidth(labelW)
@@ -274,7 +280,7 @@ hook.Add("MenuSubpanelCreated", "ixMoneyDisplay", function(name, subpanel)
 
 	local row = subpanel:Add("DPanel")
 	row:Dock(BOTTOM)
-	row:SetTall(24)
+	row:SetTall(Scale(24))
 	row.Paint = function(_, w, h)
 		surface.SetDrawColor(0, 0, 0, 100)
 		surface.DrawRect(0, 0, w, h)

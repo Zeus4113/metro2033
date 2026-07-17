@@ -14,34 +14,44 @@ local FACTION_COLORS = {
 	redline = Color(190, 25, 25),
 	hansa   = Color(135, 105, 52),
 	reich   = Color(60,  60,  80),
+	polis   = Color(70,  110, 140),
 }
 local FACTION_NAMES = {
 	redline = "RED LINE",
 	hansa   = "HANSEATIC LEAGUE",
 	reich   = "FOURTH REICH",
+	polis   = "RANGERS OF THE ORDER",
 }
 local FACTION_TAGLINES = {
 	redline = "Protecting the tunnels of the proletariat.",
 	hansa   = "Commerce and order through the Ring Line.",
 	reich   = "Order, strength, and purification of the metro.",
+	polis   = "Guardians of the last light of knowledge.",
 }
 
-local PANEL_W       = 510
-local GAP           = 4
-local ROW_H         = 44
-local ROW_GAP       = 2
-local FRAME_TITLE_H = 24
-local HEADER_H      = 60
-local TAGLINE_H     = 42
-local REP_H         = 56    -- taller than before to fit tier name
-local DETAIL_MIN    = 260
+-- Scales a value authored at 1920x1080 to the player's resolution. Behaves
+-- identically to Helix's ScreenScale (width-proportional, matching its fonts);
+-- 1920/640 = 3, so a 1080p pixel value maps straight through ScreenScale.
+local function Scale(n)
+	return ScreenScale(n / 3)
+end
+
+local PANEL_W       = Scale(510)
+local GAP           = Scale(4)
+local ROW_H         = Scale(44)
+local ROW_GAP       = Scale(2)
+local FRAME_TITLE_H = Scale(24)
+local HEADER_H      = Scale(60)
+local TAGLINE_H     = Scale(42)
+local REP_H         = Scale(56)    -- taller than before to fit tier name
+local DETAIL_MIN    = Scale(260)
 
 local _chatLineH = 0
 local function chatLineH()
 	if _chatLineH == 0 then
 		surface.SetFont("ixChatFont")
 		local _, h = surface.GetTextSize("Ag")
-		_chatLineH = math.max(18, h)
+		_chatLineH = math.max(Scale(18), h)
 	end
 	return _chatLineH
 end
@@ -53,10 +63,10 @@ end
 local function calcPanelH(n, descLines, bountyCount)
 	local lh = chatLineH()
 	-- name + reward + desc + progress + action(46) + unclaim(38) + transfer(48)
-	local detailContent = 42 + (lh + 8) + (descLines * lh + 22) + 36 + 46 + 38 + 48
+	local detailContent = Scale(42) + (lh + Scale(8)) + (descLines * lh + Scale(22)) + Scale(36) + Scale(46) + Scale(38) + Scale(48)
 	local detailH  = math.max(DETAIL_MIN, detailContent)
 	local bountyH  = (bountyCount > 0) and (ROW_H + calcListH(bountyCount) + GAP) or 0
-	return FRAME_TITLE_H + HEADER_H + GAP + TAGLINE_H + GAP + REP_H + GAP + calcListH(n) + bountyH + GAP + detailH + 20
+	return FRAME_TITLE_H + HEADER_H + GAP + TAGLINE_H + GAP + REP_H + GAP + calcListH(n) + bountyH + GAP + detailH + Scale(20)
 end
 
 local function getRepColor(rep)
@@ -81,39 +91,38 @@ local function getTierName(rep)
 	end
 end
 
-local function localCharID()
-	local char = LocalPlayer():GetCharacter()
-	return char and char:GetID()
+-- Per-character progress key for a contract (matches the server's keying).
+local function pkeyFor(fkey, contract)
+	return os.date("%Y%m%d") .. "_" .. fkey .. "_" .. (contract.id or "")
 end
 
-local function getBadge(qs, contract, shared, myID)
-	if shared and shared.claimed then
-		if qs and qs.claimed then return "Completed", Color(80, 160, 80, 255) end
-		return "Taken", COLOR_DIM
+-- Reward summary line: reputation, plus a bullet payout for higher-tier contracts.
+local function rewardText(contract, fkey)
+	local txt   = "+" .. contract.reward .. " " .. (FACTION_NAMES[fkey] or fkey) .. " reputation"
+	local money = tonumber(contract.money) or 0
+	if money > 0 then
+		local bullets = (ix.currency and ix.currency.Get) and ix.currency.Get(money) or (money .. " bullets")
+		txt = txt .. "  ·  +" .. bullets
+	end
+	return txt
+end
+
+local function getBadge(qs, contract)
+	if qs and qs.claimed then
+		return "Completed", Color(80, 160, 80, 255)
 	end
 
-	if shared and shared.acceptedBy then
-		if shared.acceptedBy == myID then
-			if (qs and qs.progress or 0) >= contract.count then
+	if qs and qs.accepted then
+		if contract.type == "kill" then
+			if (qs.progress or 0) >= contract.count then
 				return "Ready to Claim", Color(80, 160, 80, 255)
 			end
 			return "In Progress", COLOR_DIM
 		end
-		return "Taken by " .. (shared.acceptedName or "Another"), Color(170, 90, 70, 255)
+		return "Turn In", Color(200, 160, 60, 255)
 	end
 
 	return "Available", Color(200, 160, 60, 255)
-end
-
--- True if the local character is already holding a contract other than exceptIdx.
-local function holdsOtherContract(sharedState, myID, exceptIdx)
-	if not myID then return false end
-	for i, slot in pairs(sharedState) do
-		if i ~= exceptIdx and slot.acceptedBy == myID and not slot.claimed then
-			return true
-		end
-	end
-	return false
 end
 
 local function measureLines(text, font, maxW)
@@ -127,7 +136,7 @@ end
 local PANEL = {}
 
 function PANEL:Init()
-	self:SetSize(PANEL_W, 500)
+	self:SetSize(PANEL_W, Scale(500))
 	self:SetTitle("")
 	self:SetDraggable(true)
 	self:SetDeleteOnClose(true)
@@ -136,7 +145,6 @@ function PANEL:Init()
 
 	self.factionKey        = "redline"
 	self.contracts         = {}
-	self.sharedState       = {}
 	self.progress          = {}
 	self.rep               = 0
 	self.selected          = nil   -- contract index (integer)
@@ -159,13 +167,13 @@ function PANEL:Init()
 		surface.SetTextColor(255, 255, 255, 255)
 		local title = FACTION_NAMES[self.factionKey] or "FACTION"
 		local tw = surface.GetTextSize(title)
-		surface.SetTextPos((w - tw) * 0.5, 6)
+		surface.SetTextPos((w - tw) * 0.5, Scale(6))
 		surface.DrawText(title)
 		surface.SetFont("ixChatFont")
 		surface.SetTextColor(255, 255, 255, 160)
 		local sub = "CONTRACT BOARD"
 		tw = surface.GetTextSize(sub)
-		surface.SetTextPos((w - tw) * 0.5, 28)
+		surface.SetTextPos((w - tw) * 0.5, Scale(28))
 		surface.DrawText(sub)
 	end
 
@@ -181,7 +189,7 @@ function PANEL:Init()
 		surface.SetTextColor(COLOR_DIM)
 		local txt = FACTION_TAGLINES[self.factionKey] or ""
 		local tw, th = surface.GetTextSize(txt)
-		surface.SetTextPos(math.max(10, (w - tw) * 0.5), math.floor((h - th) * 0.5))
+		surface.SetTextPos(math.max(Scale(10), (w - tw) * 0.5), math.floor((h - th) * 0.5))
 		surface.DrawText(txt)
 	end
 
@@ -194,8 +202,9 @@ function PANEL:Init()
 		surface.SetDrawColor(COLOR_SECTION)
 		surface.DrawRect(0, 0, w, h)
 
-		local barX, barY = 14, 8
-		local barW, barH = w - 28, 14
+		local barX, barY = Scale(14), Scale(8)
+		local barW, barH = w - Scale(28), Scale(14)
+		local tickW = math.max(1, Scale(1))
 
 		-- Background
 		surface.SetDrawColor(COLOR_BAR_BG)
@@ -208,17 +217,17 @@ function PANEL:Init()
 
 		-- Zero midpoint line
 		surface.SetDrawColor(80, 80, 80, 200)
-		surface.DrawRect(barX + math.Round(barW * 0.5), barY, 1, barH)
+		surface.DrawRect(barX + math.Round(barW * 0.5), barY, tickW, barH)
 
 		-- Tier threshold ticks (positive half: 20, 40, 60, 80)
 		for _, t in ipairs({ 20, 40, 60, 80 }) do
 			surface.SetDrawColor(0, 0, 0, 140)
-			surface.DrawRect(barX + math.Round(barW * (t + 100) / 200), barY, 1, barH)
+			surface.DrawRect(barX + math.Round(barW * (t + 100) / 200), barY, tickW, barH)
 		end
 
 		-- Bounty threshold tick at -50 (red marker)
 		surface.SetDrawColor(180, 40, 40, 220)
-		surface.DrawRect(barX + math.Round(barW * ((-50 + 100) / 200)), barY, 2, barH)
+		surface.DrawRect(barX + math.Round(barW * ((-50 + 100) / 200)), barY, math.max(1, Scale(2)), barH)
 
 		-- Rep label + tier name
 		surface.SetFont("ixChatFont")
@@ -226,7 +235,7 @@ function PANEL:Init()
 		local sign  = self.rep >= 0 and "+" or ""
 		local label = "REPUTATION: " .. sign .. self.rep .. "  —  " .. getTierName(self.rep)
 		local tw = surface.GetTextSize(label)
-		surface.SetTextPos((w - tw) * 0.5, barY + barH + 4)
+		surface.SetTextPos((w - tw) * 0.5, barY + barH + Scale(4))
 		surface.DrawText(label)
 	end
 
@@ -235,7 +244,7 @@ function PANEL:Init()
 	self.listPanel:Dock(TOP)
 	self.listPanel:SetTall(0)   -- set in Setup
 	self.listPanel:DockMargin(0, GAP, 0, 0)
-	self.listPanel:GetVBar():SetWide(4)
+	self.listPanel:GetVBar():SetWide(Scale(4))
 	self.listPanel.Paint = function(_, w, h)
 		surface.SetDrawColor(COLOR_SECTION)
 		surface.DrawRect(0, 0, w, h)
@@ -253,8 +262,8 @@ function PANEL:Init()
 	-- Name
 	self.detailName = self.detail:Add("DLabel")
 	self.detailName:Dock(TOP)
-	self.detailName:SetTall(22)
-	self.detailName:DockMargin(14, 12, 14, 8)
+	self.detailName:SetTall(Scale(22))
+	self.detailName:DockMargin(Scale(14), Scale(12), Scale(14), Scale(8))
 	self.detailName:SetFont("ixMediumFont")
 	self.detailName:SetTextColor(COLOR_ACCENT)
 	self.detailName:SetText("Select a contract to view details.")
@@ -263,7 +272,7 @@ function PANEL:Init()
 	self.detailReward = self.detail:Add("DLabel")
 	self.detailReward:Dock(TOP)
 	self.detailReward:SetTall(chatLineH())
-	self.detailReward:DockMargin(14, 0, 14, 8)
+	self.detailReward:DockMargin(Scale(14), 0, Scale(14), Scale(8))
 	self.detailReward:SetFont("ixChatFont")
 	self.detailReward:SetTextColor(COLOR_TEXT)
 	self.detailReward:SetText("")
@@ -271,8 +280,8 @@ function PANEL:Init()
 	-- Description
 	self.detailDesc = self.detail:Add("DLabel")
 	self.detailDesc:Dock(TOP)
-	self.detailDesc:SetTall(18)
-	self.detailDesc:DockMargin(14, 0, 14, 14)
+	self.detailDesc:SetTall(Scale(18))
+	self.detailDesc:DockMargin(Scale(14), 0, Scale(14), Scale(14))
 	self.detailDesc:SetFont("ixChatFont")
 	self.detailDesc:SetTextColor(COLOR_DIM)
 	self.detailDesc:SetWrap(true)
@@ -281,13 +290,13 @@ function PANEL:Init()
 	-- Progress row
 	local progressRow = self.detail:Add("DPanel")
 	progressRow:Dock(TOP)
-	progressRow:SetTall(24)
-	progressRow:DockMargin(14, 0, 14, 12)
+	progressRow:SetTall(Scale(24))
+	progressRow:DockMargin(Scale(14), 0, Scale(14), Scale(12))
 	progressRow.Paint = function() end
 
 	self.progressLabel = progressRow:Add("DLabel")
 	self.progressLabel:Dock(RIGHT)
-	self.progressLabel:SetWide(72)
+	self.progressLabel:SetWide(Scale(72))
 	self.progressLabel:SetFont("ixChatFont")
 	self.progressLabel:SetTextColor(COLOR_TEXT)
 	self.progressLabel:SetContentAlignment(6)
@@ -295,7 +304,7 @@ function PANEL:Init()
 
 	self.progressBG = progressRow:Add("DPanel")
 	self.progressBG:Dock(FILL)
-	self.progressBG:DockMargin(0, 6, 6, 6)
+	self.progressBG:DockMargin(0, Scale(6), Scale(6), Scale(6))
 	self.progressBG.fraction = 0
 	self.progressBG.Paint = function(pnl, w, h)
 		surface.SetDrawColor(COLOR_BAR_BG)
@@ -309,8 +318,8 @@ function PANEL:Init()
 	-- Accept / Claim / Bounty action button
 	self.actionBtn = self.detail:Add("DButton")
 	self.actionBtn:Dock(TOP)
-	self.actionBtn:SetTall(34)
-	self.actionBtn:DockMargin(14, 0, 14, 12)
+	self.actionBtn:SetTall(Scale(34))
+	self.actionBtn:DockMargin(Scale(14), 0, Scale(14), Scale(12))
 	self.actionBtn:SetText("")
 	self.actionBtn.Paint = function(pnl, w, h)
 		if not self.selected and not self.selectedBounty then return end
@@ -347,10 +356,9 @@ function PANEL:Init()
 		if not self.selected then return end
 		local idx      = self.selected
 		local contract = self.contracts[idx]
-		local shared   = self.sharedState[idx]
-		if not contract or (shared and shared.claimed) then return end
-		local pkey = os.date("%Y%m%d") .. "_" .. self.factionKey .. "_" .. idx
-		local qs   = self.progress[pkey]
+		if not contract then return end
+		local qs = self.progress[pkeyFor(self.factionKey, contract)]
+		if qs and qs.claimed then return end
 		if not qs or not qs.accepted then
 			net.Start("ixFactionRepAccept")
 				net.WriteUInt(idx, 8)
@@ -365,8 +373,8 @@ function PANEL:Init()
 	-- Abandon (unclaim) button — shown only for a contract this character holds
 	self.unclaimBtn = self.detail:Add("DButton")
 	self.unclaimBtn:Dock(TOP)
-	self.unclaimBtn:SetTall(28)
-	self.unclaimBtn:DockMargin(14, 0, 14, 10)
+	self.unclaimBtn:SetTall(Scale(28))
+	self.unclaimBtn:DockMargin(Scale(14), 0, Scale(14), Scale(10))
 	self.unclaimBtn:SetText("")
 	self.unclaimBtn:SetVisible(false)
 	self.unclaimBtn.Paint = function(pnl, w, h)
@@ -390,8 +398,8 @@ function PANEL:Init()
 	-- Join / Leave faction button
 	self.transferBtn = self.detail:Add("DButton")
 	self.transferBtn:Dock(TOP)
-	self.transferBtn:SetTall(32)
-	self.transferBtn:DockMargin(14, 0, 14, 16)
+	self.transferBtn:SetTall(Scale(32))
+	self.transferBtn:DockMargin(Scale(14), 0, Scale(14), Scale(16))
 	self.transferBtn:SetText("")
 	self.transferBtn:SetVisible(false)
 	self.transferBtn.Paint = function(pnl, w, h)
@@ -427,7 +435,7 @@ end
 
 local function estimateDescLines(contracts)
 	local maxLines = 1
-	local innerW   = PANEL_W - 28
+	local innerW   = PANEL_W - Scale(28)
 	for _, c in ipairs(contracts) do
 		local text  = string.format(c.desc, c.count)
 		local lines = measureLines(text, "ixChatFont", innerW)
@@ -438,11 +446,10 @@ end
 
 -- ── Setup / UpdateState ───────────────────────────────────────────────────────
 
-function PANEL:Setup(entity, fkey, contracts, sharedState, progress, rep, bountyList, activeBountyID, hasCompletedBounty)
+function PANEL:Setup(entity, fkey, contracts, progress, rep, bountyList, activeBountyID, hasCompletedBounty)
 	self.entity             = entity
 	self.factionKey         = fkey
 	self.contracts          = contracts
-	self.sharedState        = sharedState
 	self.progress           = progress
 	self.rep                = rep
 	self.bountyList         = bountyList or {}
@@ -466,9 +473,8 @@ function PANEL:Setup(entity, fkey, contracts, sharedState, progress, rep, bounty
 	if #contracts > 0 then self:SelectContract(1) end
 end
 
-function PANEL:UpdateState(contracts, sharedState, progress, rep, bountyList, activeBountyID, hasCompletedBounty)
+function PANEL:UpdateState(contracts, progress, rep, bountyList, activeBountyID, hasCompletedBounty)
 	self.contracts          = contracts
-	self.sharedState        = sharedState
 	self.progress           = progress
 	self.rep                = rep
 	self.bountyList         = bountyList or {}
@@ -515,14 +521,10 @@ end
 function PANEL:RebuildList()
 	self.listPanel:Clear()
 
-	local myID = localCharID()
-
 	-- Contract rows
 	for i, contract in ipairs(self.contracts) do
-		local shared = self.sharedState[i] or { claimed = false }
-		local pkey   = os.date("%Y%m%d") .. "_" .. self.factionKey .. "_" .. i
-		local qs     = self.progress[pkey]
-		local sel    = self.selected == i
+		local qs  = self.progress[pkeyFor(self.factionKey, contract)]
+		local sel = self.selected == i
 
 		local row = self.listPanel:Add("DPanel")
 		row:SetTall(ROW_H)
@@ -532,13 +534,16 @@ function PANEL:RebuildList()
 			surface.SetDrawColor(sel and COLOR_ROW_SEL or COLOR_ROW)
 			surface.DrawRect(0, 0, w, h)
 			surface.SetFont("ixChatFont")
-			surface.SetTextColor(shared.claimed and COLOR_DIM or COLOR_TEXT)
-			surface.SetTextPos(14, (h - 16) * 0.5)
-			surface.DrawText(contract.name)
-			local badge, badgeCol = getBadge(qs, contract, shared, myID)
+			surface.SetTextColor((qs and qs.claimed) and COLOR_DIM or COLOR_TEXT)
+			surface.SetTextPos(Scale(14), (h - Scale(16)) * 0.5)
+			-- Tier tag + contract name
+			local label = contract.name
+			if contract.tier then label = "[T" .. contract.tier .. "] " .. label end
+			surface.DrawText(label)
+			local badge, badgeCol = getBadge(qs, contract)
 			surface.SetTextColor(badgeCol)
 			local tw = surface.GetTextSize(badge)
-			surface.SetTextPos(w - tw - 14, (h - 16) * 0.5)
+			surface.SetTextPos(w - tw - Scale(14), (h - Scale(16)) * 0.5)
 			surface.DrawText(badge)
 		end
 		row:SetCursor("hand")
@@ -584,7 +589,7 @@ function PANEL:RebuildList()
 				-- Left: name
 				surface.SetFont("ixChatFont")
 				surface.SetTextColor(Color(220, 120, 120, 255))
-				surface.SetTextPos(14, (h - 16) * 0.5)
+				surface.SetTextPos(Scale(14), (h - Scale(16)) * 0.5)
 				surface.DrawText(bounty.charName)
 
 				-- Right: status badge
@@ -598,7 +603,7 @@ function PANEL:RebuildList()
 				end
 				surface.SetTextColor(badgeCol)
 				local tw = surface.GetTextSize(badge)
-				surface.SetTextPos(w - tw - 14, (h - 16) * 0.5)
+				surface.SetTextPos(w - tw - Scale(14), (h - Scale(16)) * 0.5)
 				surface.DrawText(badge)
 			end
 			row:SetCursor("hand")
@@ -621,20 +626,21 @@ function PANEL:SelectContract(idx)
 	self.selected       = idx
 	self.selectedBounty = nil
 	local contract = self.contracts[idx]
-	local shared   = self.sharedState[idx] or { claimed = false }
-	local pkey     = os.date("%Y%m%d") .. "_" .. self.factionKey .. "_" .. idx
-	local qs       = self.progress[pkey]
 	if not contract then return end
+
+	local pkey = pkeyFor(self.factionKey, contract)
+	local qs   = self.progress[pkey]
 
 	self.detailName:SetText(contract.name)
 	self.detailName:SetTextColor(COLOR_ACCENT)
-	self.detailReward:SetText("+" .. contract.reward .. " " .. (FACTION_NAMES[self.factionKey] or self.factionKey) .. " reputation on completion")
+	local prefix = contract.tier and ("Tier " .. contract.tier .. "  ·  ") or ""
+	self.detailReward:SetText(prefix .. rewardText(contract, self.factionKey))
 
 	local descText = string.format(contract.desc, contract.count)
 	self.detailDesc:SetText(descText)
-	local innerW = PANEL_W - 28
+	local innerW = PANEL_W - Scale(28)
 	local lines  = measureLines(descText, "ixChatFont", innerW)
-	self.detailDesc:SetTall(lines * chatLineH() + 8)
+	self.detailDesc:SetTall(lines * chatLineH() + Scale(8))
 
 	local prog = qs and qs.progress or 0
 	local frac = (contract.type == "kill") and math.Clamp(prog / contract.count, 0, 1) or 0
@@ -642,29 +648,22 @@ function PANEL:SelectContract(idx)
 	self.progressBG.fraction = frac
 	self.progressLabel:SetText(prog .. " / " .. contract.count)
 
-	local myID  = localCharID()
-	local mine  = shared.acceptedBy and shared.acceptedBy == myID
-	local btn   = self.actionBtn
+	local accepted = qs and qs.accepted and not qs.claimed
+	local btn      = self.actionBtn
 	if qs and qs.claimed then
-		btn.label = "Completed";        btn.disabled = true
-	elseif shared.claimed then
-		btn.label = "Taken by Another"; btn.disabled = true
-	elseif shared.acceptedBy and not mine then
-		btn.label = "Taken by " .. (shared.acceptedName or "Another"); btn.disabled = true
-	elseif not mine then
-		if holdsOtherContract(self.sharedState, myID, idx) then
-			btn.label = "One Contract at a Time"; btn.disabled = true
+		btn.label = "Completed";    btn.disabled = true
+	elseif accepted then
+		if contract.type == "kill" and prog < contract.count then
+			btn.label = "In Progress";  btn.disabled = true
 		else
-			btn.label = "Accept Contract";        btn.disabled = false
+			btn.label = "Claim Reward"; btn.disabled = false
 		end
-	elseif contract.type == "kill" and prog < contract.count then
-		btn.label = "In Progress";      btn.disabled = true
 	else
-		btn.label = "Claim Reward";     btn.disabled = false
+		btn.label = "Accept Contract"; btn.disabled = false
 	end
 
-	-- Abandon button only when this character is holding the contract
-	self.unclaimBtn:SetVisible(mine and not (qs and qs.claimed))
+	-- Abandon button only while this character is actively working the contract
+	self.unclaimBtn:SetVisible(accepted == true)
 end
 
 function PANEL:SelectBounty(steamID, charName, _)
@@ -681,9 +680,9 @@ function PANEL:SelectBounty(steamID, charName, _)
 
 	local desc = "This individual has made enemies of the " .. fname .. ". Hunt them down and return here to collect your bounty."
 	self.detailDesc:SetText(desc)
-	local innerW = PANEL_W - 28
+	local innerW = PANEL_W - Scale(28)
 	local lines  = measureLines(desc, "ixChatFont", innerW)
-	self.detailDesc:SetTall(lines * chatLineH() + 8)
+	self.detailDesc:SetTall(lines * chatLineH() + Scale(8))
 
 	self.progressBG.fraction = self.hasCompletedBounty and 1 or (isActive and 0.5 or 0)
 	self.progressLabel:SetText(self.hasCompletedBounty and "1 / 1" or (isActive and "..." or "0 / 1"))
@@ -731,7 +730,6 @@ net.Receive("ixFactionRepOpen", function()
 	local entity          = net.ReadEntity()
 	local fkey            = net.ReadString()
 	local contracts       = net.ReadTable()
-	local shared          = net.ReadTable()
 	local progress        = net.ReadTable()
 	local rep             = net.ReadInt(8)
 	local bountyList      = net.ReadTable()
@@ -740,12 +738,11 @@ net.Receive("ixFactionRepOpen", function()
 
 	if IsValid(ix.gui.factionboard) then ix.gui.factionboard:Remove() end
 	ix.gui.factionboard = vgui.Create("ixFactionBoard")
-	ix.gui.factionboard:Setup(entity, fkey, contracts, shared, progress, rep, bountyList, activeBountyID, hasCompleted)
+	ix.gui.factionboard:Setup(entity, fkey, contracts, progress, rep, bountyList, activeBountyID, hasCompleted)
 end)
 
 net.Receive("ixFactionRepStateUpdate", function()
 	local contracts      = net.ReadTable()
-	local shared         = net.ReadTable()
 	local progress       = net.ReadTable()
 	local rep            = net.ReadInt(8)
 	local bountyList     = net.ReadTable()
@@ -758,6 +755,6 @@ net.Receive("ixFactionRepStateUpdate", function()
 	end
 
 	if IsValid(ix.gui.factionboard) then
-		ix.gui.factionboard:UpdateState(contracts, shared, progress, rep, bountyList, activeBountyID, hasCompleted)
+		ix.gui.factionboard:UpdateState(contracts, progress, rep, bountyList, activeBountyID, hasCompleted)
 	end
 end)

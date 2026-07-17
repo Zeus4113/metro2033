@@ -10,6 +10,12 @@ local function getBadge(qs, q)
     end
 end
 
+-- Scales a value authored at 1920x1080 to the player's resolution, matching
+-- Helix's ScreenScale (width-proportional); 1920/640 = 3.
+local function Scale(n)
+    return ScreenScale(n / 3)
+end
+
 local COLOR_BG        = Color(20, 20, 20, 240)
 local COLOR_HEADER    = Color(35, 35, 35, 255)
 local COLOR_ROW       = Color(30, 30, 30, 255)
@@ -23,7 +29,7 @@ local COLOR_BAR_FILL  = Color(200, 160, 60, 200)
 local PANEL = {}
 
 function PANEL:Init()
-    self:SetSize(480, 540)
+    self:SetSize(Scale(480), Scale(540))
     self:SetTitle("")
     self:SetDraggable(true)
     self:SetDeleteOnClose(true)
@@ -37,7 +43,7 @@ function PANEL:Init()
     -- Header
     self.header = self:Add("DPanel")
     self.header:Dock(TOP)
-    self.header:SetTall(40)
+    self.header:SetTall(Scale(40))
     self.header.Paint = function(pnl, w, h)
         surface.SetDrawColor(COLOR_HEADER)
         surface.DrawRect(0, 0, w, h)
@@ -45,7 +51,7 @@ function PANEL:Init()
         surface.SetFont("ixMediumFont")
         local title = "BOUNTY BOARD"
         local tw = surface.GetTextSize(title)
-        surface.SetTextPos((w - tw) * 0.5, 10)
+        surface.SetTextPos((w - tw) * 0.5, Scale(10))
         surface.DrawText(title)
     end
 
@@ -53,14 +59,14 @@ function PANEL:Init()
     -- Quest list (top half)
     self.listPanel = self:Add("DScrollPanel")
     self.listPanel:Dock(TOP)
-    self.listPanel:SetTall(220)
-    self.listPanel:DockMargin(8, 8, 8, 0)
-    self.listPanel:GetVBar():SetWide(4)
+    self.listPanel:SetTall(Scale(220))
+    self.listPanel:DockMargin(Scale(8), Scale(8), Scale(8), 0)
+    self.listPanel:GetVBar():SetWide(Scale(4))
 
     -- Detail pane (bottom half)
     self.detail = self:Add("DPanel")
     self.detail:Dock(FILL)
-    self.detail:DockMargin(8, 8, 8, 8)
+    self.detail:DockMargin(Scale(8), Scale(8), Scale(8), Scale(8))
     self.detail.Paint = function(pnl, w, h)
         surface.SetDrawColor(COLOR_ROW)
         surface.DrawRect(0, 0, w, h)
@@ -69,28 +75,28 @@ function PANEL:Init()
     self.detailName = self.detail:Add("DLabel")
     self.detailName:SetFont("ixMediumFont")
     self.detailName:SetTextColor(COLOR_ACCENT)
-    self.detailName:SetPos(10, 10)
-    self.detailName:SetSize(300, 24)
+    self.detailName:SetPos(Scale(10), Scale(10))
+    self.detailName:SetSize(Scale(300), Scale(24))
     self.detailName:SetText("")
 
     self.detailReward = self.detail:Add("DLabel")
     self.detailReward:SetFont("ixChatFont")
     self.detailReward:SetTextColor(COLOR_TEXT)
-    self.detailReward:SetPos(10, 36)
-    self.detailReward:SetSize(460, 20)
+    self.detailReward:SetPos(Scale(10), Scale(36))
+    self.detailReward:SetSize(Scale(460), Scale(20))
     self.detailReward:SetText("")
 
     self.detailDesc = self.detail:Add("DLabel")
     self.detailDesc:SetFont("ixChatFont")
     self.detailDesc:SetTextColor(COLOR_DIM)
-    self.detailDesc:SetPos(10, 58)
-    self.detailDesc:SetSize(460, 20)
+    self.detailDesc:SetPos(Scale(10), Scale(58))
+    self.detailDesc:SetSize(Scale(460), Scale(20))
     self.detailDesc:SetText("")
 
     -- Progress bar
     self.progressBG = self.detail:Add("DPanel")
-    self.progressBG:SetPos(10, 86)
-    self.progressBG:SetSize(380, 12)
+    self.progressBG:SetPos(Scale(10), Scale(86))
+    self.progressBG:SetSize(Scale(380), Scale(12))
     self.progressBG.Paint = function(pnl, w, h)
         if not self.selected then return end
         surface.SetDrawColor(COLOR_BAR_BG)
@@ -99,7 +105,7 @@ function PANEL:Init()
 
     self.progressFill = self.progressBG:Add("DPanel")
     self.progressFill:SetPos(0, 0)
-    self.progressFill:SetSize(0, 12)
+    self.progressFill:SetSize(0, Scale(12))
     self.progressFill.Paint = function(pnl, w, h)
         surface.SetDrawColor(COLOR_BAR_FILL)
         surface.DrawRect(0, 0, w, h)
@@ -108,14 +114,14 @@ function PANEL:Init()
     self.progressLabel = self.detail:Add("DLabel")
     self.progressLabel:SetFont("ixChatFont")
     self.progressLabel:SetTextColor(COLOR_TEXT)
-    self.progressLabel:SetPos(398, 82)
-    self.progressLabel:SetSize(70, 20)
+    self.progressLabel:SetPos(Scale(398), Scale(82))
+    self.progressLabel:SetSize(Scale(70), Scale(20))
     self.progressLabel:SetText("")
 
     -- Action button
     self.actionBtn = self.detail:Add("DButton")
-    self.actionBtn:SetPos(10, 108)
-    self.actionBtn:SetSize(460, 34)
+    self.actionBtn:SetPos(Scale(10), Scale(108))
+    self.actionBtn:SetSize(Scale(460), Scale(34))
     self.actionBtn:SetFont("ixMediumFont")
     self.actionBtn:SetText("")
     self.actionBtn.Paint = function(pnl, w, h)
@@ -166,9 +172,9 @@ function PANEL:RebuildList()
     for i, q in ipairs(self.quests) do
         local qs  = self.state[i] or { accepted = false, progress = 0, claimed = false }
         local row = self.listPanel:Add("DPanel")
-        row:SetTall(40)
+        row:SetTall(Scale(40))
         row:Dock(TOP)
-        row:DockMargin(0, 0, 0, 2)
+        row:DockMargin(0, 0, 0, Scale(2))
 
         local sel = self.selected == i
         row.Paint = function(pnl, w, h)
@@ -177,14 +183,14 @@ function PANEL:RebuildList()
             -- Quest name
             surface.SetFont("ixChatFont")
             surface.SetTextColor(qs.claimed and COLOR_DIM or COLOR_TEXT)
-            surface.SetTextPos(10, 12)
+            surface.SetTextPos(Scale(10), Scale(12))
             surface.DrawText(q.name)
             -- Status badge
             local badge, badgeCol = getBadge(qs, q)
             surface.SetFont("ixChatFont")
             surface.SetTextColor(badgeCol)
             local tw = surface.GetTextSize(badge)
-            surface.SetTextPos(w - tw - 12, 12)
+            surface.SetTextPos(w - tw - Scale(12), Scale(12))
             surface.DrawText(badge)
         end
 

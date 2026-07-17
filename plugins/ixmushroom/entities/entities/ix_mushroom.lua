@@ -11,27 +11,41 @@ if SERVER then
 
 	function ENT:Initialize()
 		self:SetModel(MODEL_SINGLE)
-		self:PhysicsInit(SOLID_VPHYSICS)
-		self:SetMoveType(MOVETYPE_NONE)
+		-- Use a simple sphere instead of the model's collision mesh: it's much
+		-- easier for the player's use-trace to land on and has no janky geometry.
+		self:PhysicsInitSphere(2, "flesh")
+		self:SetMoveType(MOVETYPE_VPHYSICS)
 		self:SetSolid(SOLID_VPHYSICS)
 		self:SetUseType(SIMPLE_USE)
+
+		-- Stay solid so the use-trace can find us, but let players walk through
+		-- instead of getting stuck.
+		self:SetCollisionGroup(COLLISION_GROUP_WEAPON)
 
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then phys:EnableMotion(false) end
 
-		self:StartGrowth()
+		self:StartGrowth(self.spawnFullGrown)
 	end
 
-	function ENT:StartGrowth()
-		self.growthStartTime = CurTime()
-		self.isGrown = false
+	function ENT:StartGrowth(bInstant)
 		self.isDouble = math.random(1, 100) <= ix.config.Get("mushroomDoubleChance", 20)
 		self:SetModel(self.isDouble and MODEL_DOUBLE or MODEL_SINGLE)
-		self:SetModelScale(0, 0)
 
 		local baseTime = ix.config.Get("mushroomGrowthTime", 300)
 		local variance = ix.config.Get("mushroomGrowthVariance", 20) / 100
 		self.growthDuration = baseTime * (1 + math.Remap(math.random(), 0, 1, -variance, variance))
+
+		if bInstant then
+			-- Backdate the start so the entity is already fully grown on spawn.
+			self.growthStartTime = CurTime() - self.growthDuration
+			self.isGrown = true
+			self:SetModelScale(1, 0)
+		else
+			self.growthStartTime = CurTime()
+			self.isGrown = false
+			self:SetModelScale(0, 0)
+		end
 
 		self:SetNWFloat("growthStart", self.growthStartTime)
 		self:SetNWFloat("growthDuration", self.growthDuration)
@@ -68,6 +82,7 @@ if SERVER then
 		local ent = ents.Create("ix_mushroom")
 		ent:SetPos(trace.HitPos)
 		ent:SetAngles(Angle(0, (trace.HitPos - client:GetPos()):Angle().y - 180, 0))
+		ent.spawnFullGrown = true
 		ent:Spawn()
 		ent:Activate()
 		return ent

@@ -1,4 +1,10 @@
-local SECTION_H = 60
+-- Scales a value authored at 1920x1080 to the player's resolution, matching
+-- Helix's ScreenScale (width-proportional); 1920/640 = 3.
+local function Scale(n)
+	return ScreenScale(n / 3)
+end
+
+local SECTION_H = Scale(60)
 
 hook.Add("InitPostEntity", "ixFactionRepVendorEditorExtend", function()
 	local meta = vgui.GetControlTable("ixVendorEditor")
@@ -14,7 +20,7 @@ hook.Add("InitPostEntity", "ixFactionRepVendorEditorExtend", function()
 		-- Grow the panel so the items list keeps its original height
 		local w, h = self:GetSize()
 		self:SetTall(h + SECTION_H)
-		self:MoveLeftOf(ix.gui.vendor, 8)
+		self:MoveLeftOf(ix.gui.vendor, Scale(8))
 		self:CenterVertical()
 
 		-- Track selected faction locally so we don't need GetSelected()
@@ -33,42 +39,36 @@ hook.Add("InitPostEntity", "ixFactionRepVendorEditorExtend", function()
 		local section = self:Add("DPanel")
 		section:Dock(BOTTOM)
 		section:SetTall(SECTION_H)
-		section:DockMargin(0, 4, 0, 0)
+		section:DockMargin(0, Scale(4), 0, 0)
 		section.Paint = function() end
 
 		local lbl = section:Add("DLabel")
 		lbl:Dock(TOP)
-		lbl:SetTall(18)
+		lbl:SetTall(Scale(18))
 		lbl:SetText("Reputation Gate")
 		lbl:SetTextColor(color_white)
 		lbl:SetFont("DermaDefaultBold")
 
 		local row = section:Add("DPanel")
 		row:Dock(FILL)
-		row:DockMargin(0, 4, 0, 0)
+		row:DockMargin(0, Scale(4), 0, 0)
 		row.Paint = function() end
 
 		local factionDrop = row:Add("DComboBox")
 		factionDrop:Dock(LEFT)
-		factionDrop:SetWide(148)
-		factionDrop:AddChoice("No Requirement", "")
-		factionDrop:AddChoice("Red Line",        "redline")
-		factionDrop:AddChoice("Hansa",           "hansa")
-		factionDrop:AddChoice("Fourth Reich",    "reich")
+		factionDrop:SetWide(Scale(148))
+		factionDrop:AddChoice("No Requirement",         "")
+		factionDrop:AddChoice("Red Line",               "redline")
+		factionDrop:AddChoice("Hansa",                  "hansa")
+		factionDrop:AddChoice("Fourth Reich",           "reich")
+		factionDrop:AddChoice("Rangers of the Order",   "polis")
 
-		if selectedFaction == "redline" then
-			factionDrop:ChooseOptionID(2)
-		elseif selectedFaction == "hansa" then
-			factionDrop:ChooseOptionID(3)
-		elseif selectedFaction == "reich" then
-			factionDrop:ChooseOptionID(4)
-		else
-			factionDrop:ChooseOptionID(1)
-		end
+		local optionByFaction = { redline = 2, hansa = 3, reich = 4, polis = 5 }
+		factionDrop:ChooseOptionID(optionByFaction[selectedFaction] or 1)
 
 		local minEntry = row:Add("DTextEntry")
 		minEntry:Dock(FILL)
-		minEntry:DockMargin(4, 0, 0, 0)
+		minEntry:DockMargin(Scale(4), 0, 0, 0)
 		minEntry:SetNumeric(true)
 		minEntry:SetText(tostring(entity:GetNWInt("ixVendorRepMin", 0)))
 		minEntry:SetPlaceholderText("Min rep")

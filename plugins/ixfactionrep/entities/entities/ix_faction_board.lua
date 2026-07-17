@@ -26,7 +26,7 @@ if SERVER then
 	function ENT:KeyValue(key, value)
 		if key == "faction" then
 			local fkey = string.lower(value)
-			if fkey == "hansa" or fkey == "redline" or fkey == "reich" then
+			if fkey == "hansa" or fkey == "redline" or fkey == "reich" or fkey == "polis" then
 				self:SetNWString("factionKey", fkey)
 			end
 		end
@@ -87,7 +87,7 @@ end
 if CLIENT then
 	function ENT:OnPopulateEntityInfo(tooltip)
 		local fkey = self:GetFactionKey()
-		local names = { redline = "Red Line", hansa = "Hanseatic League", reich = "Fourth Reich" }
+		local names = { redline = "Red Line", hansa = "Hanseatic League", reich = "Fourth Reich", polis = "Rangers of the Order" }
 		local title = tooltip:AddRow("factionboard")
 		title:SetText((names[fkey] or "Faction") .. " Recruitment Board")
 		title:SetImportant()
@@ -177,5 +177,31 @@ properties.Add("ixFactionBoardSetReich", {
 			plugin:SaveBoardFactionData()
 		end
 		ply:Notify("Faction board switched to Fourth Reich.")
+	end,
+})
+
+properties.Add("ixFactionBoardSetPolis", {
+	MenuLabel = "Set Faction: Rangers of the Order",
+	Order     = 903,
+	MenuIcon  = "icon16/group.png",
+	Filter = function(_, ent, ply)
+		return IsValid(ent) and ent:GetClass() == "ix_faction_board" and ply:IsAdmin()
+	end,
+	Action = function(self, ent)
+		self:MsgStart()
+			net.WriteEntity(ent)
+		self:MsgEnd()
+	end,
+	Receive = function(_, _, ply)
+		if not ply:IsAdmin() then return end
+		local ent = net.ReadEntity()
+		if not IsValid(ent) or ent:GetClass() ~= "ix_faction_board" then return end
+		ent:SetNWString("factionKey", "polis")
+		local plugin = ix.plugin.Get("ixfactionrep")
+		if plugin then
+			plugin.boardFactionData[plugin:GetBoardKey(ent)] = "polis"
+			plugin:SaveBoardFactionData()
+		end
+		ply:Notify("Faction board switched to Rangers of the Order.")
 	end,
 })

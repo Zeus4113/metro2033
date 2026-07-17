@@ -12,14 +12,20 @@ local COLOR_DISABLE = Color(52, 52, 58, 255)
 
 -- ── Layout constants ──────────────────────────────────────────────────────────
 
-local FRAME_W   = 560
-local ACCENT_H  = 3
-local HEADER_H  = 92
-local PAD       = 26    -- left/right inner padding
-local BODY_PAD  = 24    -- body top/bottom padding
-local CARD_PAD  = 22    -- inner padding of cards
-local BTN_TALL  = 58
-local GAP       = 14    -- gap between body elements
+-- Scales a value authored at 1920x1080 to the player's resolution, matching
+-- Helix's ScreenScale (width-proportional); 1920/640 = 3.
+local function Scale(n)
+	return ScreenScale(n / 3)
+end
+
+local FRAME_W   = Scale(560)
+local ACCENT_H  = Scale(3)
+local HEADER_H  = Scale(92)
+local PAD       = Scale(26)    -- left/right inner padding
+local BODY_PAD  = Scale(24)    -- body top/bottom padding
+local CARD_PAD  = Scale(22)    -- inner padding of cards
+local BTN_TALL  = Scale(58)
+local GAP       = Scale(14)    -- gap between body elements
 
 local function accent()
 	return ix.config.Get("color", Color(200, 160, 60))
@@ -85,13 +91,13 @@ local function actionButton(parent, title, sub, baseColor, enabled, onClick)
 				and Color(math.min(baseColor.r + 26, 255), math.min(baseColor.g + 26, 255), math.min(baseColor.b + 26, 255))
 				or baseColor
 		end
-		draw.RoundedBox(5, 0, 0, w, h, c)
+		draw.RoundedBox(Scale(5), 0, 0, w, h, c)
 
 		local tcol = enabled and COLOR_TEXT or COLOR_FAINT
 		if sub and sub ~= "" then
-			drawText(title, "ixGenericFont", w * 0.5, h * 0.5 - 11, tcol, 0.5, 0.5)
+			drawText(title, "ixGenericFont", w * 0.5, h * 0.5 - Scale(11), tcol, 0.5, 0.5)
 			local subCol = enabled and Color(tcol.r, tcol.g, tcol.b, 190) or COLOR_FAINT
-			drawText(fitText(sub, "ixSmallFont", w - 28), "ixSmallFont", w * 0.5, h * 0.5 + 13, subCol, 0.5, 0.5)
+			drawText(fitText(sub, "ixSmallFont", w - Scale(28)), "ixSmallFont", w * 0.5, h * 0.5 + Scale(13), subCol, 0.5, 0.5)
 		else
 			drawText(title, "ixGenericFont", w * 0.5, h * 0.5, tcol, 0.5, 0.5)
 		end
@@ -105,7 +111,7 @@ end
 local PANEL = {}
 
 function PANEL:Init()
-	self:SetSize(FRAME_W, 400)
+	self:SetSize(FRAME_W, Scale(400))
 	self:MakePopup()
 	self:SetMouseInputEnabled(true)
 	self:SetKeyboardInputEnabled(false)
@@ -137,7 +143,7 @@ function PANEL:Init()
 
 		local d = self.data
 		local title = d and d.hideoutName or "Hideout"
-		drawText(fitText(title, "ixBigFont", w - PAD - 50), "ixBigFont", PAD, 36, COLOR_TEXT, 0, 0.5)
+		drawText(fitText(title, "ixBigFont", w - PAD - Scale(50)), "ixBigFont", PAD, Scale(36), COLOR_TEXT, 0, 0.5)
 
 		local status, scol
 		if not d then
@@ -149,7 +155,7 @@ function PANEL:Init()
 		else
 			status, scol = "Unclaimed territory", COLOR_DIM
 		end
-		drawText(fitText(status, "ixChatFont", w - PAD * 2), "ixChatFont", PAD, 64, scol, 0, 0.5)
+		drawText(fitText(status, "ixChatFont", w - PAD * 2), "ixChatFont", PAD, Scale(64), scol, 0, 0.5)
 	end
 	self.header.OnMousePressed = function() self:StartDrag() end
 
@@ -166,7 +172,7 @@ end
 
 function PANEL:DefineCloseButton()
 	self.close:SetText("")
-	self.close:SetSize(30, 30)
+	self.close:SetSize(Scale(30), Scale(30))
 	self.close.Paint = function(pnl, w, h)
 		drawText("✕", "ixMediumFont", w * 0.5, h * 0.5,
 			pnl:IsHovered() and COLOR_RED or COLOR_DIM, 0.5, 0.5)
@@ -176,7 +182,7 @@ end
 
 function PANEL:PerformLayout(w, h)
 	if IsValid(self.close) then
-		self.close:SetPos(w - 38, ACCENT_H + 8)
+		self.close:SetPos(w - Scale(38), ACCENT_H + Scale(8))
 	end
 end
 
@@ -225,32 +231,32 @@ function PANEL:Rebuild()
 	local buttons  = {}
 
 	-- Info card
-	local infoH = d.ownedByUs and 118 or 86
+	local infoH = d.ownedByUs and Scale(118) or Scale(86)
 	local info  = self.body:Add("DPanel")
 	info:Dock(TOP)
 	info:SetTall(infoH)
 	info.Paint = function(_, w, ih)
-		draw.RoundedBox(6, 0, 0, w, ih, COLOR_CARD)
+		draw.RoundedBox(Scale(6), 0, 0, w, ih, COLOR_CARD)
 
 		if d.ownedByUs then
 			local remaining = d.upkeepExpires - os.time()
-			drawText("UPKEEP", "ixSmallFont", CARD_PAD, 28, COLOR_FAINT, 0, 0.5)
+			drawText("UPKEEP", "ixSmallFont", CARD_PAD, Scale(28), COLOR_FAINT, 0, 0.5)
 
 			if remaining <= 0 then
-				drawText("EXPIRED", "ixMediumFont", CARD_PAD, 60, COLOR_RED, 0, 0.5)
+				drawText("EXPIRED", "ixMediumFont", CARD_PAD, Scale(60), COLOR_RED, 0, 0.5)
 			else
 				-- "2d 12h remaining" in bold, "(3d maximum)" appended in a lighter font
 				local rw = drawText(formatDuration(remaining) .. " remaining", "ixMediumFont",
-					CARD_PAD, 60, COLOR_TEXT, 0, 0.5)
+					CARD_PAD, Scale(60), COLOR_TEXT, 0, 0.5)
 				drawText("(" .. formatCompact(d.upkeepMax) .. " maximum)", "ixChatFont",
-					CARD_PAD + rw + 9, 62, d.upkeepAtMax and accent() or COLOR_FAINT, 0, 0.5)
+					CARD_PAD + rw + Scale(9), Scale(62), d.upkeepAtMax and accent() or COLOR_FAINT, 0, 0.5)
 			end
 
-			drawText("Renewal " .. ix.currency.Get(d.upkeepCost), "ixChatFont", CARD_PAD, 94,
+			drawText("Renewal " .. ix.currency.Get(d.upkeepCost), "ixChatFont", CARD_PAD, Scale(94),
 				COLOR_DIM, 0, 0.5)
 		else
-			drawText("CLAIM COST", "ixSmallFont", CARD_PAD, 30, COLOR_FAINT, 0, 0.5)
-			drawText(ix.currency.Get(d.claimCost), "ixMediumFont", CARD_PAD, 62, accent(), 0, 0.5)
+			drawText("CLAIM COST", "ixSmallFont", CARD_PAD, Scale(30), COLOR_FAINT, 0, 0.5)
+			drawText(ix.currency.Get(d.claimCost), "ixMediumFont", CARD_PAD, Scale(62), accent(), 0, 0.5)
 		end
 	end
 	contentH = contentH + infoH
